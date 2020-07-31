@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/UI Concept.iml" filepath="$PROJECT_DIR$/.idea/UI Concept.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../tkWidgets/.idea/tkWidgets.iml" filepath="$PROJECT_DIR$/../../tkWidgets/.idea/tkWidgets.iml" />
     </modules>
   </component>
 </project>
