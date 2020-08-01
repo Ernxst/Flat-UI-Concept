@@ -37,7 +37,7 @@ class NotificationButton(Frame):
 
     def _config_grid(self):
         self.rowconfigure((0, 1, 2), weight=1, uniform='rows')
-        self.columnconfigure((1, 2), weight=1, uniform='cols')
+        self.columnconfigure(1, weight=1, uniform='cols')
 
     def grid(self, **kwargs):
         super().grid(**kwargs)

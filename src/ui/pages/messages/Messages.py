@@ -22,14 +22,23 @@ class Messages(MenuPage):
         self._model = get_model()
         self._chat_data = self._model.get_chats()
         self._btns = {}
+        self._entry = AppEntry(self._contact_frame, default_text='Search your messages...',
+                               font=(APP_FONT, 10), justify='left', has_label=False)
 
     def _update_page_data(self):
         self._chat_data = self._model.get_chats()
         # update ui
 
+    def disable_resize(self):
+        super().disable_resize()
+        self._chat_preview_frame.disable_resize()
+
+    def enable_resize(self):
+        super().enable_resize()
+        self._chat_preview_frame.enable_resize()
+
     def _config_grid(self):
         self._content.interior_frame.rowconfigure(0, weight=1)
-        self._content.interior_frame.columnconfigure(0, weight=2, uniform='msg')
         self._content.interior_frame.columnconfigure(1, weight=5, uniform='msg')
         self._contact_frame.rowconfigure(1, weight=1)
         self._contact_frame.columnconfigure(0, weight=1)
@@ -57,7 +66,7 @@ class Messages(MenuPage):
 
     def _show_contacts(self, chat_data):  # make sure all icons are the same size
         self._chat_preview_frame.grid(row=1, column=0, sticky='nesw', scrollpady=0)
-        for row, (username, data) in enumerate(chat_data.items()):
+        for (username, data) in chat_data.items():
             name, icon, last_msg, date_sent = data
             self._btns[username] = ChatPreview(self._chat_preview_frame.interior_frame, name,
                                                icon, last_msg, date_sent,
@@ -65,13 +74,10 @@ class Messages(MenuPage):
             self._btns[username].grid(column=0, sticky='nesw')
             Separator(self._chat_preview_frame.interior_frame, orient='horizontal'
                       ).grid(column=0, sticky='nesw', padx=10, pady=5)
-            row += 1
 
     def _show_entry(self):
-        entry = AppEntry(self._contact_frame, default_text='Search your messages...',
-                         font=(APP_FONT, 10), justify='left', has_label=False)
-        entry.grid(row=0, column=0, sticky='nesw')
-        entry.bind('<Return>', lambda event: self.search(entry.get()))
+        self._entry.grid(row=0, column=0, sticky='nesw')
+        self._entry.bind('<Return>', lambda event: self.search(self._entry.get()))
 
     def _select_chat(self, username):
         [btn.disable() for btn in self._btns.values()]
@@ -86,17 +92,15 @@ class Messages(MenuPage):
         self._content.canvas.yview_moveto(fraction)
 
     def search(self, search_term):
+        self._entry.delete()
         if search_term == '':
             return
-        found = False
         for username, data in self._chat_data.items():
             if any(search_term.lower() in string for string in [x.lower() for x in data]):
                 self._select_chat(username)
-                found = True
-                break
-        if not found:
-            error_msg('Not found', 'Could not find "{}" on this page. '
-                                   'Please try searching another page.'.format(search_term))
+                return
+        error_msg('Not found', 'Could not find "{}" on this page. '
+                               'Please try searching another page.'.format(search_term))
 
     def _show_chat(self):
         self._chat_frame.grid(row=0, column=1, sticky='nesw', padx=(0, 20), pady=(10, 20))

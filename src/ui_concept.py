@@ -12,6 +12,7 @@ from src.util.widgets.misc.TkWin import TkWin
 TODO
  - Splash Screen Animation
  - Image taking up too much space WelcomePage.py when notifications are shown
+ - Stop image flickering during navbar animation
  """
 
 

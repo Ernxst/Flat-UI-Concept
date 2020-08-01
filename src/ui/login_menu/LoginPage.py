@@ -66,7 +66,7 @@ class LoginPage(Frame):
                                                               columnspan=2, padx=20, pady=(20, 0))
         TkMessage(self._login_frame, font=(APP_FONT, 11),
                   text='To continue to your portal, please log into your account.'
-                  ).grid(row=1, column=0, sticky='nesw', columnspan=2, padx=20, pady=5)
+                  ).grid(row=1, column=0, sticky='nesw', columnspan=2, padx=20)
 
     def _show_entries(self):
         self._username_entry.grid(row=2, column=0, sticky='nesw', columnspan=2,

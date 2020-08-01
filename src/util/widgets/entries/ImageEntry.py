@@ -9,7 +9,7 @@ class ImageEntry(Frame):
     def __init__(self, master, icon_location, title='', default_text='', font=(APP_FONT, 10),
                  has_label=True, fg='black', justify='center', **kwargs):
         super().__init__(master, bg=master['bg'], highlightthickness=0)
-        self._icon_label = ImageLabel(self, icon_location, 0.7, PROFILE_BG)
+        self._icon_label = ImageLabel(self, icon_location, 0.4, PROFILE_BG)
         self._entry = AppEntry(self, title, default_text, font,
                                has_label, fg, justify, **kwargs)
         self.config = self._entry.config
@@ -26,10 +26,11 @@ class ImageEntry(Frame):
 
     def _config_grid(self):
         self.rowconfigure(0, weight=1)
-        self.columnconfigure(1, weight=4, uniform='entry')
+        self.columnconfigure(0, weight=1, uniform='entry')
+        self.columnconfigure(1, weight=10, uniform='entry')
 
     def grid(self, **kwargs):
         super().grid(**kwargs)
         self._config_grid()
-        self._icon_label.grid(row=0, column=0, sticky='nesw', ipadx=5)
+        self._icon_label.grid(row=0, column=0, sticky='nesw')
         self._entry.grid(row=0, column=1, sticky='nesw')

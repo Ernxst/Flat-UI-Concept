@@ -38,17 +38,20 @@ class MenuPage(Frame):
 
     def hide(self):
         self.grid_forget()
-        self._content.interior_frame.unbind('<Configure>')
-        self._content.canvas.unbind("<Configure>")
+        self._content.disable_resize()
 
     def _update_page_data(self):
         pass
 
     def show(self):
         super().grid(self._grid_kw)
-        self._content.interior_frame.bind('<Configure>', lambda event:
-                                          self._content.canvas.config(scrollregion=self._content.canvas.bbox("all")))
-        self._content.canvas.bind("<Configure>", self._content.configure_canvas)
+        self._content.enable_resize()
+
+    def disable_resize(self):
+        self._content.disable_resize()
+
+    def enable_resize(self):
+        self._content.enable_resize()
 
     @abstractmethod
     def _config_grid(self):

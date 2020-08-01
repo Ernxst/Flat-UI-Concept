@@ -58,12 +58,10 @@ class Notifications(MenuPage):
             self._notif_btns[id_].grid(column=0, sticky='nesw', padx=20, pady=pady)
 
     def search(self, search_term):
-        found = False
         for (id_, data) in self._notifications.items():
             if any(search_term.lower() in string for string in [x.lower() for x in data]):
                 self.select_notification(id_)
-                found = True
-                break
-        if not found:
-            error_msg('Not found', 'Could not find "{}" on this page. '
-                                   'Please try searching another page.'.format(search_term))
+                return
+
+        error_msg('Not found', 'Could not find "{}" on this page. '
+                               'Please try searching another page.'.format(search_term))

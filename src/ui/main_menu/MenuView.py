@@ -27,6 +27,8 @@ class MenuView(Frame):
         self._index = 0
         self._length = 1
         self._navbar = None
+        self._active_page = None
+        self._notif_index = 3
         self._display_frame = Frame(self, bg=MENU_PAGE_BG)
         self._ribbon = TopRibbon(self, icon, self.logout, self.open_notification, self.search)
 
@@ -82,25 +84,27 @@ class MenuView(Frame):
         for i in range(6):
             self.master.bind('<Control-KeyRelease-{}>'.format(i+1),
                              lambda event, index=i: self._swap_page(index))
-        self._bind_navbar_togglers()
+        self._bind_navbar_keys()
 
-    def _bind_navbar_togglers(self):
+    def _bind_navbar_keys(self):
         self.master.bind('<Left>', lambda event: self._minimise_navbar())
         self.master.bind('<Right>', lambda event: self._maximise_navbar())
+        self._active_page.disable_resize()
 
     def _unbind_navbar_keys(self):
         self.master.unbind('<Left>')
         self.master.unbind('<Right>')
+        self._active_page.enable_resize()
 
     def _minimise_navbar(self):
         self._unbind_navbar_keys()
         self._navbar.minimise()
-        self._bind_navbar_togglers()
+        self._bind_navbar_keys()
 
     def _maximise_navbar(self):
         self._unbind_navbar_keys()
         self._navbar.maximise()
-        self._bind_navbar_togglers()
+        self._bind_navbar_keys()
 
     def _move(self, increment):
         self._index += increment
@@ -113,10 +117,10 @@ class MenuView(Frame):
 
     def _change_page(self, name):
         self._index = self._menu_texts.index(name)
-        page = self._menu_pages[name]
-        [p.hide() for p in self._menu_pages.values() if p != page]
-        page.show()
-        page.lift()
+        self._active_page = self._menu_pages[name]
+        [p.hide() for p in self._menu_pages.values() if p != self._active_page]
+        self._active_page.show()
+        self._active_page.lift()
 
     def logout(self):
         if ask_yes_no('Logout?', 'Are you sure you would like to logout?', get_root(self)):
@@ -125,9 +129,9 @@ class MenuView(Frame):
             self.destroy()
 
     def open_notification(self, notif_id):
-        self._change_page('NOTIFICATIONS')
+        self._index = self._notif_index
         self._move(0)
-        self._menu_pages['NOTIFICATIONS'].select_notification(notif_id)
+        self._active_page.select_notification(notif_id)
 
     def search(self, term):
         if any(term.lower().startswith(x.lower() + ':') for x in self._menu_texts):
@@ -138,7 +142,7 @@ class MenuView(Frame):
     def _search_page(self, term):
         page, term = term.split(':', 1)
         page, term = page.upper(), term.strip()
-        self._change_page(page)
+        self._index = self._menu_texts.index(page)
         self._move(0)
         if term != '':
             self._menu_pages[page].search(term)
