@@ -5,11 +5,12 @@ from util.widgets.buttons.FrameButton import FrameButton
 
 
 class CalendarButton(FrameButton):
-    def __init__(self, master, day_number):
-        super().__init__(master, bg=PROFILE_BG)
+    def __init__(self, master, day_number, day_var, cmd=None):
+        super().__init__(master, bg=PROFILE_BG, cmd=cmd)
         self._day_number = day_number
         self._day = Label(self, bg=self['bg'], text=day_number, fg='white', anchor='se',
                           font=(APP_FONT, 10, 'bold'))
+        self._day_var = day_var
 
     def _config_grid(self):
         self.rowconfigure(0, weight=1)
@@ -17,3 +18,7 @@ class CalendarButton(FrameButton):
 
     def _show(self):
         self._day.grid(row=0, column=0, sticky='nesw')
+
+    def _on_click(self):
+        self._day_var.set(self._day_number)
+        super()._on_click()

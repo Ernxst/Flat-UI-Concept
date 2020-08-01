@@ -9,7 +9,7 @@ from util.widgets.misc.tk_calendar.TkCalendar import TkCalendar
 class Planner(MenuPage):
     def __init__(self, master, model):
         super().__init__(master, 'Planner', model=model)
-        self._calendar = TkCalendar(self._content.interior_frame)
+        self._calendar = TkCalendar(self._content.interior_frame, self.open_daily_view)
         self._events_frame = EventsDisplay(self._content.interior_frame, model)
         self._months = self._calendar.get_months()
 
@@ -75,3 +75,8 @@ class Planner(MenuPage):
 
     def _search_for_day(self, search_term):
         return -1, -1
+
+    def open_daily_view(self):
+        day, month, year = self._calendar.get_active_day()
+        print(day, month, year)
+        # open popup showing all events on day

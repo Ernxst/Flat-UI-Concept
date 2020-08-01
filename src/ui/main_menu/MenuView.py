@@ -2,7 +2,6 @@ from tkinter import Frame, Entry
 
 from Labels.TkLabels import TkMessage
 from Util.tkUtilities import ask_yes_no, get_root
-from src.models.Model import get_model
 from src.ui.main_menu.Navbar import Navbar
 from src.ui.main_menu.TopRibbon import TopRibbon
 from src.ui.pages.Dashboard import Dashboard

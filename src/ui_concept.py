@@ -40,8 +40,9 @@ def run(page='', debug=False):
 
 def get_func(page, win):
     if page == 'ui':
-        get_model().login('Ernest')
-        return lambda: MenuView(win, 'Ernest Jr Nkansah-Badu', PROFILE_ICON).grid(sticky='nesw')
+        model = get_model()
+        model.login('Ernest')
+        return lambda: MenuView(win, 'Ernest Jr Nkansah-Badu', PROFILE_ICON, model).grid(sticky='nesw')
     elif page == 'login':
         return lambda: LoginPage(win).grid(sticky='nesw')
     else:

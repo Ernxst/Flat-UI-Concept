@@ -65,3 +65,5 @@ MAX_EVENT_DESC_LENGTH = 40
 DAYS_IN_WEEK = 7
 MONTHS_IN_YEAR = 12
 WEEKDAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+MIN_YEAR = 2019
+MAX_YEAR = 2022

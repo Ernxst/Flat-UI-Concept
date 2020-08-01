@@ -53,7 +53,7 @@ class EventsDisplay(Frame):
         for (id_, (month, day, title, description, time, location)) in self._upcoming_events.items():
             self._event_btns[id_] = EventsButton(self._content.interior_frame, month, day,
                                                  title, description, time, location, lambda
-                                                     event_id=id_: self._open_event(event_id))
+                                                 event_id=id_: self._open_event(event_id))
             self._event_btns[id_].grid(column=0, sticky='nesw')
             Separator(self._content.interior_frame, orient='horizontal'
                       ).grid(column=0, sticky='nesw', pady=10)

@@ -33,7 +33,7 @@ class EventsButton(FrameButton):
     def _show(self):
         self._day_lbl.grid(row=0, column=0, rowspan=2, sticky='nesw')
         self._month_lbl.grid(row=2, column=0, sticky='nesw', rowspan=2)
-        self._title_lbl.grid(row=0, column=1, columnspan=2, sticky='nesw')
+        self._title_lbl.grid(row=0, column=1, columnspan=2, sticky='nesw', pady=(5, 0))
         self._msg.grid(row=1, column=1, columnspan=2, rowspan=2, sticky='nesw')
         self._time_lbl.grid(row=3, column=1, sticky='nesw')
         self._location_lbl.grid(row=3, column=2, sticky='nesw')

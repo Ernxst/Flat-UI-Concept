@@ -1,21 +1,28 @@
 from calendar import month_name
+from datetime import datetime
 from tkinter import Frame, Canvas
 
-from util.constants import LEFT_ARROW, RIGHT_ARROW, MONTHS_IN_YEAR
+from Buttons.CanvasButtons import Indicator
+from Util.tkUtilities import get_widget_dimensions
+from util.constants import LEFT_ARROW, RIGHT_ARROW, MONTHS_IN_YEAR, MIN_YEAR, MAX_YEAR, BUTTON_HOVER_BG, GREY, \
+    NAVBAR_BG
 from util.widgets.buttons.TkButton import TkButton
 from util.widgets.misc.tk_calendar.MonthDisplay import MonthDisplay
 
 
 class TkCalendar(Frame):
-    def __init__(self, master):
+    def __init__(self, master, cmd=None):
         super().__init__(master, bg=master['bg'], highlightthickness=0)
-        self._current_month = 1
-        self._month_display = MonthDisplay(self, self._current_month)
+        today = datetime.today()
+        self._current_month = today.month
+        current_day = today.day
+        self._month_display = MonthDisplay(self, self._current_month, current_day, cmd)
         self._indicator_frame = Frame(self, bg=self['bg'], highlightthickness=0)
-        self._indicator_display = Canvas(self._indicator_frame, highlightthickness=0,
-                                         bg=self._indicator_frame['bg'])
+        self._indicator_canvas = Canvas(self._indicator_frame, highlightthickness=0,
+                                        bg=self._indicator_frame['bg'])
         self._left = TkButton(self, text=LEFT_ARROW, command=lambda: self._switch(-1))
         self._right = TkButton(self, text=RIGHT_ARROW, command=lambda: self._switch(1))
+        self._indicators = []
 
     def get_months(self):
         return [month_name[i] for i in range(1, MONTHS_IN_YEAR + 1)]
@@ -28,6 +35,7 @@ class TkCalendar(Frame):
         super().grid(**kwargs)
         self._config_grid()
         self._show()
+        self._indicator_frame.bind('<Configure>', self._resize)
 
     def _show(self):
         self._month_display.grid(row=0, column=0, columnspan=3, sticky='nesw')
@@ -35,9 +43,6 @@ class TkCalendar(Frame):
         self._indicator_frame.grid(row=1, column=1, sticky='nesw')
         self._right.grid(row=1, column=2, sticky='nesw')
         self._show_indicators()
-
-    def _show_indicators(self):
-        pass
 
     def _switch(self, increment):
         next_year = False
@@ -49,13 +54,50 @@ class TkCalendar(Frame):
         elif increase > MONTHS_IN_YEAR:
             increase = 1
             next_year = True
-        self._current_month = increase
-        self._month_display.swap_month(self._current_month, next_year, previous_year)
+        self._swap(increase, next_year, previous_year)
+
+    def _swap(self, increase, next_year, previous_year):
+        year = self._month_display.CURRENT_YEAR
+        if (year > MIN_YEAR and not previous_year) or (year < MAX_YEAR and not next_year):
+            self._current_month = increase
+            self._month_display.swap_month(self._current_month, next_year, previous_year)
 
     def switch_month(self, month_number):
         self._current_month = month_number
         self._month_display.swap_month(month_number)
+        [x.disable() for x in self._indicators]
+        self._indicators[self._current_month - 1].enable()
 
     def select_day(self, month_number, day):
         self.switch_month(month_number)
         self._month_display.select_day(day)
+
+    def get_active_day(self):
+        return self._month_display.get_active_day()
+
+    def _resize(self, event):
+        self._indicators = []
+        self._create_indicators(event.width, event.height)
+
+    def _show_indicators(self):
+        width, height = get_widget_dimensions(self._indicator_frame)
+        self._indicator_canvas.config(width=width, height=height)
+        self._indicator_canvas.grid(row=0, column=0, sticky='nesw')
+        self._create_indicators(width, height)
+
+    def _create_indicators(self, width, height):
+        self._indicator_canvas.delete('all')
+        radius = int(height * 0.25)
+        pos = (width - (MONTHS_IN_YEAR * (radius * 2 + radius))) // 2
+        self._indicators = []
+        self._display_indicators(pos, radius, height // 2)
+
+    def _display_indicators(self, pos, radius, y):
+        for x in range(MONTHS_IN_YEAR):
+            pos += (radius * 2)
+            self._indicators.append(Indicator(self._indicator_canvas, pos, y, radius, bg=GREY,
+                                              command=lambda page=x+1: self.switch_month(page),
+                                              tags='indicator' + str(x), activebackground=NAVBAR_BG,
+                                              activefill=BUTTON_HOVER_BG))
+            pos += radius
+        self._indicators[self._current_month - 1].enable()
