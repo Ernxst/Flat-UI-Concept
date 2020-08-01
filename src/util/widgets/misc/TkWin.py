@@ -1,8 +1,12 @@
 from tkinter import Tk, PhotoImage
 
 from Util.tkUtilities import centralise, get_screen_size, ask_ok_cancel
+from models.Model import get_model
 from src.util.constants import APP_FONT, MAX_WINDOW_MULTIPLIER, MIN_WINDOW_MULTIPLIER, WINDOW_MULTIPLIER
 
+
+def shutdown():
+    get_model().logout()
 
 class TkWin(Tk):
     def __init__(self, title, bg, icon):
@@ -11,6 +15,7 @@ class TkWin(Tk):
         max_width, max_height, w, h = self.set_win_size()
         self.set_default_size(max_width, max_height, w, h)
         self.set_appearance(bg, icon, max_width, max_height, w, h)
+        self._popup = None
         self.bind_events()
 
     def set_appearance(self, bg, icon, max_width, max_height, width, height):
@@ -46,6 +51,7 @@ class TkWin(Tk):
 
     def close_win(self):
         # perform closing tasks
+        shutdown()
         super().destroy()
 
     def enable_fullscreen(self):
@@ -58,3 +64,9 @@ class TkWin(Tk):
         self.attributes('-topmost', True)
         self.attributes('-topmost', False)
         self.focus_set()
+
+    def open_popup(self, popup, *args, **kwargs):
+        if not self._popup:
+            self._popup = popup(*args, **kwargs)
+        else:
+            self._popup.lift()

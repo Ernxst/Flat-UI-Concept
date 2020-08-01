@@ -1,4 +1,4 @@
-from tkinter import Frame
+from tkinter import Frame, Entry
 
 from Labels.TkLabels import TkMessage
 from Util.tkUtilities import ask_yes_no, get_root
@@ -8,7 +8,7 @@ from src.ui.main_menu.TopRibbon import TopRibbon
 from src.ui.pages.Dashboard import Dashboard
 from src.ui.pages.Inbox import Inbox
 from src.ui.pages.Options import Options
-from src.ui.pages.Planner import Planner
+from ui.pages.planner.Planner import Planner
 from src.ui.pages.messages.Messages import Messages
 from src.ui.pages.notifications.Notifications import Notifications
 from src.util.constants import MIN_COL, MENU_PAGE_BG, APP_TITLE, APP_FONT, TITLE_BG
@@ -84,27 +84,29 @@ class MenuView(Frame):
         for i in range(6):
             self.master.bind('<Control-KeyRelease-{}>'.format(i+1),
                              lambda event, index=i: self._swap_page(index))
-        self._bind_navbar_keys()
+        self.bind_navbar_keys()
 
-    def _bind_navbar_keys(self):
+    def bind_navbar_keys(self):
         self.master.bind('<Left>', lambda event: self._minimise_navbar())
         self.master.bind('<Right>', lambda event: self._maximise_navbar())
         self._active_page.disable_resize()
 
-    def _unbind_navbar_keys(self):
+    def unbind_navbar_keys(self):
         self.master.unbind('<Left>')
         self.master.unbind('<Right>')
         self._active_page.enable_resize()
 
     def _minimise_navbar(self):
-        self._unbind_navbar_keys()
-        self._navbar.minimise()
-        self._bind_navbar_keys()
+        if not isinstance(self.focus_get(), Entry):
+            self.unbind_navbar_keys()
+            self._navbar.minimise()
+            self.bind_navbar_keys()
 
     def _maximise_navbar(self):
-        self._unbind_navbar_keys()
-        self._navbar.maximise()
-        self._bind_navbar_keys()
+        if not isinstance(self.focus_get(), Entry):
+            self.unbind_navbar_keys()
+            self._navbar.maximise()
+            self.bind_navbar_keys()
 
     def _move(self, increment):
         self._index += increment
@@ -142,7 +144,9 @@ class MenuView(Frame):
     def _search_page(self, term):
         page, term = term.split(':', 1)
         page, term = page.upper(), term.strip()
-        self._index = self._menu_texts.index(page)
-        self._move(0)
+        index = self._menu_texts.index(page)
+        if self._index != index:
+            self._index = index
+            self._move(0)
         if term != '':
             self._menu_pages[page].search(term)

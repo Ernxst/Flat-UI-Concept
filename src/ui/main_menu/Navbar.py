@@ -63,11 +63,11 @@ class Navbar(Frame):
         self._copyright_lbl.grid(sticky='nesw')
 
     def select(self, text):
+        [x.disable() for x in self._btns.values()]
+        self._btns[text].enable()
         cmd = self._menu_options[text]
         if cmd is not None:
             cmd()
-        [x.disable() for x in self._btns.values()]
-        self._btns[text].enable()
 
     def _toggle(self):
         if self._minimised:
@@ -105,5 +105,6 @@ class Navbar(Frame):
             self.master.update_idletasks()
             self.master.update()
             self.after(NAV_DELAY)
+        self.master.update()
         [btn.show() for btn in self._btns.values()]
         self._profile.show()

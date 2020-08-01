@@ -60,10 +60,11 @@ class WelcomePage(Frame):
         self._subtitle_lbl.grid(row=0, column=0, sticky='nesw')
         for row, (id_, data) in enumerate(notifications.items()):
             name, icon, title, msg, date = data
-            pady = 5 if row != length - 1 else (5, 10)
+            pady = (10, 5) if row == 0 else (
+                (5, 10) if row == length - 1 else 10)
             NotificationButton(notif_frame.interior_frame, id_, name, icon, title, msg, date,
                                bg=NAVBAR_BG, clear_cmd=self._update_label
-                               ).grid(row=row, column=0, sticky='nesw', pady=pady)
+                               ).grid(row=row, column=0, sticky='nesw', pady=pady, padx=(10, 0))
 
     def _get_message(self, length):
         text = 'You have {} new notification'.format(length)
