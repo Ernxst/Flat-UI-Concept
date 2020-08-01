@@ -15,8 +15,10 @@ class EventsButton(FrameButton):
         self._month_lbl = TkMessage(self, text=month, font=(APP_FONT, 9), anchor='center')
         self._day_lbl = TkMessage(self, text=day, font=(APP_FONT, 11, 'bold'),
                                   anchor='center')
-        self._time_lbl = TkMessage(self, text=time, font=(APP_FONT, 8), anchor='e')
-        self._location_lbl = TkMessage(self, text=location, font=(APP_FONT, 8), anchor='e')
+        self._time_lbl = TkMessage(self, text=time, font=(APP_FONT, 8), anchor='w',
+                                   justify='left')
+        self._location_lbl = TkMessage(self, text=location, font=(APP_FONT, 8), anchor='e',
+                                       justify='right')
 
     def _get_msg(self, msg):
         length = len(msg)
@@ -35,5 +37,5 @@ class EventsButton(FrameButton):
         self._msg.grid(row=1, column=1, columnspan=2, sticky='nesw')
         self._time_lbl.grid(row=2, column=1, sticky='nesw')
         self._location_lbl.grid(row=2, column=2, sticky='nesw')
-        TkButton(self, text='E', bg=LIGHT_GREEN, activebackground=GREEN,
+        TkButton(self, text='EDIT', bg=LIGHT_GREEN, activebackground=GREEN,
                  command=self._edit_cmd).grid(row=0, column=3, sticky='nesw', rowspan=3)

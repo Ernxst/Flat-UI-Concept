@@ -12,7 +12,7 @@ class Model:
     USERS = {'': '', 'ernest': ''}
     USERNAME = ''
     NOTIFICATIONS = {}
-    EVENTS = {}  # (month, day) : (title, description, time, location)
+    EVENTS = {}
     CHATS = {}
 
     def __init__(self):
@@ -49,7 +49,7 @@ class Model:
                         3: ('Mar', 26, 'TEST EVENT', 'TEST' * 20, '16:00', 'London'),
                         4: ('Apr', 26, 'TEST EVENT', 'TEST' * 20, '16:00', 'London'),
                         5: ('Sep', 26, 'TEST EVENT', 'TEST' * 20, '16:00', 'London'),
-                        }  # (month, day) : (title, description, time, location)
+                        }  # id: (month, day, title, description, time, location)
         Model.CHATS = {'Ernxst': ('TEST USER', PROFILE_ICON, 'TEST' * 20, '30 Jul'),
                        'TEST USER 1': ('TEST USER', PROFILE_ICON, 'MSG' * 20, '30 Jul'),
                        'TEST USER 2': ('TEST USER', PROFILE_ICON, 'TESTING THIS' * 20, '30 Jul'),
@@ -67,6 +67,9 @@ class Model:
         return len(Model.EVENTS)
 
     def update_events(self):
+        pass
+
+    def add_event(self, month, day, title, description, time, location):
         pass
 
     def delete_event(self, id_):
