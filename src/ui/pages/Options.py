@@ -11,5 +11,5 @@ class Options(MenuPage):
     def search(self, search_term):
         pass
 
-    def __init__(self, master):
-        super().__init__(master, 'Options')
+    def __init__(self, master, model):
+        super().__init__(master, 'Options', model=model)

@@ -11,5 +11,5 @@ class Inbox(MenuPage):
     def search(self, search_term):
         pass
 
-    def __init__(self, master):
-        super().__init__(master, 'Inbox')
+    def __init__(self, master, model):
+        super().__init__(master, 'Inbox', model=model)

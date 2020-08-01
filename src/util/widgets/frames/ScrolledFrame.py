@@ -10,7 +10,7 @@ class ScrolledFrame(ScrollableFrame):
         if not bg:
             bg = parent['bg']
         super().__init__(parent, bg, highlightthickness, scrollbar_bg,
-                         activescrollbar_bg, troughcolor, highlightbackground='white')
+                         activescrollbar_bg, troughcolor, highlightbackground=highlightbackground)
 
     def grid(self, scrollpady=10, scrollpadx=(5, 0), **kwargs):
         super(Frame, self).grid(**kwargs)

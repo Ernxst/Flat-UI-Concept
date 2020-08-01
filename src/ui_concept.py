@@ -13,6 +13,7 @@ TODO
  - Splash Screen Animation
  - Welcome Page Animation
  - Use FrameButton class in NotificationButton and ChatPreview
+ - Add year to EVENTS
  - Stop image flickering during navbar animation
  """
 

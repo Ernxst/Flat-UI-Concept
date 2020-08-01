@@ -21,6 +21,7 @@ class FrameButton(Frame):
         self._enabled = False
 
         self._cmd = cmd
+        self._children = []
 
     @abstractmethod
     def _config_grid(self):
@@ -30,10 +31,11 @@ class FrameButton(Frame):
         super().grid(**kwargs)
         self._config_grid()
         self._show()
+        self._children = self.winfo_children()
         self._bind_events()
 
     def _bind_events(self):
-        for widget in [self] + self.winfo_children():
+        for widget in [self] + self._children:
             widget.bind('<Enter>', lambda event: self._on_enter())
             widget.bind('<Leave>', lambda event: self._on_leave())
             widget.bind('<ButtonRelease-1>', lambda event: self._on_click())
@@ -50,13 +52,13 @@ class FrameButton(Frame):
         if not self._enabled:
             self.config(highlightbackground=self._highlight_border,
                         bg=self._hover_bg, highlightcolor=self._highlight_border)
-            for widget in self.winfo_children():
+            for widget in self._children:
                 widget.config(bg=self._hover_bg)
 
     def _on_leave(self):
         if not self._enabled:
             self.config(highlightbackground=self._bg, bg=self._bg)
-            for widget in self.winfo_children():
+            for widget in self._children:
                 widget.config(bg=self._bg)
 
     def enable(self):
@@ -64,11 +66,11 @@ class FrameButton(Frame):
         self._enabled = True
         self.config(highlightbackground=self._active_border,
                     bg=self._active_bg, highlightcolor=self._active_border)
-        for widget in self.winfo_children():
+        for widget in self._children:
             widget.config(bg=self._active_bg, fg=self._active_fg)
 
     def disable(self):
         self._enabled = False
         self.config(highlightbackground=self._bg, bg=self._bg)
-        for widget in self.winfo_children():
+        for widget in self._children:
             widget.config(bg=self._bg, fg=self._fg)

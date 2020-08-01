@@ -7,7 +7,7 @@ from src.util.widgets.frames.ScrolledFrame import ScrolledFrame
 
 
 class MenuPage(Frame):
-    def __init__(self, master, title, subtitle=''):
+    def __init__(self, master, title, subtitle='', model=None):
         super().__init__(master, bg=master['bg'], highlightthickness=0)
         self._title, self._subtitle = title, subtitle
         self.rowconfigure(1, weight=1)
@@ -15,6 +15,7 @@ class MenuPage(Frame):
         self._content = ScrolledFrame(self)
         self._shown = False
         self._grid_kw = {}
+        self._model = model
 
     def _show_title(self):
         title_frame = Frame(self, bg=self['bg'], highlightthickness=0)

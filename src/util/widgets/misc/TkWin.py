@@ -8,6 +8,7 @@ from src.util.constants import APP_FONT, MAX_WINDOW_MULTIPLIER, MIN_WINDOW_MULTI
 def shutdown():
     get_model().logout()
 
+
 class TkWin(Tk):
     def __init__(self, title, bg, icon):
         super().__init__(className=title, baseName=title)

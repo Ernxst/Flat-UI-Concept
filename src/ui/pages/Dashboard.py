@@ -9,9 +9,9 @@ class Dashboard(MenuPage):
     def search(self, search_term):
         pass
 
-    def __init__(self, master, name):
+    def __init__(self, master, name, model):
         super().__init__(master, 'Dashboard', 'Hi {}, you are currently viewing your dashboard.'
-                                              ''.format(name.split()[0]))
+                                              ''.format(name.split()[0]), model)
         self._row_weights = {0: 1, 1: 2, 2: 5, 3: 2, 4: 3}
 
     def _config_grid(self):

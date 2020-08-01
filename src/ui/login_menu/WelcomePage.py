@@ -1,7 +1,6 @@
 from tkinter import Frame, Canvas
 
 from Labels.TkLabels import TkMessage
-from src.models.Model import get_model
 from src.ui.pages.notifications.NotificationButton import NotificationButton
 from src.util.constants import APP_FONT, PROFILE_BG, NAVBAR_BG
 from src.util.widgets.buttons.TkButton import TkButton
@@ -10,13 +9,14 @@ from util.widgets.frames.ScrolledFrame import ScrolledFrame
 
 
 class WelcomePage(Frame):
-    def __init__(self, master, name, icon):
+    def __init__(self, master, name, icon, model):
         super().__init__(master, bg=master['bg'], highlightthickness=0)
         self._name, self._icon = name, icon
         self._canvas = Canvas(self, bg=PROFILE_BG, highlightthickness=1,
                               highlightbackground=NAVBAR_BG)
         self._welcome_frame = Frame(self, bg=self._canvas['bg'], highlightthickness=0)
         self._subtitle_lbl = None
+        self._model = model
 
     def _config_grid(self):
         self.rowconfigure(0, weight=1)
@@ -45,12 +45,12 @@ class WelcomePage(Frame):
                   ).grid(row=0, column=0, columnspan=2, pady=(20, 0), sticky='nesw')
 
     def _show_notifications(self):
-        notifications = get_model().get_notifications()
+        notifications = self._model.get_notifications()
         length = len(notifications)
         if length == 0:
             self._no_notifications()
         else:
-            outer_frame, notif_frame = self._setup_notif_frame(length)
+            outer_frame, notif_frame = self._setup_notif_frame()
             self._display_notifications(outer_frame, notif_frame, notifications, length)
 
     def _display_notifications(self, outer_frame, notif_frame, notifications, length):
@@ -79,13 +79,12 @@ class WelcomePage(Frame):
                   justify='center', anchor='center').grid(row=2, column=0, sticky='nesw', columnspan=2,
                                                           padx=20, pady=20)
 
-    def _setup_notif_frame(self, length):
+    def _setup_notif_frame(self):
         outer_frame = Frame(self._welcome_frame, bg=self._welcome_frame['bg'], highlightthickness=0)
         outer_frame.columnconfigure(0, weight=1)
         outer_frame.rowconfigure(1, weight=1)
         outer_frame.grid(row=2, column=0, sticky='nesw', padx=20, pady=20, columnspan=2)
         frame = ScrolledFrame(outer_frame, highlightthickness=1)
-        #   frame.interior_frame.rowconfigure(tuple(range(length)), weight=1, uniform='notifs')
         frame.interior_frame.columnconfigure(0, weight=1, uniform='notifcols')
         frame.grid(row=1, column=0, sticky='nesw', scrollpady=0, scrollpadx=(10, 0))
         return outer_frame, frame

@@ -17,11 +17,14 @@ class Model:
 
     def __init__(self):
         if Model.INSTANCE is None:
-            Model.INSTANCE = self
             self._setup()
+            Model.INSTANCE = self
 
     def _setup(self):
         Model.USERS = {'': ''}
+
+    def _generate_id(self, _dict):
+        return max(_dict.keys()) + 1
 
     def get_name(self, username):
         return 'Ernest Nkansah-Badu'
@@ -33,6 +36,9 @@ class Model:
         return username in self.USERS.keys() and self.USERS[username] == password
 
     def login(self, username):
+        self._set(username)
+
+    def _set(self, username):
         Model.USERNAME = username
         Model.NOTIFICATIONS = {1: ('James M.', PROFILE_ICON, 'Updates on supplies', 'TEST' * 20, '30 JUl'),
                                2: ('James X.', PROFILE_ICON, 'Updates 2', 'MSG' * 20, '30 JUl'),
@@ -70,7 +76,8 @@ class Model:
         pass
 
     def add_event(self, month, day, title, description, time, location):
-        pass
+        id_ = self._generate_id(Model.EVENTS)
+        Model.EVENTS[id_] = (month, day, title, description, time, location)
 
     def delete_event(self, id_):
         Model.EVENTS.pop(id_)
@@ -79,16 +86,16 @@ class Model:
         Model.NOTIFICATIONS.pop(id_)
 
     def get_notification_count(self):
-        return len(self.NOTIFICATIONS)
+        return len(Model.NOTIFICATIONS)
 
     def get_notifications(self):
-        return self.NOTIFICATIONS
+        return Model.NOTIFICATIONS
 
     def update_notifications(self):
         pass
 
     def get_chats(self):  # order by date sent
-        return self.CHATS
+        return Model.CHATS
 
     def update_chats(self):
         pass

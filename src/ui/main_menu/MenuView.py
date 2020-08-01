@@ -8,15 +8,15 @@ from src.ui.main_menu.TopRibbon import TopRibbon
 from src.ui.pages.Dashboard import Dashboard
 from src.ui.pages.Inbox import Inbox
 from src.ui.pages.Options import Options
-from ui.pages.planner.Planner import Planner
 from src.ui.pages.messages.Messages import Messages
 from src.ui.pages.notifications.Notifications import Notifications
 from src.util.constants import MIN_COL, MENU_PAGE_BG, APP_TITLE, APP_FONT, TITLE_BG
 from src.util.widgets.input_widgets.TkDropdown import close_dropdown
+from ui.pages.planner.Planner import Planner
 
 
 class MenuView(Frame):
-    def __init__(self, master, name, icon):
+    def __init__(self, master, name, icon, model):
         super().__init__(master, bg=master['bg'], highlightthickness=0)
         self._name = name
         self._icon = icon
@@ -29,6 +29,7 @@ class MenuView(Frame):
         self._navbar = None
         self._active_page = None
         self._notif_index = 3
+        self._model = model
         self._display_frame = Frame(self, bg=MENU_PAGE_BG)
         self._ribbon = TopRibbon(self, icon, self.logout, self.open_notification, self.search)
 
@@ -38,12 +39,13 @@ class MenuView(Frame):
         self._config_grid()
 
     def _setup_options(self):
-        self._menu_pages = {'DASHBOARD': Dashboard(self._display_frame, self._name),
-                            'INBOX':  Inbox(self._display_frame),
-                            'MESSAGES': Messages(self._display_frame),
-                            'NOTIFICATIONS': Notifications(self._display_frame),
-                            'PLANNER':  Planner(self._display_frame),
-                            'OPTIONS':  Options(self._display_frame)}
+        self._menu_pages = {'DASHBOARD': Dashboard(self._display_frame, self._name,
+                                                   self._model),
+                            'INBOX':  Inbox(self._display_frame, self._model),
+                            'MESSAGES': Messages(self._display_frame, self._model),
+                            'NOTIFICATIONS': Notifications(self._display_frame, self._model),
+                            'PLANNER':  Planner(self._display_frame, self._model),
+                            'OPTIONS':  Options(self._display_frame, self._model)}
 
     def _set_cmds(self):
         self._menu_options = {name: lambda p=name: self._change_page(p)
@@ -126,7 +128,7 @@ class MenuView(Frame):
 
     def logout(self):
         if ask_yes_no('Logout?', 'Are you sure you would like to logout?', get_root(self)):
-            get_model().logout()
+            self._model.logout()
             close_dropdown()
             self.destroy()
 

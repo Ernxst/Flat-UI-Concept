@@ -108,9 +108,9 @@ class LoginPage(Frame):
     def _login_success(self, username):
         self._unbind_events()
         name, icon = self._get_name_and_icon(username)
-        welcome_page = WelcomePage(self.master, name, icon)
+        welcome_page = WelcomePage(self.master, name, icon, self._model)
         welcome_page.grid(row=0, column=0, sticky='nesw')
-        main_menu = MenuView(self.master, name, icon)
+        main_menu = MenuView(self.master, name, icon, self._model)
         welcome_page.lift()
         main_menu.grid(row=0, column=0, sticky='nesw')
         self._show_password.set(False)

@@ -7,10 +7,10 @@ from util.widgets.misc.tk_calendar.TkCalendar import TkCalendar
 
 
 class Planner(MenuPage):
-    def __init__(self, master):
-        super().__init__(master, 'Planner')
+    def __init__(self, master, model):
+        super().__init__(master, 'Planner', model=model)
         self._calendar = TkCalendar(self._content.interior_frame)
-        self._events_frame = EventsDisplay(self._content.interior_frame)
+        self._events_frame = EventsDisplay(self._content.interior_frame, model)
         self._months = self._calendar.get_months()
 
     def _update_page_data(self):

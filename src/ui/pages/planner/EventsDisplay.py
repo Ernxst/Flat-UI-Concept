@@ -2,7 +2,6 @@ from tkinter import Frame, Label
 from tkinter.ttk import Separator
 
 from Labels.TkLabels import TkMessage
-from models.Model import get_model
 from ui.pages.planner.EventsButton import EventsButton
 from util.constants import GREY, APP_FONT, LIGHT_GREEN, GREEN
 from util.widgets.buttons.TkButton import TkButton
@@ -10,9 +9,9 @@ from util.widgets.frames.ScrolledFrame import ScrolledFrame
 
 
 class EventsDisplay(Frame):
-    def __init__(self, master):
+    def __init__(self, master, model):
         super().__init__(master, bg=GREY, highlightthickness=0)
-        self._model = get_model()
+        self._model = model
         self._upcoming_events = self._model.get_events()
         self._content = ScrolledFrame(self)
         self._popup = None
@@ -33,8 +32,6 @@ class EventsDisplay(Frame):
         self.rowconfigure(1, weight=1)
         self.columnconfigure(0, weight=1)
         self._content.interior_frame.columnconfigure(0, weight=1)
-        # self._content.interior_frame.rowconfigure(tuple(range(len(self._events))),
-        #                                           weight=1, uniform='events')
 
     def grid(self, **kwargs):
         super().grid(**kwargs)
@@ -43,7 +40,7 @@ class EventsDisplay(Frame):
 
     def _show(self):
         Label(self, text='Upcoming Events', fg='black', font=(APP_FONT, 16, 'bold'), padx=20,
-              anchor='w', bg=self['bg']).grid(row=0, column=0, sticky='nesw', pady=(20, 0))
+              anchor='w', bg=self['bg']).grid(row=0, column=0, sticky='nesw', pady=20)
         if len(self._upcoming_events) == 0:
             self._subtitle.grid(row=1, column=0, sticky='', padx=20)
         else:

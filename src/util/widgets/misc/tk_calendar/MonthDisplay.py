@@ -16,7 +16,7 @@ class MonthDisplay(Frame):
         self._month_name = month_name[month_number]
         self._days = monthrange(self.CURRENT_YEAR, month_number)[1]
         self._day_frame = Frame(self, bg=self['bg'], highlightthickness=0)
-        self._month_lbl = Label(self,  bg=self['bg'], fg='black',
+        self._month_lbl = Label(self, bg=self['bg'], fg='black',
                                 text='{} {}'.format(self._month_name, MonthDisplay.CURRENT_YEAR),
                                 anchor='e', font=(APP_FONT, 16, 'bold'))
         self._btns = {}
@@ -64,7 +64,7 @@ class MonthDisplay(Frame):
             row += 1
         return row, col
 
-    def swap_month(self, month_number, next_year=False, previous_year = False):
+    def swap_month(self, month_number, next_year=False, previous_year=False):
         if next_year:
             MonthDisplay.CURRENT_YEAR += 1
         if previous_year:

@@ -3,7 +3,6 @@ from tkinter.ttk import Separator
 
 from Labels.TkLabels import TkMessage
 from Util.tkUtilities import get_widget_dimensions, error_msg
-from src.models.Model import get_model
 from src.ui.pages.MenuPage import MenuPage
 from src.ui.pages.messages.ChatPreview import ChatPreview
 from src.util.constants import APP_FONT, APP_BG, PROFILE_BG, GREEN, LIGHT_GREEN, GREY
@@ -13,13 +12,13 @@ from src.util.widgets.frames.ScrolledFrame import ScrolledFrame
 
 
 class Messages(MenuPage):
-    def __init__(self, master):
-        super().__init__(master, 'Messages', 'View your instant-messaging conversations.')
+    def __init__(self, master, model):
+        super().__init__(master, 'Messages', 'View your instant-messaging conversations.',
+                         model)
         self._chat_frame = Frame(self._content.interior_frame, bg=GREY, highlightthickness=0)
         self._contact_frame = Frame(self._content.interior_frame, bg='red', highlightthickness=0)
         self._chat_preview_frame = ScrolledFrame(self._contact_frame, scrollbar_bg=APP_BG,
                                                  bg=PROFILE_BG)
-        self._model = get_model()
         self._chat_data = self._model.get_chats()
         self._btns = {}
         self._entry = AppEntry(self._contact_frame, default_text='Search your messages...',

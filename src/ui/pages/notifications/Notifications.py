@@ -1,16 +1,14 @@
 from Util.tkUtilities import error_msg
-from src.models.Model import get_model
 from src.ui.pages.MenuPage import MenuPage
 from src.ui.pages.notifications.NotificationButton import NotificationButton
 from src.util.constants import NAVBAR_BG
 
 
 class Notifications(MenuPage):
-    def __init__(self, master):
-        self._model = get_model()
-        self._notifications = self._model.get_notifications()
+    def __init__(self, master, model):
+        self._notifications = model.get_notifications()
         self._length = len(self._notifications)
-        super().__init__(master, 'Notifications', self._get_msg(self._length))
+        super().__init__(master, 'Notifications', self._get_msg(self._length), model)
         self._notif_btns = {}
         self._subtitle_lbl = None
 
