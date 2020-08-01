@@ -11,10 +11,7 @@ from src.util.widgets.misc.TkWin import TkWin
 """
 TODO
  - Splash Screen Animation
- - Fix message frame sizes and icon sizes to always be the same in Messages.py
  - Image taking up too much space WelcomePage.py when notifications are shown
- - Resizing menu pages is too slow
- - Disable icon resize in NotificationsButton.py and ChatPreview.py
  """
 
 

@@ -16,7 +16,7 @@ class Messages(MenuPage):
     def __init__(self, master):
         super().__init__(master, 'Messages', 'View your instant-messaging conversations.')
         self._chat_frame = Frame(self._content.interior_frame, bg=GREY, highlightthickness=0)
-        self._contact_frame = Frame(self._content.interior_frame, bg=PROFILE_BG, highlightthickness=0)
+        self._contact_frame = Frame(self._content.interior_frame, bg='red', highlightthickness=0)
         self._chat_preview_frame = ScrolledFrame(self._contact_frame, scrollbar_bg=APP_BG,
                                                  bg=PROFILE_BG)
         self._model = get_model()
@@ -28,7 +28,7 @@ class Messages(MenuPage):
         # update ui
 
     def _config_grid(self):
-        self._content.interior_frame.rowconfigure(1, weight=1)
+        self._content.interior_frame.rowconfigure(0, weight=1)
         self._content.interior_frame.columnconfigure(0, weight=2, uniform='msg')
         self._content.interior_frame.columnconfigure(1, weight=5, uniform='msg')
         self._contact_frame.rowconfigure(1, weight=1)
@@ -40,7 +40,7 @@ class Messages(MenuPage):
         self._show_chat_preview()
         self._default_size()
 
-    def _default_size(self):  # fix sizing and resize
+    def _default_size(self):
         width, height = get_widget_dimensions(self._content)
         title_frame = self._content.interior_frame.winfo_children()[0]
         h = height - get_widget_dimensions(title_frame)[1] - 30
@@ -48,7 +48,7 @@ class Messages(MenuPage):
         self._chat_preview_frame.interior_frame.config(height=h)
 
     def _show_chat_preview(self):
-        self._contact_frame.grid(row=1, column=0, sticky='nesw', padx=(20, 0), pady=(10, 20))
+        self._contact_frame.grid(row=0, column=0, sticky='nesw', padx=(20, 0), pady=(10, 20))
         self._show_entry()
         self._show_contacts(self._chat_data)
         TkButton(self._contact_frame, text='New Chat', command=self.new_chat,
@@ -99,7 +99,7 @@ class Messages(MenuPage):
                                    'Please try searching another page.'.format(search_term))
 
     def _show_chat(self):
-        self._chat_frame.grid(row=1, column=1, sticky='nesw', padx=(0, 20), pady=(10, 20))
+        self._chat_frame.grid(row=0, column=1, sticky='nesw', padx=(0, 20), pady=(10, 20))
         self._chat_frame.rowconfigure(0, weight=1)
         self._chat_frame.columnconfigure(0, weight=1)
         TkMessage(self._chat_frame, text='Click a contact in the tab to the left to open the chat',

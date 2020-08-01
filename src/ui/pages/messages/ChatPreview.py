@@ -1,7 +1,7 @@
 from tkinter import Frame
 
 from Labels.TkLabels import TkMessage
-from src.util.constants import APP_FONT, BUTTON_HOVER_BG, MAX_MSG_PREVIEW_LENGTH, GREY
+from src.util.constants import APP_FONT, BUTTON_HOVER_BG, MAX_MSG_PREVIEW_LENGTH, GREY, BLANK
 from src.util.widgets.labels.ImageLabel import ImageLabel
 
 
@@ -24,19 +24,20 @@ class ChatPreview(Frame):
         self._icon_label = ImageLabel(self, icon, 0.45)
         self._name_lbl = TkMessage(self, text=name, font=(APP_FONT, 12, 'bold'),
                                    anchor='w', justify='left')
-        self._msg = TkMessage(self, text=self._get_msg(last_msg), font=(APP_FONT, 10))
+        self._msg = TkMessage(self, text=self._get_msg(last_msg), font=(APP_FONT, 10),
+                              anchor='w')
         self._date_lbl = TkMessage(self, text=date_sent, font=(APP_FONT, 8),
                                    anchor='e', justify='right')
 
     def _get_msg(self, msg):
-        if len(msg) > MAX_MSG_PREVIEW_LENGTH:
-            msg = msg[:MAX_MSG_PREVIEW_LENGTH - 4] + ' ...'
-        return msg
+        length = len(msg)
+        if length > MAX_MSG_PREVIEW_LENGTH:
+            msg = msg[:MAX_MSG_PREVIEW_LENGTH - 8] + ' ...'
+        return msg.ljust(MAX_MSG_PREVIEW_LENGTH, BLANK)
 
     def _config_grid(self):
         self.rowconfigure(1, weight=1)
-        self.columnconfigure(0, weight=3, uniform='chat')
-        self.columnconfigure((1, 2), weight=2, uniform='chat')
+        self.columnconfigure(1, weight=2, uniform='chat')
 
     def grid(self, **kwargs):
         super().grid(**kwargs)
@@ -54,7 +55,7 @@ class ChatPreview(Frame):
         self._name_lbl.grid(row=0, column=1, columnspan=2, sticky='nesw', pady=(5, 0))
         self._msg.grid(row=1, column=1, columnspan=2, sticky='nesw')
         self._date_lbl.grid(row=2, column=2, sticky='nesw')
-        self._icon_label.grid(row=0, column=0, sticky='nesw', rowspan=3)
+        self._icon_label.grid(row=0, column=0, sticky='nesw', rowspan=3, padx=10)
 
     def _on_click(self):
         self.enable()

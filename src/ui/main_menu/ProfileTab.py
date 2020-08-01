@@ -13,7 +13,7 @@ class ProfileTab(Frame):
                                    anchor='sw', font=(APP_FONT, 10, 'bold'), padx=10)
         self._online_lbl = TkMessage(self, text='Online',
                                      anchor='nw', font=(APP_FONT, 8))
-        self._icon = ImageLabel(self, icon, ratio=0.45)
+        self._icon = ImageLabel(self, icon, ratio=0.43)
         self._grid_kw = {}
 
     def _config_grid(self):
@@ -48,4 +48,4 @@ class ProfileTab(Frame):
         self.grid_forget()
 
     def show(self):
-        self.grid(**self._grid_kw)
+        super().grid(**self._grid_kw)

@@ -91,4 +91,4 @@ class NavButton(Frame):
         self.grid_forget()
 
     def show(self):
-        self.grid(**self._grid_kw)
+        super().grid(**self._grid_kw)

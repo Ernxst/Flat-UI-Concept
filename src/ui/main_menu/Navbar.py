@@ -102,6 +102,7 @@ class Navbar(Frame):
         step = 1 if start < end else -1
         for weight in range(start, end + step, step):
             self.master.columnconfigure(1, weight=weight, uniform='ui')
+            self.master.update_idletasks()
             self.master.update()
             self.after(NAV_DELAY)
         [btn.show() for btn in self._btns.values()]

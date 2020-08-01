@@ -14,6 +14,7 @@ class MenuPage(Frame):
         self.columnconfigure(0, weight=1)
         self._content = ScrolledFrame(self)
         self._shown = False
+        self._grid_kw = {}
 
     def _show_title(self):
         title_frame = Frame(self, bg=self['bg'], highlightthickness=0)
@@ -35,8 +36,19 @@ class MenuPage(Frame):
             self._update_page_data()
         super().lift()
 
+    def hide(self):
+        self.grid_forget()
+        self._content.interior_frame.unbind('<Configure>')
+        self._content.canvas.unbind("<Configure>")
+
     def _update_page_data(self):
         pass
+
+    def show(self):
+        super().grid(self._grid_kw)
+        self._content.interior_frame.bind('<Configure>', lambda event:
+                                          self._content.canvas.config(scrollregion=self._content.canvas.bbox("all")))
+        self._content.canvas.bind("<Configure>", self._content.configure_canvas)
 
     @abstractmethod
     def _config_grid(self):
@@ -44,6 +56,7 @@ class MenuPage(Frame):
 
     def grid(self, **kwargs):
         super().grid(**kwargs)
+        self._grid_kw = kwargs
         self._config_grid()
         self._show_title()
         self._content.grid(row=1, column=0, sticky='nesw')

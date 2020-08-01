@@ -110,11 +110,13 @@ class MenuView(Frame):
         if index != self._index:
             self._index = index
             self._move(0)
-            self._menu_pages[self._menu_texts[index]].lift()
 
     def _change_page(self, name):
         self._index = self._menu_texts.index(name)
-        self._menu_pages[name].lift()
+        page = self._menu_pages[name]
+        [p.hide() for p in self._menu_pages.values() if p != page]
+        page.show()
+        page.lift()
 
     def logout(self):
         if ask_yes_no('Logout?', 'Are you sure you would like to logout?', get_root(self)):
