@@ -1,8 +1,8 @@
 from tkinter import Frame
 
 from src.util.constants import MENU_PAGE_BG
-from src.util.widgets.labels.ImageLabel import ImageLabel
 from src.util.widgets.buttons.TkButton import TkButton
+from src.util.widgets.labels.ImageLabel import ImageLabel
 
 
 class NavButton(Frame):

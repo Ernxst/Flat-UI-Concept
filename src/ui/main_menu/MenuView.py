@@ -7,10 +7,10 @@ from src.ui.main_menu.Navbar import Navbar
 from src.ui.main_menu.TopRibbon import TopRibbon
 from src.ui.pages.Dashboard import Dashboard
 from src.ui.pages.Inbox import Inbox
-from src.ui.pages.notifications.Notifications import Notifications
-from src.ui.pages.messages.Messages import Messages
 from src.ui.pages.Options import Options
 from src.ui.pages.Planner import Planner
+from src.ui.pages.messages.Messages import Messages
+from src.ui.pages.notifications.Notifications import Notifications
 from src.util.constants import MIN_COL, MENU_PAGE_BG, APP_TITLE, APP_FONT, TITLE_BG
 from src.util.widgets.input_widgets.TkDropdown import close_dropdown
 
@@ -38,7 +38,7 @@ class MenuView(Frame):
     def _setup_options(self):
         self._menu_pages = {'DASHBOARD': Dashboard(self._display_frame, self._name),
                             'INBOX':  Inbox(self._display_frame),
-                            'MESSAGES': Messages(self._display_frame, self._name),
+                            'MESSAGES': Messages(self._display_frame),
                             'NOTIFICATIONS': Notifications(self._display_frame),
                             'PLANNER':  Planner(self._display_frame),
                             'OPTIONS':  Options(self._display_frame)}
@@ -59,16 +59,13 @@ class MenuView(Frame):
     def grid(self, **kwargs):
         super().grid(**kwargs)
         self._setup_ui()
-        self._show_title()
+        TkMessage(self, text=APP_TITLE, font=(APP_FONT, 10, 'bold'), bg=TITLE_BG,
+                  padx=5, pady=5).grid(row=0, column=0, sticky='nesw')
         self._navbar = Navbar(self, self._menu_options, self._name, self._icon)
         self._navbar.grid(row=1, column=0, sticky='nesw', rowspan=2)
         self._ribbon.grid(row=0, column=1, sticky='nesw')
         self._show_pages()
         self._bind_events()
-
-    def _show_title(self):
-        TkMessage(self, text=APP_TITLE, font=(APP_FONT, 10, 'bold'), bg=TITLE_BG,
-                  padx=5, pady=5).grid(row=0, column=0, sticky='nesw')
 
     def _show_pages(self):
         self._display_frame.grid(row=1, column=1, sticky='nesw', padx=20)
@@ -82,6 +79,9 @@ class MenuView(Frame):
         self.master.bind('<Up>', lambda event: self._move(-1))
         self.master.bind('<Down>', lambda event: self._move(1))
         self.master.bind('<Control-KeyRelease-t>', lambda event: self._ribbon.focus_entry())
+        for i in range(6):
+            self.master.bind('<Control-KeyRelease-{}>'.format(i+1),
+                             lambda event, index=i: self._swap_page(index))
         self._bind_navbar_togglers()
 
     def _bind_navbar_togglers(self):
@@ -106,13 +106,18 @@ class MenuView(Frame):
         self._index += increment
         self._navbar.select(self._menu_texts[self._index % self._length])
 
+    def _swap_page(self, index):
+        if index != self._index:
+            self._index = index
+            self._move(0)
+            self._menu_pages[self._menu_texts[index]].lift()
+
     def _change_page(self, name):
         self._index = self._menu_texts.index(name)
         self._menu_pages[name].lift()
 
     def logout(self):
         if ask_yes_no('Logout?', 'Are you sure you would like to logout?', get_root(self)):
-            # perform logout tasks
             get_model().logout()
             close_dropdown()
             self.destroy()
@@ -126,7 +131,7 @@ class MenuView(Frame):
         if any(term.lower().startswith(x.lower() + ':') for x in self._menu_texts):
             self._search_page(term)
         else:
-            pass
+            pass  # search all pages
 
     def _search_page(self, term):
         page, term = term.split(':', 1)

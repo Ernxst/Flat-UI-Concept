@@ -1,6 +1,6 @@
 from tkinter import Tk, PhotoImage
 
-from Util.tkUtilities import centralise, get_screen_size, get_widget_dimensions, ask_ok_cancel
+from Util.tkUtilities import centralise, get_screen_size, ask_ok_cancel
 from src.util.constants import APP_FONT, MAX_WINDOW_MULTIPLIER, MIN_WINDOW_MULTIPLIER, WINDOW_MULTIPLIER
 
 
@@ -8,30 +8,29 @@ class TkWin(Tk):
     def __init__(self, title, bg, icon):
         super().__init__(className=title, baseName=title)
         self.win_name = title
-        self.set_win_size()
-        self.set_default_size()
-        self.set_appearance(bg, icon)
+        max_width, max_height, w, h = self.set_win_size()
+        self.set_default_size(max_width, max_height, w, h)
+        self.set_appearance(bg, icon, max_width, max_height, w, h)
         self.bind_events()
 
-    def set_appearance(self, bg, icon):
+    def set_appearance(self, bg, icon, max_width, max_height, width, height):
         self.title(self.win_name)
         self.rowconfigure(0, weight=1, uniform='win')
         self.columnconfigure(0, weight=1, uniform='win')
         self.tk.call('wm', 'iconphoto', self._w, PhotoImage(file=icon))
         self.config(bg=bg)
         self.option_add('*Dialog.msg.font', '{} {}'.format(APP_FONT, 10))
-        centralise(self)
+        centralise(self, width, height, max_width, max_height)
 
-    def set_default_size(self):
-        width, height = get_screen_size()
-        self.wm_minsize(int(width * MIN_WINDOW_MULTIPLIER), int(height * MIN_WINDOW_MULTIPLIER))
-        self.wm_maxsize(int(width * MAX_WINDOW_MULTIPLIER), int(height * MAX_WINDOW_MULTIPLIER))
-        width, height = get_widget_dimensions(self)
-        self.aspect(width, height, width, height)
+    def set_default_size(self, max_width, max_height, w, h):
+        self.wm_minsize(int(max_width * MIN_WINDOW_MULTIPLIER), int(max_height * MIN_WINDOW_MULTIPLIER))
+        self.wm_maxsize(int(max_width * MAX_WINDOW_MULTIPLIER), int(max_height * MAX_WINDOW_MULTIPLIER))
+        self.aspect(w, h, w, h)
 
     def set_win_size(self):
-        width, height = get_screen_size()
-        self.geometry('{}x{}'.format(int(width * WINDOW_MULTIPLIER), int(height * WINDOW_MULTIPLIER)))
+        width, height = get_screen_size(self)
+        w, h = int(width * WINDOW_MULTIPLIER), int(height * WINDOW_MULTIPLIER)
+        return width, height, w, h
 
     def bind_events(self):
         self.bind('<Escape>', lambda event: self.disable_fullscreen())

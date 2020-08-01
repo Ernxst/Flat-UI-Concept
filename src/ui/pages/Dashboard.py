@@ -24,23 +24,19 @@ class Dashboard(MenuPage):
     def _update_page_data(self):
         pass
 
-    def grid(self, **kwargs):
-        super().grid(**kwargs)
-        self._default_size()
-
     def _default_size(self):
         width, height = get_widget_dimensions(self)
-        scale = 1.5
+        h = height * 0.115
         for frame in self._content.interior_frame.winfo_children():
             grid = frame.grid_info()
-            frame_height = self._row_weights[grid['row']] / 13 * height * scale
-            frame.config(height=int(frame_height))
+            frame.config(height=self._row_weights[grid['row']] * h)
 
     def _show(self):
         self._show_graphs()
         self._show_updates()
         self._show_analytics()
         self._show_projects()
+        self._default_size()
 
     def _show_graphs(self):
         Frame(self._content.interior_frame, bg=RED, highlightthickness=0

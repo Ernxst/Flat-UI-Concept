@@ -71,7 +71,4 @@ class TopRibbon(Frame):
 
     def focus_entry(self):
         self._entry.on_click()
-        self._entry.config(insertbackground='black')
         self._entry.focus_force()
-        self._entry.icursor(0)
-        print(self.focus_get())

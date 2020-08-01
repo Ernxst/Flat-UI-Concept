@@ -14,7 +14,18 @@ TODO
  - Fix message frame sizes and icon sizes to always be the same in Messages.py
  - Image taking up too much space WelcomePage.py when notifications are shown
  - Resizing menu pages is too slow
+ - Disable icon resize in NotificationsButton.py and ChatPreview.py
  """
+
+
+def profile(page='', debug=False):
+    import cProfile
+    pr = cProfile.Profile()
+    pr.enable()
+    run(page, debug)
+    pr.disable()
+    if debug:
+        pr.print_stats(sort='cumtime')
 
 
 def run(page='', debug=False):
@@ -40,6 +51,6 @@ def get_func(page, win):
 if __name__ == '__main__':
     try:
         screen = sys.argv[1]
-        run(screen)
+        profile(screen)
     except ValueError:
-        run()
+        profile()

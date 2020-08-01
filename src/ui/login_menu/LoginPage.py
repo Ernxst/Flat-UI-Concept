@@ -8,8 +8,8 @@ from src.ui.login_menu.WelcomePage import WelcomePage
 from src.ui.main_menu.MenuView import MenuView
 from src.util.constants import BULLET, PROFILE_BG, APP_FONT, NAVBAR_BG, LIGHT_GREEN, PASSWORD_ENTRY_ICON, \
     USERNAME_ENTRY_ICON
-from src.util.widgets.entries.ImageEntry import ImageEntry
 from src.util.widgets.buttons.TkButton import TkButton
+from src.util.widgets.entries.ImageEntry import ImageEntry
 
 
 class LoginPage(Frame):

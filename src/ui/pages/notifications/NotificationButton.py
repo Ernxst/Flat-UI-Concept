@@ -3,8 +3,8 @@ from tkinter import Frame
 from Labels.TkLabels import TkMessage
 from src.models.Model import get_model
 from src.util.constants import APP_FONT, BUTTON_HOVER_BG, GREY, RED, DARK_RED, TITLE_BG
-from src.util.widgets.labels.ImageLabel import ImageLabel
 from src.util.widgets.buttons.TkButton import TkButton
+from src.util.widgets.labels.ImageLabel import ImageLabel
 
 
 class NotificationButton(Frame):

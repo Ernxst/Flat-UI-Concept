@@ -2,23 +2,19 @@ from tkinter import Frame
 from tkinter.ttk import Separator
 
 from Labels.TkLabels import TkMessage
-from Util.tkUtilities import get_widget_dimensions
+from Util.tkUtilities import get_widget_dimensions, error_msg
 from src.models.Model import get_model
 from src.ui.pages.MenuPage import MenuPage
 from src.ui.pages.messages.ChatPreview import ChatPreview
 from src.util.constants import APP_FONT, APP_BG, PROFILE_BG, GREEN, LIGHT_GREEN, GREY
+from src.util.widgets.buttons.TkButton import TkButton
 from src.util.widgets.entries.AppEntry import AppEntry
 from src.util.widgets.frames.ScrolledFrame import ScrolledFrame
-from src.util.widgets.buttons.TkButton import TkButton
 
 
 class Messages(MenuPage):
-    def search(self, search_term):
-        pass
-
-    def __init__(self, master, name):
+    def __init__(self, master):
         super().__init__(master, 'Messages', 'View your instant-messaging conversations.')
-        self._name = name
         self._chat_frame = Frame(self._content.interior_frame, bg=GREY, highlightthickness=0)
         self._contact_frame = Frame(self._content.interior_frame, bg=PROFILE_BG, highlightthickness=0)
         self._chat_preview_frame = ScrolledFrame(self._contact_frame, scrollbar_bg=APP_BG,
@@ -48,8 +44,6 @@ class Messages(MenuPage):
         width, height = get_widget_dimensions(self._content)
         title_frame = self._content.interior_frame.winfo_children()[0]
         h = height - get_widget_dimensions(title_frame)[1] - 30
-        self._chat_frame.config(height=h)
-        self._contact_frame.config(height=h)
         self._chat_preview_frame.canvas.config(height=h)
         self._chat_preview_frame.interior_frame.config(height=h)
 
@@ -77,10 +71,32 @@ class Messages(MenuPage):
         entry = AppEntry(self._contact_frame, default_text='Search your messages...',
                          font=(APP_FONT, 10), justify='left', has_label=False)
         entry.grid(row=0, column=0, sticky='nesw')
-        entry.bind('<Return>', lambda event: self._search(entry.get()))
+        entry.bind('<Return>', lambda event: self.search(entry.get()))
 
-    def _search(self, search_term):
-        print(search_term)
+    def _select_chat(self, username):
+        [btn.disable() for btn in self._btns.values()]
+        active_button = self._btns[username]
+        active_button.enable()
+        self._scroll_to_chat(active_button)
+        self.open_chat(username)
+
+    def _scroll_to_chat(self, active_button):
+        index = list(self._btns.values()).index(active_button)
+        fraction = float(index / len(self._content.interior_frame.winfo_children()))
+        self._content.canvas.yview_moveto(fraction)
+
+    def search(self, search_term):
+        if search_term == '':
+            return
+        found = False
+        for username, data in self._chat_data.items():
+            if any(search_term.lower() in string for string in [x.lower() for x in data]):
+                self._select_chat(username)
+                found = True
+                break
+        if not found:
+            error_msg('Not found', 'Could not find "{}" on this page. '
+                                   'Please try searching another page.'.format(search_term))
 
     def _show_chat(self):
         self._chat_frame.grid(row=1, column=1, sticky='nesw', padx=(0, 20), pady=(10, 20))

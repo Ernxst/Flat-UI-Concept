@@ -6,8 +6,8 @@ from Util.tkUtilities import toggle_bg
 from src.models.Model import get_model
 from src.ui.pages.notifications.NotificationButton import NotificationButton
 from src.util.constants import APP_FONT, PROFILE_BG, NAVBAR_BG, MENU_PAGE_BG
-from src.util.widgets.labels.ImageLabel import ImageLabel
 from src.util.widgets.buttons.TkButton import TkButton
+from src.util.widgets.labels.ImageLabel import ImageLabel
 
 
 class WelcomePage(Frame):

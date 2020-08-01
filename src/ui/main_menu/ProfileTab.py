@@ -5,7 +5,7 @@ from src.util.constants import APP_FONT
 from src.util.widgets.labels.ImageLabel import ImageLabel
 
 
-class ProfileBar(Frame):
+class ProfileTab(Frame):
     def __init__(self, master, name, icon, bg):
         super().__init__(master, bg=bg, highlightthickness=0)
         self._name = name

@@ -36,7 +36,7 @@ class Notifications(MenuPage):
     def _scroll_to_notif(self, active_button):
         index = list(self._notif_btns.values()).index(active_button)
         fraction = float(index / len(self._content.interior_frame.winfo_children()))
-        self._content.canvas.yview(fraction)
+        self._content.canvas.yview_moveto(fraction)
 
     def clear_notification(self, notif_id):
         self._notif_btns.pop(notif_id)

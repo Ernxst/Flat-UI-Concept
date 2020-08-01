@@ -4,7 +4,7 @@ from Buttons.TkButtons import TkButton
 from Labels.TkLabels import TkMessage
 from Util.tkUtilities import get_widget_dimensions
 from src.ui.main_menu.NavButton import NavButton
-from src.ui.main_menu.ProfileBar import ProfileBar
+from src.ui.main_menu.ProfileTab import ProfileTab
 from src.util.ImageUtilities import get_icon_location
 from src.util.constants import LEFT_ARROW, RIGHT_ARROW, NAVBAR_BG, MAX_COL, MIN_COL, APP_FONT, PROFILE_BG, MAX_NAV_ROWS, \
     COPYRIGHT, NAV_DELAY
@@ -45,7 +45,7 @@ class Navbar(Frame):
         self._show_profile()
 
     def _show_profile(self):
-        self._profile = ProfileBar(self, self._name, self._icon, PROFILE_BG)
+        self._profile = ProfileTab(self, self._name, self._icon, PROFILE_BG)
         self._profile.grid(row=0, column=0, sticky='nesw')
 
     def _show_buttons(self):
