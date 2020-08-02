@@ -26,6 +26,9 @@ class MonthDisplay(Frame):
         self._active_day = IntVar()
         self._active_month.set(month_number)
 
+    def disable_buttons(self):
+        [btn.disable() for btn in self._btns.values()]
+
     def _config_grid(self):
         self.rowconfigure(1, weight=1)
         self.columnconfigure(0, weight=1)
@@ -83,6 +86,7 @@ class MonthDisplay(Frame):
         self._days = monthrange(self.CURRENT_YEAR, month_number)[1]
         self._month_lbl.config(text='{} {}'.format(self._month_name, MonthDisplay.CURRENT_YEAR))
         self._adjust_grid(previous_days)
+        self.disable_buttons()
 
     def _adjust_grid(self, previous_days):
         difference = self._days - previous_days
@@ -110,7 +114,7 @@ class MonthDisplay(Frame):
             self._btns.pop(i)
 
     def select_day(self, day_number):
-        [btn.disable() for btn in self._btns.values()]
+        self.disable_buttons()
         self._btns[day_number].enable()
 
     def _set_month(self, *args):

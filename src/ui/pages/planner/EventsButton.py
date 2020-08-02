@@ -1,3 +1,5 @@
+from tkinter import Label
+
 from Labels.TkLabels import TkMessage
 from util.constants import BLANK, MAX_EVENT_DESC_LENGTH, APP_FONT, GREEN, LIGHT_GREEN, NAVBAR_BG
 from util.widgets.buttons.FrameButton import FrameButton
@@ -5,16 +7,17 @@ from util.widgets.buttons.TkButton import TkButton
 
 
 class EventsButton(FrameButton):
-    def __init__(self, master, month, day, title, description, time, location, cmd, edit_cmd=None):
+    def __init__(self, master, month, day, year, title, description, time, location, cmd, edit_cmd=None):
         super().__init__(master, cmd=cmd, bg=NAVBAR_BG)
         self._edit_cmd = edit_cmd
         self._title_lbl = TkMessage(self, text=title, font=(APP_FONT, 12, 'bold'), anchor='w',
                                     justify='left', bg=self['bg'])
         self._msg = TkMessage(self, text=self._get_msg(description),
-                              font=(APP_FONT, 10), anchor='w', justify='left')
-        self._month_lbl = TkMessage(self, text=month, font=(APP_FONT, 9), anchor='n')
-        self._day_lbl = TkMessage(self, text=day, font=(APP_FONT, 11, 'bold'),
-                                  anchor='s')
+                              font=(APP_FONT, 10), anchor='nw', justify='left')
+        self._month_lbl = TkMessage(self, text=month + '\n' + str(year), font=(APP_FONT, 10),
+                                    anchor='n')
+        self._day_lbl = Label(self, text=day, font=(APP_FONT, 14, 'bold'), fg='white',
+                              bg=self['bg'], anchor='s')
         self._time_lbl = TkMessage(self, text=time, font=(APP_FONT, 8), anchor='w',
                                    justify='left')
         self._location_lbl = TkMessage(self, text=location, font=(APP_FONT, 8), anchor='e',
@@ -33,7 +36,7 @@ class EventsButton(FrameButton):
     def _show(self):
         self._day_lbl.grid(row=0, column=0, rowspan=2, sticky='nesw')
         self._month_lbl.grid(row=2, column=0, sticky='nesw', rowspan=2)
-        self._title_lbl.grid(row=0, column=1, columnspan=2, sticky='nesw', pady=(5, 0))
+        self._title_lbl.grid(row=0, column=1, columnspan=2, sticky='nesw', pady=(10, 0))
         self._msg.grid(row=1, column=1, columnspan=2, rowspan=2, sticky='nesw')
         self._time_lbl.grid(row=3, column=1, sticky='nesw')
         self._location_lbl.grid(row=3, column=2, sticky='nesw')

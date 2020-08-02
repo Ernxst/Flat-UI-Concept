@@ -13,8 +13,8 @@ TODO
  - Splash Screen Animation
  - Welcome Page Animation
  - Use FrameButton class in NotificationButton and ChatPreview
- - Add year to EVENTS
  - Stop image flickering during navbar animation
+ - Fix padding in MonthDisplay.py and Planner.py page size
  """
 
 

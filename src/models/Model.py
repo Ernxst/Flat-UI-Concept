@@ -50,12 +50,12 @@ class Model:
                                8: ('James X.', PROFILE_ICON, 'Updates 2', 'MSG' * 20, '30 JUl'),
                                9: ('James Y.', PROFILE_ICON, 'Updates 4', '4' * 20, '30 JUl')
                                }
-        Model.EVENTS = {1: ('Jan', 26, 'TEST EVENT', 'TEST' * 20, '16:00', 'London'),
-                        2: ('Feb', 26, 'TEST EVENT', 'TEST' * 20, '16:00', 'London'),
-                        3: ('Mar', 26, 'TEST EVENT', 'TEST' * 20, '16:00', 'London'),
-                        4: ('Apr', 26, 'TEST EVENT', 'TEST' * 20, '16:00', 'London'),
-                        5: ('Sep', 26, 'TEST EVENT', 'TEST' * 20, '16:00', 'London'),
-                        }  # id: (month, day, title, description, time, location)
+        Model.EVENTS = {1: ('Jan', 26, 2020, 'TEST EVENT', 'TEST' * 20, '16:00', 'London'),
+                        2: ('Feb', 26, 2020, 'TEST EVENT', 'TEST' * 20, '16:00', 'London'),
+                        3: ('Mar', 26, 2020, 'TEST EVENT', 'TEST' * 20, '16:00', 'London'),
+                        4: ('Apr', 26, 2021, 'TEST EVENT', 'TEST' * 20, '16:00', 'London'),
+                        5: ('Sep', 26, 2021, 'TEST EVENT', 'TEST' * 20, '16:00', 'London'),
+                        }  # id: (month, day, year, title, description, time, location)
         Model.CHATS = {'Ernxst': ('TEST USER', PROFILE_ICON, 'TEST' * 20, '30 Jul'),
                        'TEST USER 1': ('TEST USER', PROFILE_ICON, 'MSG' * 20, '30 Jul'),
                        'TEST USER 2': ('TEST USER', PROFILE_ICON, 'TESTING THIS' * 20, '30 Jul'),
@@ -75,9 +75,9 @@ class Model:
     def update_events(self):
         pass
 
-    def add_event(self, month, day, title, description, time, location):
+    def add_event(self, month, day, year, title, description, time, location):
         id_ = self._generate_id(Model.EVENTS)
-        Model.EVENTS[id_] = (month, day, title, description, time, location)
+        Model.EVENTS[id_] = (month, day, year, title, description, time, location)
 
     def delete_event(self, id_):
         Model.EVENTS.pop(id_)

@@ -1,5 +1,4 @@
 from tkinter import Frame, Label
-from tkinter.ttk import Separator
 
 from Labels.TkLabels import TkMessage
 from ui.pages.planner.EventsButton import EventsButton
@@ -40,7 +39,7 @@ class EventsDisplay(Frame):
 
     def _show(self):
         Label(self, text='Upcoming Events', fg='black', font=(APP_FONT, 16, 'bold'), padx=20,
-              anchor='w', bg=self['bg']).grid(row=0, column=0, sticky='nesw', pady=20)
+              anchor='w', bg=self['bg']).grid(row=0, column=0, sticky='nesw', pady=(20, 10))
         if len(self._upcoming_events) == 0:
             self._subtitle.grid(row=1, column=0, sticky='', padx=20)
         else:
@@ -50,13 +49,11 @@ class EventsDisplay(Frame):
                  activebackground=GREEN).grid(row=2, column=0, sticky='nesw', ipady=5)
 
     def _show_events(self):
-        for (id_, (month, day, title, description, time, location)) in self._upcoming_events.items():
+        for (id_, (month, day, year, title, description, time, location)) in self._upcoming_events.items():
             self._event_btns[id_] = EventsButton(self._content.interior_frame, month, day,
-                                                 title, description, time, location, lambda
-                                                 event_id=id_: self._open_event(event_id))
-            self._event_btns[id_].grid(column=0, sticky='nesw')
-            Separator(self._content.interior_frame, orient='horizontal'
-                      ).grid(column=0, sticky='nesw', pady=10)
+                                                 year, title, description, time, location,
+                                                 lambda evt_id=id_: self._open_event(evt_id))
+            self._event_btns[id_].grid(column=0, sticky='nesw', pady=1)
 
     def _open_event(self, id_):
         event_data = self._upcoming_events[id_]

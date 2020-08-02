@@ -13,7 +13,6 @@ class MenuPage(Frame):
         self.rowconfigure(1, weight=1)
         self.columnconfigure(0, weight=1)
         self._content = ScrolledFrame(self)
-        self._shown = False
         self._grid_kw = {}
         self._model = model
 
@@ -30,17 +29,14 @@ class MenuPage(Frame):
         title_frame.grid(row=0, column=0, sticky='nesw', padx=20, pady=(20, 10), columnspan=6)
 
     def lift(self):
-        if not self._shown:
-            self._show()
-            self._shown = True
-        else:
-            self._update_page_data()
+        self._update_page_data()
         super().lift()
 
     def hide(self):
         self.grid_forget()
         self._content.disable_resize()
 
+    @abstractmethod
     def _update_page_data(self):
         pass
 
@@ -64,6 +60,7 @@ class MenuPage(Frame):
         self._config_grid()
         self._show_title()
         self._content.grid(row=1, column=0, sticky='nesw')
+        self._show()
 
     @abstractmethod
     def _show(self):

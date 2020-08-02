@@ -2,6 +2,9 @@ from src.ui.pages.MenuPage import MenuPage
 
 
 class Options(MenuPage):
+    def _update_page_data(self):
+        pass
+
     def _config_grid(self):
         pass
 

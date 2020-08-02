@@ -57,7 +57,7 @@ class FrameButton(Frame):
 
     def _on_leave(self):
         if not self._enabled:
-            self.config(highlightbackground=self._bg, bg=self._bg)
+            self.config(highlightbackground=self.master['bg'], bg=self._bg)
             for widget in self._children:
                 widget.config(bg=self._bg)
 

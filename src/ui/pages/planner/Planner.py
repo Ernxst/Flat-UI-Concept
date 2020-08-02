@@ -3,13 +3,15 @@ from datetime import datetime
 from Util.tkUtilities import error_msg, get_widget_dimensions
 from src.ui.pages.MenuPage import MenuPage
 from ui.pages.planner.EventsDisplay import EventsDisplay
+from util.constants import MIN_YEAR, MAX_YEAR
 from util.widgets.misc.tk_calendar.TkCalendar import TkCalendar
 
 
 class Planner(MenuPage):
     def __init__(self, master, model):
         super().__init__(master, 'Planner', model=model)
-        self._calendar = TkCalendar(self._content.interior_frame, self.open_daily_view)
+        self._calendar = TkCalendar(self._content.interior_frame, MIN_YEAR, MAX_YEAR,
+                                    self.open_daily_view)
         self._events_frame = EventsDisplay(self._content.interior_frame, model)
         self._months = self._calendar.get_months()
 
@@ -38,7 +40,7 @@ class Planner(MenuPage):
         event_id, month, day = self._events_frame.search(search_term)
         if event_id:
             self._events_frame.select_event(event_id)
-            self._calendar.select_day(datetime.strptime(month, "%b"), day)
+            self._calendar.select_day(datetime.strptime(month, "%b").month, day)
         else:
             error_msg('Not found', 'Could not find "{}" on this page. '
                                    'Please try searching another page.'.format(search_term))
