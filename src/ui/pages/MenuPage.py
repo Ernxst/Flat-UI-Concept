@@ -64,6 +64,7 @@ class MenuPage(Frame):
         self._content.bind('<Configure>', lambda event: self._resize(event.height))
 
     def _default_size(self, height):
+        self.update_idletasks()
         self._content.canvas.itemconfig(self._content.id_, height=height - 10)
 
     def _resize(self, height):

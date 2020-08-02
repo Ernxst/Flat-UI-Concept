@@ -13,6 +13,7 @@ from src.util.constants import MIN_COL, MENU_PAGE_BG, APP_TITLE, APP_FONT, TITLE
 from src.util.widgets.input_widgets.TkDropdown import close_dropdown
 from ui.pages.planner.Planner import Planner
 from util.widgets.misc.TkWin import get_win
+from util.widgets.popups.LoadingPopup import LoadingPopup
 
 
 class MenuView(Frame):
@@ -72,21 +73,37 @@ class MenuView(Frame):
         self._bind_events()
 
     def _show_pages(self):
+        popup = LoadingPopup(self.master, 'Preparing Workspace', 'Preparing Workspace')
         self._display_frame.grid(row=1, column=1, sticky='nesw', padx=20)
-        first_page = list(self._menu_pages.values())[0]
-        for page in self._menu_pages.values():
-            page.grid(row=0, column=0, sticky='nesw')
-            first_page.lift()
+        pages = list(self._menu_pages.values())
+        self._display_pages(pages, popup)
         self._navbar.select(self._menu_texts[0])
+        popup.destroy()
+
+    def _display_pages(self, pages, popup):
+        increment = int(100 / (len(pages)))
+        pages[0].grid(row=0, column=0, sticky='nesw')
+        popup.step('Preparing ' + self._menu_texts[0].lower(), increment)
+        for i, page in enumerate(pages[1:]):
+            page.lower()
+            page.grid(row=0, column=0, sticky='nesw')
+            popup.step('Preparing ' + self._menu_texts[i].lower(), increment)
 
     def _bind_events(self):
-        self.master.bind('<Up>', lambda event: self._move(-1))
-        self.master.bind('<Down>', lambda event: self._move(1))
+        self.bind_navbar_switchers()
         self.master.bind('<Control-KeyRelease-t>', lambda event: self._ribbon.focus_entry())
         for i in range(6):
             self.master.bind('<Control-KeyRelease-{}>'.format(i+1),
                              lambda event, index=i: self._swap_page(index))
         self.bind_navbar_keys()
+
+    def bind_navbar_switchers(self):
+        self.master.bind('<Up>', lambda event: self._move(-1))
+        self.master.bind('<Down>', lambda event: self._move(1))
+
+    def unbind_navbar_switchers(self):
+        self.master.unbind('<Up>')
+        self.master.unbind('<Down>')
 
     def bind_navbar_keys(self):
         self.master.bind('<Left>', lambda event: self._minimise_navbar())
@@ -100,12 +117,14 @@ class MenuView(Frame):
 
     def _minimise_navbar(self):
         if not isinstance(self.focus_get(), Entry):
+            self.update_idletasks()
             self.unbind_navbar_keys()
             self._navbar.minimise()
             self.bind_navbar_keys()
 
     def _maximise_navbar(self):
         if not isinstance(self.focus_get(), Entry):
+            self.update_idletasks()
             self.unbind_navbar_keys()
             self._navbar.maximise()
             self.bind_navbar_keys()
@@ -120,11 +139,13 @@ class MenuView(Frame):
             self._move(0)
 
     def _change_page(self, name):
+        self.unbind_navbar_switchers()
         self._index = self._menu_texts.index(name)
         self._active_page = self._menu_pages[name]
         [p.hide() for p in self._menu_pages.values() if p != self._active_page]
         self._active_page.show()
         self._active_page.lift()
+        self.bind_navbar_switchers()
 
     def logout(self):
         if ask_yes_no('Logout?', 'Are you sure you would like to logout?', get_win()):
@@ -141,7 +162,7 @@ class MenuView(Frame):
         if any(term.lower().startswith(x.lower() + ':') for x in self._menu_texts):
             self._search_page(term)
         else:
-            pass  # search all pages
+            self._search_all_pages(term)
 
     def _search_page(self, term):
         page, term = term.split(':', 1)
@@ -152,3 +173,6 @@ class MenuView(Frame):
             self._move(0)
         if term != '':
             self._menu_pages[page].search(term)
+
+    def _search_all_pages(self, term):
+        pass  # search current page first

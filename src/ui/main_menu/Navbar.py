@@ -105,6 +105,5 @@ class Navbar(Frame):
             self.master.update_idletasks()
             self.master.update()
             self.after(NAV_DELAY)
-        self.master.update()
         [btn.show() for btn in self._btns.values()]
         self._profile.show()

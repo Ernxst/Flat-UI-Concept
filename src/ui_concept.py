@@ -12,8 +12,8 @@ from src.util.widgets.misc.TkWin import TkWin
 TODO
  - Splash Screen Animation
  - Welcome Page Animation
- - Use FrameButton class in NotificationButton and ChatPreview
- - Stop image flickering during navbar animation
+ - MenuPage width changes during navbar minimise and maximise on right edge
+ - Recursion error during window resize
  """
 
 

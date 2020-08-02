@@ -22,13 +22,13 @@ class TkWin(Tk):
 
     def __init__(self, title, bg, icon):
         super().__init__(className=title, baseName=title)
+        TkWin.INSTANCE = self
         self.win_name = title
         max_width, max_height, w, h = self.set_win_size()
         self.set_default_size(max_width, max_height, w, h)
         self.set_appearance(bg, icon, max_width, max_height, w, h)
         self._popup = None
         self.bind_events()
-        TkWin.INSTANCE = self
 
     def set_appearance(self, bg, icon, max_width, max_height, width, height):
         self.title(self.win_name)

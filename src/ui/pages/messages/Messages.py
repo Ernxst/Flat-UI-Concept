@@ -2,7 +2,7 @@ from tkinter import Frame
 from tkinter.ttk import Separator
 
 from Labels.TkLabels import TkMessage
-from Util.tkUtilities import error_msg
+from Util.tkUtilities import error_msg, get_widget_dimensions
 from src.ui.pages.MenuPage import MenuPage
 from src.ui.pages.messages.ChatPreview import ChatPreview
 from src.util.constants import APP_FONT, APP_BG, PROFILE_BG, GREEN, LIGHT_GREEN, GREY
@@ -46,6 +46,8 @@ class Messages(MenuPage):
     def _show(self):
         self._show_chat()
         self._show_chat_preview()
+        width = (get_widget_dimensions(self._content.canvas))[0]
+        self._content.canvas.itemconfig(self._content.id_, width=width)
 
     def _show_chat_preview(self):
         self._contact_frame.grid(row=0, column=0, sticky='nesw', padx=(20, 0), pady=(10, 20))
@@ -98,7 +100,8 @@ class Messages(MenuPage):
         self._chat_frame.rowconfigure(0, weight=1)
         self._chat_frame.columnconfigure(0, weight=1)
         TkMessage(self._chat_frame, text='Click a contact in the tab to the left to open the chat',
-                  font=(APP_FONT, 12, 'bold'), fg='black').grid(row=0, column=0, sticky='')
+                  justify='center', anchor='center', font=(APP_FONT, 12, 'bold'), fg='black'
+                  ).grid(row=0, column=0, sticky='')
 
     def open_chat(self, username):
         [btn.disable() for btn in self._btns.values()]
