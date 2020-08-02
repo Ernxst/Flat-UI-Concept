@@ -13,21 +13,18 @@ class ProfileTab(Frame):
                                    anchor='sw', font=(APP_FONT, 10, 'bold'), padx=10)
         self._online_lbl = TkMessage(self, text='Online',
                                      anchor='nw', font=(APP_FONT, 8))
-        self._icon = ImageLabel(self, icon, ratio=0.43)
+        self._icon = ImageLabel(self, icon, ratio=0.45)
         self._grid_kw = {}
 
     def _config_grid(self):
-        self.rowconfigure(0, weight=4, uniform='profile')
-        self.rowconfigure(1, weight=3, uniform='profile')
-        self.columnconfigure(1, weight=1)
-        self.columnconfigure(0, weight=2, uniform='profile')
-        self.columnconfigure(1, weight=3, uniform='profile')
+        self.rowconfigure((0, 1), weight=1, uniform='profile')
+        self.columnconfigure(1, weight=1, uniform='profile')
 
     def grid(self, **kwargs):
         super().grid(**kwargs)
         self._grid_kw = kwargs
         self._config_grid()
-        self._icon.grid(row=0, column=0, rowspan=2, sticky='nesw', padx=10)
+        self._icon.grid(row=0, column=0, rowspan=2, sticky='nesw', padx=20)
         self._show_status()
 
     def _show_status(self):
@@ -42,7 +39,7 @@ class ProfileTab(Frame):
 
     def maximise(self):
         self._show_status()
-        self._icon.grid(row=0, column=0, columnspan=1, rowspan=2, sticky='nesw', padx=10)
+        self._icon.grid(row=0, column=0, columnspan=1, rowspan=2, sticky='nesw', padx=20)
 
     def hide(self):
         self.grid_forget()

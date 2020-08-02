@@ -30,6 +30,7 @@ class MenuPage(Frame):
         title_frame.grid(row=0, column=0, sticky='nesw', padx=20, pady=(20, 10), columnspan=6)
 
     def lift(self):
+        self._default_size(get_widget_dimensions(self._content)[1])
         self._update_page_data()
         super().lift()
 

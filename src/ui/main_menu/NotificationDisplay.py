@@ -65,5 +65,5 @@ class NotificationDisplay(Frame):
 
     def _check_notifs(self):
         self._canvas.itemconfig('text', text=self._model.get_notification_count())
-        self._canvas.update()
+        self._canvas.update_idletasks()
         self._check_id = self.after(100, self._check_notifs)

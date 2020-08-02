@@ -46,3 +46,14 @@ class EventsButton(FrameButton):
     def _bind_events(self):
         super()._bind_events()
         self._children.pop(-1)
+
+    def _on_enter(self):
+        self.config(highlightbackground=self._highlight_border,
+                    bg=self._hover_bg, highlightcolor=self._highlight_border)
+        for widget in self._children:
+            widget.config(bg=self._hover_bg, fg=self._active_fg)
+
+    def _on_leave(self):
+        self.config(highlightbackground=self.master['bg'], bg=self._bg)
+        for widget in self._children:
+            widget.config(bg=self._bg, fg=self._fg)

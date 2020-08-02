@@ -34,6 +34,8 @@ class TkCalendar(Frame):
     def _config_grid(self):
         self.rowconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
+        self._indicator_frame.rowconfigure(0, weight=1)
+        self._indicator_frame.columnconfigure(0, weight=1)
 
     def grid(self, **kwargs):
         super().grid(**kwargs)
