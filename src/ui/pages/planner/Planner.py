@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from Util.tkUtilities import error_msg
-from src.ui.pages.MenuPage import MenuPage
+from ui.pages.MenuPage import MenuPage
 from ui.pages.planner.EventsDisplay import EventsDisplay
 from util.constants import MIN_YEAR, MAX_YEAR
 from util.widgets.misc.tk_calendar.TkCalendar import TkCalendar

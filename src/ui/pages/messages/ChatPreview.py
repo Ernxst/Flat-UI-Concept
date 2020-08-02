@@ -1,7 +1,7 @@
 from Labels.TkLabels import TkMessage
-from src.util.constants import APP_FONT, MAX_MSG_PREVIEW_LENGTH, GREY, BLANK
-from src.util.widgets.labels.ImageLabel import ImageLabel
-from src.util.widgets.buttons.FrameButton import FrameButton
+from util.constants import APP_FONT, MAX_MSG_PREVIEW_LENGTH, GREY, BLANK
+from util.widgets.labels.ImageLabel import ImageLabel
+from util.widgets.buttons.FrameButton import FrameButton
 
 
 class ChatPreview(FrameButton):

@@ -1,8 +1,8 @@
 from PIL.ImageTk import PhotoImage
 
 from Util.tkUtilities import get_widget_dimensions
-from src.util.ImageUtilities import open_image, get_image, resize_image, get_image_size
-from src.util.widgets.buttons.TkButton import TkButton
+from util.ImageUtilities import open_image, get_image, resize_image, get_image_size
+from util.widgets.buttons.TkButton import TkButton
 
 
 class ImageButton(TkButton):

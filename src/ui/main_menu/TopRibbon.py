@@ -3,10 +3,10 @@ from tkinter import Frame
 
 from Entries.TransparentEntry import TransparentEntry
 from Labels.TkLabels import TkMessage
-from src.ui.main_menu.NotificationDisplay import NotificationDisplay
-from src.util.constants import BUTTON_ICON, APP_FONT, RIBBON_BG, NAVBAR_BG, PROFILE_BLACK_ICON
-from src.util.widgets.buttons.ImageButton import ImageButton
-from src.util.widgets.input_widgets.TkDropdown import show_dropdown
+from ui.main_menu.NotificationDisplay import NotificationDisplay
+from util.constants import BUTTON_ICON, APP_FONT, RIBBON_BG, NAVBAR_BG, PROFILE_BLACK_ICON
+from util.widgets.buttons.ImageButton import ImageButton
+from util.widgets.input_widgets.TkDropdown import show_dropdown
 
 
 class TopRibbon(Frame):
@@ -20,7 +20,7 @@ class TopRibbon(Frame):
                                        justify='left', insertbackground='black')
         self._control_frame = Frame(self, bg=self['bg'], highlightthickness=0)
         self._icon = ImageButton(self._control_frame, PROFILE_BLACK_ICON, ratio=0.6)
-        self._icon.config(command=lambda: show_dropdown(master, self._icon,
+        self._icon.config(command=lambda: show_dropdown(self._icon,
                                                         {'My Profile': lambda: print('hi'),
                                                          'My Account': lambda: print('hi'),
                                                          'Sign Out': logout}))

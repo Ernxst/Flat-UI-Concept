@@ -1,9 +1,9 @@
 from tkinter import Canvas, Frame
 
 from Util.tkUtilities import get_widget_dimensions
-from src.models.Model import get_model
-from src.util.constants import NAVBAR_BG, APP_FONT, BUTTON_HOVER_BG
-from src.util.widgets.input_widgets.TkDropdown import show_dropdown
+from models.Model import get_model
+from util.constants import NAVBAR_BG, APP_FONT, BUTTON_HOVER_BG
+from util.widgets.input_widgets.TkDropdown import show_dropdown
 
 
 class NotificationDisplay(Frame):
@@ -25,7 +25,7 @@ class NotificationDisplay(Frame):
 
     def _show_dropdown(self):
         options = self._show(self._model.get_notifications())
-        show_dropdown(self, self._canvas, options)
+        show_dropdown(self._canvas, options)
 
     def _show(self, notifications):
         options = {}

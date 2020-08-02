@@ -1,8 +1,8 @@
 from Labels.TkLabels import TkMessage
-from src.models.Model import get_model
-from src.util.constants import APP_FONT, RED, DARK_RED
-from src.util.widgets.buttons.TkButton import TkButton
-from src.util.widgets.labels.ImageLabel import ImageLabel
+from models.Model import get_model
+from util.constants import APP_FONT, RED, DARK_RED
+from util.widgets.buttons.TkButton import TkButton
+from util.widgets.labels.ImageLabel import ImageLabel
 from util.widgets.buttons.FrameButton import FrameButton
 
 

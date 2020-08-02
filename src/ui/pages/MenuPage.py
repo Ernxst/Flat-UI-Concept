@@ -3,8 +3,8 @@ from tkinter import Frame, Label
 
 from Labels.TkLabels import TkMessage
 from Util.tkUtilities import get_widget_dimensions
-from src.util.constants import APP_FONT, TITLE_BG
-from src.util.widgets.frames.ScrolledFrame import ScrolledFrame
+from util.constants import APP_FONT, TITLE_BG
+from util.widgets.frames.ScrolledFrame import ScrolledFrame
 
 
 class MenuPage(Frame):

@@ -1,6 +1,6 @@
 from tkinter import Button
 
-from src.util.constants import APP_FONT, BUTTON_HOVER_BG, BUTTON_BG
+from util.constants import APP_FONT, BUTTON_HOVER_BG, BUTTON_BG
 
 
 class TkButton(Button):

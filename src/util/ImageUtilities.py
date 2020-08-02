@@ -1,7 +1,7 @@
 import cv2
 from PIL import Image, ImageDraw
 
-from src.util.constants import IMAGE_FOLDER
+from util.constants import IMAGE_FOLDER
 
 
 def get_icon_location(name):

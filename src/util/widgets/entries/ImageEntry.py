@@ -1,8 +1,8 @@
 from tkinter import Frame
 
-from src.util.constants import APP_FONT, PROFILE_BG
-from src.util.widgets.entries.AppEntry import AppEntry
-from src.util.widgets.labels.ImageLabel import ImageLabel
+from util.constants import APP_FONT, PROFILE_BG
+from util.widgets.entries.AppEntry import AppEntry
+from util.widgets.labels.ImageLabel import ImageLabel
 
 
 class ImageEntry(Frame):

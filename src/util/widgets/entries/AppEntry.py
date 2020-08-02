@@ -1,5 +1,5 @@
 from Entries.TkEntry import TkEntry
-from src.util.constants import APP_FONT, TITLE_BG
+from util.constants import APP_FONT, TITLE_BG
 
 
 class AppEntry(TkEntry):

@@ -3,12 +3,12 @@ from tkinter.ttk import Separator
 
 from Labels.TkLabels import TkMessage
 from Util.tkUtilities import error_msg, get_widget_dimensions
-from src.ui.pages.MenuPage import MenuPage
-from src.ui.pages.messages.ChatPreview import ChatPreview
-from src.util.constants import APP_FONT, APP_BG, PROFILE_BG, GREEN, LIGHT_GREEN, GREY
-from src.util.widgets.buttons.TkButton import TkButton
-from src.util.widgets.entries.AppEntry import AppEntry
-from src.util.widgets.frames.ScrolledFrame import ScrolledFrame
+from ui.pages.MenuPage import MenuPage
+from ui.pages.messages.ChatPreview import ChatPreview
+from util.constants import APP_FONT, APP_BG, PROFILE_BG, GREEN, LIGHT_GREEN, GREY
+from util.widgets.buttons.TkButton import TkButton
+from util.widgets.entries.AppEntry import AppEntry
+from util.widgets.frames.ScrolledFrame import ScrolledFrame
 
 
 class Messages(MenuPage):

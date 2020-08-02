@@ -1,12 +1,12 @@
 import sys
 
-from src.models.Model import get_model
-from src.ui.SplashScreen import SplashScreen
-from src.ui.login_menu.LoginPage import LoginPage
-from src.ui.main_menu.MenuView import MenuView
-from src.util.Utilities import trace
-from src.util.constants import APP_TITLE, APP_BG, PROFILE_ICON, APP_ICON
-from src.util.widgets.misc.TkWin import TkWin
+from models.Model import get_model
+from ui.SplashScreen import SplashScreen
+from ui.login_menu.LoginPage import LoginPage
+from ui.main_menu.MenuView import MenuView
+from util.Utilities import trace
+from util.constants import APP_TITLE, APP_BG, PROFILE_ICON, APP_ICON
+from util.widgets.misc.TkWin import TkWin
 
 """
 TODO

@@ -2,9 +2,9 @@ from random import randint
 from tkinter import Canvas
 
 from Util.tkUtilities import get_widget_dimensions
-from src.ui.login_menu.LoginPage import LoginPage
-from src.util.Utilities import chunks
-from src.util.constants import WATER_SIZE, WATER_COLOR, ANIMATION_DELAY, WATER_RADIUS, APP_TITLE, APP_FONT, \
+from ui.login_menu.LoginPage import LoginPage
+from util.Utilities import chunks
+from util.constants import WATER_SIZE, WATER_COLOR, ANIMATION_DELAY, WATER_RADIUS, APP_TITLE, APP_FONT, \
     MAX_WATER_BOUNCE, MIN_WATER_BOUNCE, DROPLET_GROUPS
 
 

@@ -1,10 +1,10 @@
 from tkinter import Frame, Canvas
 
 from Labels.TkLabels import TkMessage
-from src.ui.pages.notifications.NotificationButton import NotificationButton
-from src.util.constants import APP_FONT, PROFILE_BG, NAVBAR_BG
-from src.util.widgets.buttons.TkButton import TkButton
-from src.util.widgets.labels.ImageLabel import ImageLabel
+from ui.pages.notifications.NotificationButton import NotificationButton
+from util.constants import APP_FONT, PROFILE_BG, NAVBAR_BG
+from util.widgets.buttons.TkButton import TkButton
+from util.widgets.labels.ImageLabel import ImageLabel
 from util.widgets.frames.ScrolledFrame import ScrolledFrame
 
 

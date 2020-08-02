@@ -1,7 +1,7 @@
 from Util.tkUtilities import error_msg
-from src.ui.pages.MenuPage import MenuPage
-from src.ui.pages.notifications.NotificationButton import NotificationButton
-from src.util.constants import NAVBAR_BG
+from ui.pages.MenuPage import MenuPage
+from ui.pages.notifications.NotificationButton import NotificationButton
+from util.constants import NAVBAR_BG
 
 
 class Notifications(MenuPage):

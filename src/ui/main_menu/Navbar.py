@@ -3,10 +3,10 @@ from tkinter import Frame
 from Buttons.TkButtons import TkButton
 from Labels.TkLabels import TkMessage
 from Util.tkUtilities import get_widget_dimensions
-from src.ui.main_menu.NavButton import NavButton
-from src.ui.main_menu.ProfileTab import ProfileTab
-from src.util.ImageUtilities import get_icon_location
-from src.util.constants import LEFT_ARROW, RIGHT_ARROW, NAVBAR_BG, MAX_COL, MIN_COL, APP_FONT, PROFILE_BG, MAX_NAV_ROWS, \
+from ui.main_menu.NavButton import NavButton
+from ui.main_menu.ProfileTab import ProfileTab
+from util.ImageUtilities import get_icon_location
+from util.constants import LEFT_ARROW, RIGHT_ARROW, NAVBAR_BG, MAX_COL, MIN_COL, APP_FONT, PROFILE_BG, MAX_NAV_ROWS, \
     COPYRIGHT, NAV_DELAY
 
 

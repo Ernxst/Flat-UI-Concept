@@ -1,7 +1,7 @@
 from tkinter import Frame
 
 from Frames.ScrollableFrame import ScrollableFrame
-from src.util.constants import GREY, NAVBAR_BG
+from util.constants import GREY, NAVBAR_BG
 
 
 class ScrolledFrame(ScrollableFrame):

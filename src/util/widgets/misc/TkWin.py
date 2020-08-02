@@ -2,7 +2,7 @@ from tkinter import Tk, PhotoImage
 
 from Util.tkUtilities import centralise, get_screen_size, ask_ok_cancel
 from models.Model import get_model
-from src.util.constants import APP_FONT, MAX_WINDOW_MULTIPLIER, MIN_WINDOW_MULTIPLIER, WINDOW_MULTIPLIER
+from util.constants import APP_FONT, MAX_WINDOW_MULTIPLIER, MIN_WINDOW_MULTIPLIER, WINDOW_MULTIPLIER
 
 
 def shutdown():

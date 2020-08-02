@@ -1,8 +1,8 @@
 from tkinter import Frame
 
 from Labels.TkLabels import TkMessage
-from src.util.constants import APP_FONT
-from src.util.widgets.labels.ImageLabel import ImageLabel
+from util.constants import APP_FONT
+from util.widgets.labels.ImageLabel import ImageLabel
 
 
 class ProfileTab(Frame):

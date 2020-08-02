@@ -2,15 +2,15 @@ from tkinter import Frame, Entry
 
 from Labels.TkLabels import TkMessage
 from Util.tkUtilities import ask_yes_no
-from src.ui.main_menu.Navbar import Navbar
-from src.ui.main_menu.TopRibbon import TopRibbon
-from src.ui.pages.Dashboard import Dashboard
-from src.ui.pages.Inbox import Inbox
-from src.ui.pages.Options import Options
-from src.ui.pages.messages.Messages import Messages
-from src.ui.pages.notifications.Notifications import Notifications
-from src.util.constants import MIN_COL, MENU_PAGE_BG, APP_TITLE, APP_FONT, TITLE_BG
-from src.util.widgets.input_widgets.TkDropdown import close_dropdown
+from ui.main_menu.Navbar import Navbar
+from ui.main_menu.TopRibbon import TopRibbon
+from ui.pages.Dashboard import Dashboard
+from ui.pages.Inbox import Inbox
+from ui.pages.Options import Options
+from ui.pages.messages.Messages import Messages
+from ui.pages.notifications.Notifications import Notifications
+from util.constants import MIN_COL, MENU_PAGE_BG, APP_TITLE, APP_FONT, TITLE_BG
+from util.widgets.input_widgets.TkDropdown import close_dropdown
 from ui.pages.planner.Planner import Planner
 from util.widgets.misc.TkWin import get_win
 from util.widgets.popups.LoadingPopup import LoadingPopup

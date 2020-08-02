@@ -1,7 +1,7 @@
-from src.util.constants import MENU_PAGE_BG
-from src.util.widgets.buttons.TkButton import TkButton
-from src.util.widgets.labels.ImageLabel import ImageLabel
-from src.util.widgets.buttons.FrameButton import FrameButton
+from util.constants import MENU_PAGE_BG
+from util.widgets.buttons.TkButton import TkButton
+from util.widgets.labels.ImageLabel import ImageLabel
+from util.widgets.buttons.FrameButton import FrameButton
 
 
 class NavButton(FrameButton):

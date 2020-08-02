@@ -3,7 +3,7 @@ from tkinter import Label
 from PIL.ImageTk import PhotoImage
 
 from Util.tkUtilities import get_widget_dimensions
-from src.util.ImageUtilities import open_image, get_image, resize_image, get_image_size
+from util.ImageUtilities import open_image, get_image, resize_image, get_image_size
 
 
 class ImageLabel(Label):

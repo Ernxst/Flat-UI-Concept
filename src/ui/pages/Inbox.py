@@ -1,4 +1,4 @@
-from src.ui.pages.MenuPage import MenuPage
+from ui.pages.MenuPage import MenuPage
 
 
 class Inbox(MenuPage):

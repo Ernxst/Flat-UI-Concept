@@ -1,9 +1,10 @@
 from platform import system
 from tkinter import Toplevel, TclError
 
-from Util.tkUtilities import get_widget_dimensions, get_root
-from src.util.constants import BUTTON_HOVER_BG, MAX_DROPDOWN_TEXT_LENGTH
-from src.util.widgets.buttons.TkButton import TkButton
+from Util.tkUtilities import get_widget_dimensions
+from util.constants import BUTTON_HOVER_BG, MAX_DROPDOWN_TEXT_LENGTH
+from util.widgets.buttons.TkButton import TkButton
+from util.widgets.misc.TkWin import get_win
 
 
 def close_dropdown():
@@ -11,7 +12,7 @@ def close_dropdown():
     TkDropdown.INSTANCE = None
 
 
-def show_dropdown(master, widget, options, anchor='s'):
+def show_dropdown(widget, options, anchor='s'):
     if len(options) == 0:
         return
     if TkDropdown.INSTANCE is not None:
@@ -24,7 +25,7 @@ def show_dropdown(master, widget, options, anchor='s'):
     except TclError:
         bg = BUTTON_HOVER_BG
     widget.config(bg=bg)
-    TkDropdown.INSTANCE = TkDropdown(get_root(master), widget, options, anchor)
+    TkDropdown.INSTANCE = TkDropdown(get_win(), widget, options, anchor)
 
 
 class TkDropdown(Toplevel, object):

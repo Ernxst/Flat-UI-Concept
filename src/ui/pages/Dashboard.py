@@ -1,8 +1,8 @@
 from tkinter import Frame
 
 from Util.tkUtilities import get_widget_dimensions
-from src.ui.pages.MenuPage import MenuPage
-from src.util.constants import TITLE_BG, NAVBAR_BG, LIGHT_GREEN, RED, YELLOW, GREEN
+from ui.pages.MenuPage import MenuPage
+from util.constants import TITLE_BG, NAVBAR_BG, LIGHT_GREEN, RED, YELLOW, GREEN
 
 
 class Dashboard(MenuPage):
