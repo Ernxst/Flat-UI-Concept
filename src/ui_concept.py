@@ -14,7 +14,6 @@ TODO
  - Welcome Page Animation
  - Use FrameButton class in NotificationButton and ChatPreview
  - Stop image flickering during navbar animation
- - Fix padding in MonthDisplay.py
  """
 
 

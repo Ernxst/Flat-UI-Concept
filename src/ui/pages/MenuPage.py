@@ -35,7 +35,6 @@ class MenuPage(Frame):
 
     def hide(self):
         self.grid_forget()
-        self._content.disable_resize()
 
     @abstractmethod
     def _update_page_data(self):
@@ -43,7 +42,6 @@ class MenuPage(Frame):
 
     def show(self):
         super().grid(self._grid_kw)
-        self._content.enable_resize()
 
     def disable_resize(self):
         self._content.disable_resize()
@@ -63,9 +61,13 @@ class MenuPage(Frame):
         self._content.grid(row=1, column=0, sticky='nesw')
         self._show()
         self._default_size(get_widget_dimensions(self._content)[1])
+        self._content.bind('<Configure>', lambda event: self._resize(event.height))
 
     def _default_size(self, height):
         self._content.canvas.itemconfig(self._content.id_, height=height - 10)
+
+    def _resize(self, height):
+        self._default_size(height)
 
     @abstractmethod
     def _show(self):

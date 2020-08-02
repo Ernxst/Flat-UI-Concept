@@ -20,7 +20,7 @@ class MonthDisplay(Frame):
         self._day_frame = Frame(self, bg=self['bg'], highlightthickness=0)
         self._month_lbl = Label(self, bg=self['bg'], fg='black',
                                 text='{} {}'.format(self._month_name, MonthDisplay.CURRENT_YEAR),
-                                anchor='e', font=(APP_FONT, 16, 'bold'))
+                                font=(APP_FONT, 16, 'bold'))
         self._btns = {}
         self._active_month = IntVar()
         self._active_day = IntVar()
@@ -64,9 +64,8 @@ class MonthDisplay(Frame):
             self._btns[day_number] = CalendarButton(self._day_frame, day_number,
                                                     self._active_day, self._cmd)
             row, col = self._get_pos(row, col)
-            # fix padding
             self._btns[day_number].grid(row=row + 1, column=col, sticky='nesw',
-                                        padx=10, pady=10)
+                                        padx=5, pady=5)
             col += 1
 
     def _get_pos(self, row, col):

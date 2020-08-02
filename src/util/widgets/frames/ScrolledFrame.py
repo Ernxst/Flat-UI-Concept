@@ -9,8 +9,8 @@ class ScrolledFrame(ScrollableFrame):
                  activescrollbar_bg='light blue', troughcolor=GREY, highlightbackground='white'):
         if not bg:
             bg = parent['bg']
-        super().__init__(parent, bg, highlightthickness, scrollbar_bg,
-                         activescrollbar_bg, troughcolor, highlightbackground=highlightbackground)
+        super().__init__(parent, bg, highlightthickness, scrollbar_bg, activescrollbar_bg,
+                         troughcolor, highlightbackground=highlightbackground)
 
     def grid(self, scrollpady=10, scrollpadx=(5, 0), **kwargs):
         super(Frame, self).grid(**kwargs)
@@ -23,6 +23,5 @@ class ScrolledFrame(ScrollableFrame):
         self.canvas.unbind("<Configure>")
 
     def enable_resize(self):
-        self.interior_frame.bind('<Configure>', lambda event:
-                                 self.canvas.config(scrollregion=self.canvas.bbox("all")))
+        self.interior_frame.bind('<Configure>', self.frame_size)
         self.canvas.bind("<Configure>", self.configure_canvas)
