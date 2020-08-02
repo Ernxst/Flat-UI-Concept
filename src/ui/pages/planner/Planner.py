@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from Util.tkUtilities import error_msg, get_widget_dimensions
+from Util.tkUtilities import error_msg
 from src.ui.pages.MenuPage import MenuPage
 from ui.pages.planner.EventsDisplay import EventsDisplay
 from util.constants import MIN_YEAR, MAX_YEAR
@@ -9,7 +9,7 @@ from util.widgets.misc.tk_calendar.TkCalendar import TkCalendar
 
 class Planner(MenuPage):
     def __init__(self, master, model):
-        super().__init__(master, 'Planner', model=model)
+        super().__init__(master, 'Planner', 'View and manage your upcoming events.', model)
         self._calendar = TkCalendar(self._content.interior_frame, MIN_YEAR, MAX_YEAR,
                                     self.open_daily_view)
         self._events_frame = EventsDisplay(self._content.interior_frame, model)
@@ -25,14 +25,6 @@ class Planner(MenuPage):
     def _show(self):
         self._calendar.grid(row=0, column=0, sticky='nesw', padx=(20, 10), pady=20)
         self._events_frame.grid(row=0, column=1, sticky='nesw', padx=(10, 20), pady=20)
-        self._default_size()
-
-    def _default_size(self):
-        width, height = get_widget_dimensions(self)
-        title_frame = self._content.interior_frame.winfo_children()[0]
-        h = height - get_widget_dimensions(title_frame)[1] - 30
-        self._content.interior_frame.config(height=h)
-        self._content.canvas.config(height=h)
 
     def search(self, search_term):
         if self._search_calendar(search_term.lower()):

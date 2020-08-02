@@ -1,6 +1,5 @@
 from tkinter import Frame
 
-from Util.tkUtilities import get_widget_dimensions
 from src.ui.pages.MenuPage import MenuPage
 from src.util.constants import TITLE_BG, NAVBAR_BG, LIGHT_GREEN, RED, YELLOW, GREEN
 
@@ -24,9 +23,8 @@ class Dashboard(MenuPage):
     def _update_page_data(self):
         pass
 
-    def _default_size(self):
-        width, height = get_widget_dimensions(self)
-        h = height * 0.115
+    def _default_size(self, height):
+        h = height * 0.125
         for frame in self._content.interior_frame.winfo_children():
             grid = frame.grid_info()
             frame.config(height=self._row_weights[grid['row']] * h)
@@ -36,7 +34,6 @@ class Dashboard(MenuPage):
         self._show_updates()
         self._show_analytics()
         self._show_projects()
-        self._default_size()
 
     def _show_graphs(self):
         Frame(self._content.interior_frame, bg=RED, highlightthickness=0

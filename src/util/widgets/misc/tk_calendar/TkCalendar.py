@@ -66,11 +66,11 @@ class TkCalendar(Frame):
         self._toggle_btns(self._month_display.CURRENT_YEAR)
 
     def _toggle_btns(self, year):
-        if year == self._min_year:
+        if year == self._min_year and self._current_month == 1:
             self._left.config(state='disabled')
         else:
             self._left.config(state='normal')
-        if year == self._max_year:
+        if year == self._max_year and self._current_month == MONTHS_IN_YEAR:
             self._right.config(state='disabled')
         else:
             self._right.config(state='normal')

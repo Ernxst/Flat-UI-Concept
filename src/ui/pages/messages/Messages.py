@@ -2,7 +2,7 @@ from tkinter import Frame
 from tkinter.ttk import Separator
 
 from Labels.TkLabels import TkMessage
-from Util.tkUtilities import get_widget_dimensions, error_msg
+from Util.tkUtilities import error_msg
 from src.ui.pages.MenuPage import MenuPage
 from src.ui.pages.messages.ChatPreview import ChatPreview
 from src.util.constants import APP_FONT, APP_BG, PROFILE_BG, GREEN, LIGHT_GREEN, GREY
@@ -46,14 +46,6 @@ class Messages(MenuPage):
     def _show(self):
         self._show_chat()
         self._show_chat_preview()
-        self._default_size()
-
-    def _default_size(self):
-        width, height = get_widget_dimensions(self._content)
-        title_frame = self._content.interior_frame.winfo_children()[0]
-        h = height - get_widget_dimensions(title_frame)[1] - 30
-        self._chat_preview_frame.canvas.config(height=h)
-        self._chat_preview_frame.interior_frame.config(height=h)
 
     def _show_chat_preview(self):
         self._contact_frame.grid(row=0, column=0, sticky='nesw', padx=(20, 0), pady=(10, 20))

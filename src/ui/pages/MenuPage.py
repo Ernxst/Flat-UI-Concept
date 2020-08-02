@@ -2,6 +2,7 @@ from abc import abstractmethod
 from tkinter import Frame, Label
 
 from Labels.TkLabels import TkMessage
+from Util.tkUtilities import get_widget_dimensions
 from src.util.constants import APP_FONT, TITLE_BG
 from src.util.widgets.frames.ScrolledFrame import ScrolledFrame
 
@@ -61,6 +62,10 @@ class MenuPage(Frame):
         self._show_title()
         self._content.grid(row=1, column=0, sticky='nesw')
         self._show()
+        self._default_size(get_widget_dimensions(self._content)[1])
+
+    def _default_size(self, height):
+        self._content.canvas.itemconfig(self._content.id_, height=height - 10)
 
     @abstractmethod
     def _show(self):
