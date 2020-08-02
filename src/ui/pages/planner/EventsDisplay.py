@@ -71,10 +71,10 @@ class EventsDisplay(Frame):
 
     def search(self, search_term):
         for (id_, data) in self._upcoming_events.items():
-            month, day, *args = data
+            month, day, year, *args = data
             if any(search_term.lower() in string for string in [str(x).lower() for x in data]):
-                return id_, month, day
-        return None, None, None
+                return id_, month, day, year
+        return None, None, None, None
 
     def select_event(self, id_):
         [btn.disable() for btn in self._event_btns.values()]

@@ -37,10 +37,10 @@ class Planner(MenuPage):
     def search(self, search_term):
         if self._search_calendar(search_term.lower()):
             return
-        event_id, month, day = self._events_frame.search(search_term)
+        event_id, month, day, year = self._events_frame.search(search_term)
         if event_id:
             self._events_frame.select_event(event_id)
-            self._calendar.select_day(datetime.strptime(month, "%b").month, day)
+            self._calendar.select_day(datetime.strptime(month, "%b").month, day, year)
         else:
             error_msg('Not found', 'Could not find "{}" on this page. '
                                    'Please try searching another page.'.format(search_term))

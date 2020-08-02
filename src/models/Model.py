@@ -53,8 +53,8 @@ class Model:
         Model.EVENTS = {1: ('Jan', 26, 2020, 'TEST EVENT', 'TEST' * 20, '16:00', 'London'),
                         2: ('Feb', 26, 2020, 'TEST EVENT', 'TEST' * 20, '16:00', 'London'),
                         3: ('Mar', 26, 2020, 'TEST EVENT', 'TEST' * 20, '16:00', 'London'),
-                        4: ('Apr', 26, 2021, 'TEST EVENT', 'TEST' * 20, '16:00', 'London'),
-                        5: ('Sep', 26, 2021, 'TEST EVENT', 'TEST' * 20, '16:00', 'London'),
+                        4: ('Dec', 26, 2021, 'TEST EVENT', 'TEST' * 20, '16:00', 'London'),
+                        5: ('Mar', 26, 2022, 'TEST EVENT', 'TEST' * 20, '16:00', 'London'),
                         }  # id: (month, day, year, title, description, time, location)
         Model.CHATS = {'Ernxst': ('TEST USER', PROFILE_ICON, 'TEST' * 20, '30 Jul'),
                        'TEST USER 1': ('TEST USER', PROFILE_ICON, 'MSG' * 20, '30 Jul'),
@@ -62,9 +62,10 @@ class Model:
                        'TEST USER 3': ('TEST USER', PROFILE_ICON, '4' * 20, '30 Jul')}
 
     def logout(self):
-        Model.USERNAME = ''
-        Model.NOTIFICATIONS = {}
-        Model.EVENTS = {}
+        if Model.USERNAME != '':
+            Model.USERNAME = ''
+            Model.NOTIFICATIONS = {}
+            Model.EVENTS = {}
 
     def get_events(self):
         return Model.EVENTS

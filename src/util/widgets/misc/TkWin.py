@@ -9,7 +9,17 @@ def shutdown():
     get_model().logout()
 
 
+def get_win():
+    return TkWin.INSTANCE
+
+
+def open_popup(popup, *args, **kwargs):
+    return get_win().open_popup(popup, *args, **kwargs)
+
+
 class TkWin(Tk):
+    INSTANCE = None
+
     def __init__(self, title, bg, icon):
         super().__init__(className=title, baseName=title)
         self.win_name = title
@@ -18,6 +28,7 @@ class TkWin(Tk):
         self.set_appearance(bg, icon, max_width, max_height, w, h)
         self._popup = None
         self.bind_events()
+        TkWin.INSTANCE = self
 
     def set_appearance(self, bg, icon, max_width, max_height, width, height):
         self.title(self.win_name)
@@ -68,6 +79,6 @@ class TkWin(Tk):
 
     def open_popup(self, popup, *args, **kwargs):
         if not self._popup:
-            self._popup = popup(*args, **kwargs)
+            self._popup = popup(self, *args, **kwargs)
         else:
             self._popup.lift()

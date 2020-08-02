@@ -85,9 +85,11 @@ class TkCalendar(Frame):
         [x.disable() for x in self._indicators]
         self._indicators[self._current_month - 1].enable()
 
-    def select_day(self, month_number, day):
+    def select_day(self, month_number, day, year=None):
         self.switch_month(month_number)
-        self._month_display.select_day(day)
+        year = year if year else self._month_display.CURRENT_YEAR
+        self._month_display.select_day(day, year)
+        self._toggle_btns(year)
 
     def get_active_day(self):
         return self._month_display.get_active_day()

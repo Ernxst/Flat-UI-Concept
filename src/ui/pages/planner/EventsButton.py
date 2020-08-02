@@ -14,7 +14,7 @@ class EventsButton(FrameButton):
                                     justify='left', bg=self['bg'])
         self._msg = TkMessage(self, text=self._get_msg(description),
                               font=(APP_FONT, 10), anchor='nw', justify='left')
-        self._month_lbl = TkMessage(self, text=month + '\n' + str(year), font=(APP_FONT, 10),
+        self._month_lbl = TkMessage(self, text=month[:3] + '\n' + str(year), font=(APP_FONT, 10),
                                     anchor='n')
         self._day_lbl = Label(self, text=day, font=(APP_FONT, 14, 'bold'), fg='white',
                               bg=self['bg'], anchor='s')

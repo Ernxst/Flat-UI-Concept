@@ -113,7 +113,9 @@ class MonthDisplay(Frame):
             btn.destroy()
             self._btns.pop(i)
 
-    def select_day(self, day_number):
+    def select_day(self, day_number, year=CURRENT_YEAR):
+        MonthDisplay.CURRENT_YEAR = year
+        self._month_lbl.config(text='{} {}'.format(self._month_name, MonthDisplay.CURRENT_YEAR))
         self.disable_buttons()
         self._btns[day_number].enable()
 
