@@ -63,6 +63,5 @@ class Notifications(MenuPage):
             if any(search_term.lower() in string for string in [x.lower() for x in data]):
                 self.select_notification(id_)
                 return
-
         error_msg('Not found', 'Could not find "{}" on this page. '
                                'Please try searching another page.'.format(search_term))

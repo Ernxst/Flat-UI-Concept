@@ -61,6 +61,10 @@ class MenuPage(Frame):
         self._show_title()
         self._content.grid(row=1, column=0, sticky='nesw')
         self._show()
+        self._set_size()
+
+    def _set_size(self):
+        self.update_idletasks()
         self._default_size(get_widget_dimensions(self._content)[1])
         self._content.bind('<Configure>', lambda event: self._resize(event.height))
 

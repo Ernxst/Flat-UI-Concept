@@ -7,14 +7,14 @@ from util.ImageUtilities import open_image, get_image, resize_image, get_image_s
 
 
 class ImageLabel(Label):
-    def __init__(self, master, image_location, ratio=0.25, bg=None):
+    def __init__(self, master, image_location, ratio=None, bg=None):
         bg = bg if bg else master['bg']
         super().__init__(master, bg=bg, relief='flat',
                          highlightthickness=0, bd=0)
         self._original_image = open_image(image_location)
         self._image = self._original_image
         self._lbl_img = None
-        self._ratio = ratio
+        self._ratio = ratio if ratio else 0.75
 
     def grid_forget(self):
         self.unbind('<Configure>')
@@ -40,5 +40,8 @@ class ImageLabel(Label):
             self.config(image=self._lbl_img)
 
     def _get_size(self, width, height):
-        size = int(max(width, height) * self._ratio)
+        min_size, max_size = min(width, height), max(width, height)
+        size = int(max_size * self._ratio)
+        if size > min_size:
+            size = int(max(max_size / 2, min_size) * self._ratio)
         return size, size

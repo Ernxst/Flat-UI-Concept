@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from tkinter import Frame
+from tkinter import Frame, TclError
 
 from util.constants import TITLE_BG, BUTTON_HOVER_BG, GREY
 
@@ -67,10 +67,16 @@ class FrameButton(Frame):
         self.config(highlightbackground=self._active_border,
                     bg=self._active_bg, highlightcolor=self._active_border)
         for widget in self._children:
-            widget.config(bg=self._active_bg, fg=self._active_fg)
+            try:
+                widget.config(bg=self._active_bg, fg=self._active_fg)
+            except TclError:
+                widget.config(bg=self._active_bg)
 
     def disable(self):
         self._enabled = False
         self.config(highlightbackground=self._bg, bg=self._bg)
         for widget in self._children:
-            widget.config(bg=self._bg, fg=self._fg)
+            try:
+                widget.config(bg=self._bg, fg=self._fg)
+            except TclError:
+                widget.config(bg=self._bg)

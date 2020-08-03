@@ -9,7 +9,7 @@ class ChatPreview(FrameButton):
         super().__init__(master, cmd=cmd, bg=master['bg'], activeborder=GREY)
         self._name, self._icon, self._cmd = name, icon, cmd
         self._last_msg, self._date_sent = last_msg, date_sent
-        self._icon_label = ImageLabel(self, icon, 0.45)
+        self._icon_label = ImageLabel(self, icon)
         self._name_lbl = TkMessage(self, text=name, font=(APP_FONT, 12, 'bold'),
                                    anchor='w', justify='left')
         self._msg = TkMessage(self, text=self._get_msg(last_msg), font=(APP_FONT, 10),

@@ -1,16 +1,23 @@
-from util.constants import MENU_PAGE_BG
+from util.constants import MENU_PAGE_BG, BUTTON_HOVER_BG
 from util.widgets.buttons.TkButton import TkButton
 from util.widgets.labels.ImageLabel import ImageLabel
 from util.widgets.buttons.FrameButton import FrameButton
 
 
 class NavButton(FrameButton):
-    def __init__(self, master, text, icon, command):
-        super().__init__(master, cmd=command, bg=master['bg'],
-                         activebackground=MENU_PAGE_BG, activeborder=MENU_PAGE_BG)
+    def __init__(self, master, text, icon, command, fg='white', activeforeground='black',
+                 activebackground=MENU_PAGE_BG, activeborder=MENU_PAGE_BG,
+                 hoverforeground='black', highlightborder='white',
+                 hoverbackground=BUTTON_HOVER_BG, ratio=0.25):
+        super().__init__(master, cmd=command, bg=master['bg'], fg=fg,
+                         activeforeground=activeforeground, highlightborder=highlightborder,
+                         activebackground=activebackground, activeborder=activeborder,
+                         hoverbackground=hoverbackground)
         self._grid_kw = {}
-        self._icon_label = ImageLabel(self, icon)
+        self._icon_label = ImageLabel(self, icon, ratio)
         self._button = TkButton(self, text=text, command=command, bg=self['bg'],
+                                activebackground=hoverbackground, fg=fg,
+                                activeforeground=hoverforeground,
                                 anchor='w', disabledforeground=self._active_fg)
 
     def _config_grid(self):

@@ -6,7 +6,7 @@ from ui.main_menu.Navbar import Navbar
 from ui.main_menu.TopRibbon import TopRibbon
 from ui.pages.Dashboard import Dashboard
 from ui.pages.Inbox import Inbox
-from ui.pages.Options import Options
+from ui.pages.options.Options import Options
 from ui.pages.messages.Messages import Messages
 from ui.pages.notifications.Notifications import Notifications
 from util.constants import MIN_COL, MENU_PAGE_BG, APP_TITLE, APP_FONT, TITLE_BG
@@ -24,15 +24,15 @@ class MenuView(Frame):
         self._menu_options = {}
         self._menu_pages = {}
         self._menu_texts = []
-        self._btns = {}
         self._index = 0
         self._length = 1
         self._navbar = None
         self._active_page = None
         self._notif_index = 3
+        self._options_index = 5
         self._model = model
         self._display_frame = Frame(self, bg=MENU_PAGE_BG)
-        self._ribbon = TopRibbon(self, icon, self.logout, self.open_notification, self.search)
+        self._ribbon = None
 
     def _setup_ui(self):
         self._setup_options()
@@ -46,7 +46,8 @@ class MenuView(Frame):
                             'MESSAGES': Messages(self._display_frame, self._model),
                             'NOTIFICATIONS': Notifications(self._display_frame, self._model),
                             'PLANNER':  Planner(self._display_frame, self._model),
-                            'OPTIONS':  Options(self._display_frame, self._model)}
+                            'OPTIONS':  Options(self._display_frame, self._name,
+                                                self._icon, self._model, self.logout)}
 
     def _set_cmds(self):
         self._menu_options = {name: lambda p=name: self._change_page(p)
@@ -64,13 +65,28 @@ class MenuView(Frame):
     def grid(self, **kwargs):
         super().grid(**kwargs)
         self._setup_ui()
+        self._show()
+        self._bind_events()
+
+    def _show(self):
+        self._show_title()
+        self._show_navbar()
+        self._show_ribbon()
+        self._show_pages()
+
+    def _show_title(self):
         TkMessage(self, text=APP_TITLE, font=(APP_FONT, 10, 'bold'), bg=TITLE_BG,
                   padx=5, pady=5).grid(row=0, column=0, sticky='nesw')
+
+    def _show_navbar(self):
         self._navbar = Navbar(self, self._menu_options, self._name, self._icon)
         self._navbar.grid(row=1, column=0, sticky='nesw', rowspan=2)
+
+    def _show_ribbon(self):
+        self._ribbon = TopRibbon(self, self._icon, self.logout, self.open_options,
+                                 self.open_notification, self.open_profile,
+                                 self.oepn_account, self.search)
         self._ribbon.grid(row=0, column=1, sticky='nesw')
-        self._show_pages()
-        self._bind_events()
 
     def _show_pages(self):
         popup = LoadingPopup(self.master, 'Preparing Workspace', 'Preparing Workspace')
@@ -85,6 +101,7 @@ class MenuView(Frame):
         pages[0].grid(row=0, column=0, sticky='nesw')
         popup.step('Preparing ' + self._menu_texts[0].lower(), increment)
         for i, page in enumerate(pages[1:]):
+            self.master.update_idletasks()
             page.lower()
             page.grid(row=0, column=0, sticky='nesw')
             popup.step('Preparing ' + self._menu_texts[i].lower(), increment)
@@ -157,6 +174,18 @@ class MenuView(Frame):
         self._index = self._notif_index
         self._move(0)
         self._active_page.select_notification(notif_id)
+
+    def open_options(self):
+        self._index = self._options_index
+        self._move(0)
+
+    def open_profile(self):
+        self.open_options()
+        self._active_page.select_option('Profile')
+
+    def oepn_account(self):
+        self.open_options()
+        self._active_page.select_option('Account')
 
     def search(self, term):
         if any(term.lower().startswith(x.lower() + ':') for x in self._menu_texts):

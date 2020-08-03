@@ -6,7 +6,7 @@ from util.widgets.buttons.TkButton import TkButton
 
 
 class ImageButton(TkButton):
-    def __init__(self, master, image_location, ratio=0.25, command=None):
+    def __init__(self, master, image_location, ratio=0.75, command=None):
         super().__init__(master, bg=master['bg'], command=command)
         self._original_image = open_image(image_location)
         self._image = self._original_image
@@ -35,5 +35,8 @@ class ImageButton(TkButton):
             self.config(image=self._lbl_img)
 
     def _get_size(self, width, height):
-        size = int(max(width, height) * self._ratio)
+        min_size, max_size = min(width, height), max(width, height)
+        size = int(max_size * self._ratio)
+        if size > min_size:
+            size = int(min_size * self._ratio)
         return size, size

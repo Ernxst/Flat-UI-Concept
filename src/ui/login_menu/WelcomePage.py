@@ -19,8 +19,9 @@ class WelcomePage(Frame):
         self._model = model
 
     def _config_grid(self):
-        self.rowconfigure(0, weight=1)
-        self.columnconfigure(0, weight=1)
+        self.rowconfigure((0, 2), weight=1, uniform='rows')
+        self.rowconfigure(1, weight=3, uniform='rows')
+        self.columnconfigure((0, 1, 2), weight=1, uniform='cols')
         self._welcome_frame.columnconfigure((0, 1), weight=1, uniform='cols')
         self._welcome_frame.rowconfigure(1, weight=2, uniform='rows')
         self._welcome_frame.rowconfigure(2, weight=3, uniform='rows')
@@ -35,11 +36,15 @@ class WelcomePage(Frame):
         self._show_title()
         self._show_buttons()
         self._show_notifications()
+        Frame(self, bg=self['bg'], highlightthickness=0).grid(row=0, column=0, sticky='nesw',
+                                                              columnspan=3)
+        Frame(self, bg=self['bg'], highlightthickness=0).grid(row=2, column=0, sticky='nesw',
+                                                              columnspan=3)
         ImageLabel(self._welcome_frame, self._icon, 0.35
-                   ).grid(row=1, column=0, sticky='nesw', padx=20, pady=(20, 0), columnspan=2)
+                   ).grid(row=1, column=0, sticky='nesw', padx=20, columnspan=2)
 
     def _show_title(self):
-        self._welcome_frame.grid(row=0, column=0, sticky='', ipadx=20)
+        self._welcome_frame.grid(row=1, column=1, sticky='nesw', ipadx=20, ipady=20)
         TkMessage(self._welcome_frame, text='Welcome back, ' + self._name,
                   justify='center', font=(APP_FONT, 24, 'bold')
                   ).grid(row=0, column=0, columnspan=2, pady=(20, 0), sticky='nesw')
@@ -65,6 +70,7 @@ class WelcomePage(Frame):
             NotificationButton(notif_frame.interior_frame, id_, name, icon, title, msg, date,
                                bg=NAVBAR_BG, clear_cmd=self._update_label
                                ).grid(row=row, column=0, sticky='nesw', pady=pady, padx=(10, 0))
+            self.master.update_idletasks()
 
     def _get_message(self, length):
         text = 'You have {} new notification'.format(length)
@@ -83,7 +89,7 @@ class WelcomePage(Frame):
         outer_frame = Frame(self._welcome_frame, bg=self._welcome_frame['bg'], highlightthickness=0)
         outer_frame.columnconfigure(0, weight=1)
         outer_frame.rowconfigure(1, weight=1)
-        outer_frame.grid(row=2, column=0, sticky='nesw', padx=20, pady=20, columnspan=2)
+        outer_frame.grid(row=2, column=0, sticky='nesw', padx=20, pady=(0, 20), columnspan=2)
         frame = ScrolledFrame(outer_frame, highlightthickness=1)
         frame.interior_frame.columnconfigure(0, weight=1, uniform='notifcols')
         frame.grid(row=1, column=0, sticky='nesw', scrollpady=0, scrollpadx=(10, 0))

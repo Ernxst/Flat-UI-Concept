@@ -1,6 +1,5 @@
 from tkinter import Frame
 
-from Buttons.TkButtons import TkButton
 from Labels.TkLabels import TkMessage
 from Util.tkUtilities import get_widget_dimensions
 from ui.main_menu.NavButton import NavButton
@@ -8,11 +7,12 @@ from ui.main_menu.ProfileTab import ProfileTab
 from util.ImageUtilities import get_icon_location
 from util.constants import LEFT_ARROW, RIGHT_ARROW, NAVBAR_BG, MAX_COL, MIN_COL, APP_FONT, PROFILE_BG, MAX_NAV_ROWS, \
     COPYRIGHT, NAV_DELAY
+from util.widgets.buttons.TkButton import TkButton
 
 
 class Navbar(Frame):
-    def __init__(self, master, options, name, icon):
-        super().__init__(master, bg=NAVBAR_BG, highlightthickness=0, bd=0)
+    def __init__(self, master, options, name, icon, bg=NAVBAR_BG):
+        super().__init__(master, bg=bg, highlightthickness=0, bd=0)
         self._name = name
         self._icon = icon
         self._menu_options = options
@@ -30,7 +30,7 @@ class Navbar(Frame):
 
     def _config_grid(self):
         self.columnconfigure(0, weight=1)
-        self.rowconfigure(0, weight=4, uniform='rows')
+        self.rowconfigure(0, weight=2, uniform='rows')
         rows = range(1, MAX_NAV_ROWS + 2)
         self.rowconfigure(tuple(rows), weight=1, uniform='nav')
 
@@ -41,6 +41,7 @@ class Navbar(Frame):
 
     def _show(self):
         self._show_buttons()
+        self._toggle_btn.grid(column=0, sticky='e')
         self._show_labels()
         self._show_profile()
 
@@ -55,15 +56,17 @@ class Navbar(Frame):
             self._btns[text].grid(row=row + 1, column=0, sticky='nesw')
         Frame(self, bg=self['bg'], highlightthickness=0
               ).grid(column=0, sticky='nesw', rowspan=abs(MAX_NAV_ROWS - len(self._menu_options)))
-        self._toggle_btn.grid(column=0, sticky='e')
 
     def _show_labels(self):
         width, height = get_widget_dimensions(self)
         self._copyright_lbl.config(width=width - 10)
         self._copyright_lbl.grid(sticky='nesw')
 
+    def disable_buttons(self):
+        [btn.disable() for btn in self._btns.values()]
+
     def select(self, text):
-        [x.disable() for x in self._btns.values()]
+        self.disable_buttons()
         self._btns[text].enable()
         cmd = self._menu_options[text]
         if cmd is not None:

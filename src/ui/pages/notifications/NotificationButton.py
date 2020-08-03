@@ -15,7 +15,7 @@ class NotificationButton(FrameButton):
         self._clear_cmd = clear_cmd
         self._cmd = cmd
 
-        self._icon_label = ImageLabel(self, icon, 0.45)
+        self._icon_label = ImageLabel(self, icon)
         self._name_lbl = TkMessage(self, text=name, font=(APP_FONT, 10, 'bold'), anchor='e',
                                    justify='left',  bg=self['bg'])
         self._title_lbl = TkMessage(self, text=title, font=(APP_FONT, 12, 'bold'), anchor='w',

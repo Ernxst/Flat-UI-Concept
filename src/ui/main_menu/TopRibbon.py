@@ -10,7 +10,8 @@ from util.widgets.input_widgets.TkDropdown import show_dropdown
 
 
 class TopRibbon(Frame):
-    def __init__(self, master, icon, logout, open_notification, search):
+    def __init__(self, master, icon, logout, open_options, open_notification,
+                 open_profile, open_account, search):
         super().__init__(master, bg=RIBBON_BG, highlightthickness=0)
         self._entry = TransparentEntry(self, default_text='Search anything ... prefix the search term'
                                                           ' with the page name '
@@ -19,15 +20,16 @@ class TopRibbon(Frame):
                                        separator_bg='black',
                                        justify='left', insertbackground='black')
         self._control_frame = Frame(self, bg=self['bg'], highlightthickness=0)
-        self._icon = ImageButton(self._control_frame, PROFILE_BLACK_ICON, ratio=0.6)
+        self._icon = ImageButton(self._control_frame, PROFILE_BLACK_ICON, ratio=1)
         self._icon.config(command=lambda: show_dropdown(self._icon,
-                                                        {'My Profile': lambda: print('hi'),
-                                                         'My Account': lambda: print('hi'),
+                                                        {'My Profile': open_profile,
+                                                         'My Account': open_account,
                                                          'Sign Out': logout}))
         self._date_label = TkMessage(self, bg=NAVBAR_BG, font=(APP_FONT, 10, 'bold'))
         self._date_id = None
         self._open_notification = open_notification
         self._search = search
+        self._open_options = open_options
 
     def _config_grid(self):
         self.columnconfigure(0, weight=1, uniform='ribbon')
@@ -58,7 +60,7 @@ class TopRibbon(Frame):
         self._control_frame.grid(row=0, column=2, sticky='nesw', padx=(10, 20))
         self._control_frame.rowconfigure(0, weight=1)
         self._control_frame.columnconfigure((0, 1, 2), weight=1, uniform='rib')
-        ImageButton(self._control_frame, BUTTON_ICON, 0.35,
+        ImageButton(self._control_frame, BUTTON_ICON, 1, command=self._open_options
                     ).grid(row=0, column=0, sticky='nesw', padx=(5, 0))
         NotificationDisplay(self._control_frame, self._open_notification
                             ).grid(row=0, column=1, sticky='nesw', padx=(5, 0))

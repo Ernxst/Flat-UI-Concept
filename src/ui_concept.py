@@ -13,7 +13,6 @@ TODO
  - Splash Screen Animation
  - Welcome Page Animation
  - MenuPage width changes during navbar minimise and maximise on right edge
- - Recursion error during window resize - consider allow resize only via settings
  """
 
 
