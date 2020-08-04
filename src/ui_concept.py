@@ -13,7 +13,6 @@ from util.widgets.misc.TkWin import TkWin
 """
 TODO
  - PATH should be found automatically
- - CREATE A LAZY LOADING SCROLLED FRAME
  - Splash Screen Animation
  - Welcome Page Animation
  - MenuPage width changes during navbar minimise and maximise on right edge
