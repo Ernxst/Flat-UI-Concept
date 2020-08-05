@@ -1,12 +1,12 @@
 from tkinter import Frame
 
 from Frames.ScrollableFrame import ScrollableFrame
-from util.constants import GREY, NAVBAR_BG
+from util.constants import Colours
 
 
 class ScrolledFrame(ScrollableFrame):
-    def __init__(self, parent, bg=None, highlightthickness=0, scrollbar_bg=NAVBAR_BG,
-                 activescrollbar_bg='light blue', troughcolor=GREY, highlightbackground='white'):
+    def __init__(self, parent, bg=None, highlightthickness=0, scrollbar_bg=Colours.NAVBAR_BG,
+                 activescrollbar_bg='light blue', troughcolor=Colours.GREY, highlightbackground='white'):
         if not bg:
             bg = parent['bg']
         super().__init__(parent, bg, highlightthickness, scrollbar_bg, activescrollbar_bg,

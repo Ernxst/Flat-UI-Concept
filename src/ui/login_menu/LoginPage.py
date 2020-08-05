@@ -6,8 +6,7 @@ from Util.tkUtilities import error_msg
 from models.Model import get_model
 from ui.login_menu.WelcomePage import WelcomePage
 from ui.main_menu.MenuView import MenuView
-from util.constants import BULLET, PROFILE_BG, APP_FONT, NAVBAR_BG, LIGHT_GREEN, PASSWORD_ENTRY_ICON, \
-    USERNAME_ENTRY_ICON
+from util.constants import BULLET, Colours, USERNAME_ENTRY_ICON, PASSWORD_ENTRY_ICON, APP_FONT
 from util.widgets.buttons.TkButton import TkButton
 from util.widgets.entries.ImageEntry import ImageEntry
 
@@ -18,9 +17,9 @@ class LoginPage(Frame):
         self._show_password = BooleanVar()
         self._show_password.set(False)
         self._show_password.trace_add('write', self._toggle_password)
-        self._canvas = Canvas(self, bg=NAVBAR_BG, highlightthickness=0)
+        self._canvas = Canvas(self, bg=Colours.NAVBAR_BG, highlightthickness=0)
         self._login_frame = Frame(self, bg=self._canvas['bg'], highlightthickness=1,
-                                  highlightbackground=PROFILE_BG)
+                                  highlightbackground=Colours.PROFILE_BG)
         self._username_entry = ImageEntry(self._login_frame, USERNAME_ENTRY_ICON,
                                           default_text='Enter username here...',
                                           has_label=False, justify='left')
@@ -76,7 +75,7 @@ class LoginPage(Frame):
 
     def _show_buttons(self):
         self._password_btn.grid(row=4, column=0, sticky='nsw', pady=(0, 20), padx=20)
-        TkButton(self._login_frame, text='Login', command=self._check_login, bg=LIGHT_GREEN,
+        TkButton(self._login_frame, text='Login', command=self._check_login, bg=Colours.LIGHT_GREEN,
                  activebackground='dark green'
                  ).grid(row=4, column=1, sticky='nesw', padx=20, pady=(0, 20))
 

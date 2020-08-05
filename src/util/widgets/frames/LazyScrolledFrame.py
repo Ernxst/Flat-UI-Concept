@@ -1,13 +1,13 @@
 from tkinter import Canvas
 
 from Util.tkUtilities import get_widget_dimensions
-from util.constants import NAVBAR_BG, GREY
+from util.constants import Colours
 from util.widgets.frames.ScrolledFrame import ScrolledFrame
 
 
 class LazyScrolledFrame(ScrolledFrame):
-    def __init__(self, master, bg=None, highlightthickness=0, scrollbar_bg=NAVBAR_BG,
-                 activescrollbar_bg='light blue', troughcolor=GREY, highlightbackground='white'):
+    def __init__(self, master, bg=None, highlightthickness=0, scrollbar_bg=Colours.NAVBAR_BG,
+                 activescrollbar_bg='light blue', troughcolor=Colours.GREY, highlightbackground='white'):
         super().__init__(master, bg, highlightthickness, scrollbar_bg, activescrollbar_bg,
                          troughcolor, highlightbackground)
         self._widgets, self._shown_widgets = {}, []
@@ -39,19 +39,22 @@ class LazyScrolledFrame(ScrolledFrame):
             self._show(widgets, self._height)
 
     def add(self, widget, **grid_kw):
+        """ Add widget to drawing list """
         self._widgets[widget] = grid_kw
 
     def _show(self, widgets, max_height):
         if len(widgets) > 0:
             max_row = max([self._widgets[x]['row'] for x in widgets])
-            self._widget_loop(max_row, max_height, self._add_to_drawing_list)
+            self._widget_loop(max_row, max_height, self._draw_widget)
             self._current_row = max([self._widgets[x]['row'] for x in self._shown_widgets]) + 1
 
-    def _add_to_drawing_list(self, widget, *args):
+    def _draw_widget(self, widget, *args):
+        self.update_idletasks()
         widget.grid(**self._widgets[widget])
         self._shown_widgets.append(widget)
 
     def _max_widgets(self, max_height):
+        """ Get the next batch of widgets to draw """
         return self._widget_loop(self._get_max_row(), max_height, self._append)
 
     def _append(self, widget, widgets):
@@ -60,6 +63,7 @@ class LazyScrolledFrame(ScrolledFrame):
         return widgets
 
     def _widget_loop(self, max_row, max_height, function):
+        """ Reduce repetition """
         total_height, widgets = 0, []
         for i in range(self._current_row, max_row + 1):
             row_height, widgets_in_row = self._get_row_height(i)
@@ -74,10 +78,12 @@ class LazyScrolledFrame(ScrolledFrame):
         return max([y['row'] for y in self._widgets.values()])
 
     def _get_row_height(self, row):
+        """ Return the tallest widget in a given row """
         widgets_in_row = [x for x, y in self._widgets.items() if y['row'] == row]
         return max([self._get_widget_height(w) for w in widgets_in_row]), widgets_in_row
 
     def _get_heights(self):
+        """ Get total height of widgets """
         return sum([self._get_row_height(x)[0] for x in range(self._get_max_row() + 1)])
 
     def _on_scroll(self):
@@ -93,9 +99,11 @@ class LazyScrolledFrame(ScrolledFrame):
         return all(x.winfo_ismapped() for x in self._widgets)
 
     def _scroll_distance(self):
+        """ Convert scrollbar offset to pixels """
         return self.vsb.get()[1] * self._height
 
     def _disable_scroll(self):
+        """ Disable scrolling while displaying a batch of widgets """
         self.vsb.config(command=None)
 
     def _enable_scroll(self):

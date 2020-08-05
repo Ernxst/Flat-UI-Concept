@@ -10,7 +10,7 @@ from ui.pages.messages.Messages import Messages
 from ui.pages.notifications.Notifications import Notifications
 from ui.pages.options.Options import Options
 from ui.pages.planner.Planner import Planner
-from util.constants import MIN_COL, MENU_PAGE_BG, APP_TITLE, APP_FONT, TITLE_BG
+from util.constants import MIN_COL, Colours, APP_TITLE, APP_FONT
 from util.widgets.input_widgets.TkDropdown import close_dropdown
 from util.widgets.misc.TkWin import get_win
 from util.widgets.popups.LoadingPopup import LoadingPopup
@@ -31,7 +31,7 @@ class MenuView(Frame):
         self._notif_index = 3
         self._options_index = 5
         self._model = model
-        self._display_frame = Frame(self, bg=MENU_PAGE_BG)
+        self._display_frame = Frame(self, bg=Colours.MENU_PAGE_BG)
         self._ribbon = None
 
     def _setup_ui(self):
@@ -75,7 +75,7 @@ class MenuView(Frame):
         self._show_pages()
 
     def _show_title(self):
-        TkMessage(self, text=APP_TITLE, font=(APP_FONT, 10, 'bold'), bg=TITLE_BG,
+        TkMessage(self, text=APP_TITLE, font=(APP_FONT, 10, 'bold'), bg=Colours.TITLE_BG,
                   padx=5, pady=5).grid(row=0, column=0, sticky='nesw')
 
     def _show_navbar(self):

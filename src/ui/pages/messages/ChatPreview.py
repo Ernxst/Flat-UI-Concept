@@ -1,12 +1,12 @@
 from Labels.TkLabels import TkMessage
-from util.constants import APP_FONT, MAX_MSG_PREVIEW_LENGTH, GREY, BLANK
+from util.constants import APP_FONT, MAX_MSG_PREVIEW_LENGTH, Colours, BLANK
 from util.widgets.buttons.FrameButton import FrameButton
 from util.widgets.labels.ImageLabel import ImageLabel
 
 
 class ChatPreview(FrameButton):
     def __init__(self, master, name, icon, last_msg, date_sent, cmd):
-        super().__init__(master, cmd=cmd, bg=master['bg'], activeborder=GREY)
+        super().__init__(master, cmd=cmd, bg=master['bg'], activeborder=Colours.GREY)
         self._name, self._icon, self._cmd = name, icon, cmd
         self._last_msg, self._date_sent = last_msg, date_sent
         self._icon_label = ImageLabel(self, icon)

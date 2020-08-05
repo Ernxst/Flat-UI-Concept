@@ -3,16 +3,16 @@ from tkinter import Label
 from Popups.Popup import Popup
 from Util.tkUtilities import centralise
 from misc.TkLoadbar import TkLoadbar
-from util.constants import APP_FONT, BUTTON_HOVER_BG, TITLE_BG
+from util.constants import APP_FONT, Colours
 
 
 class LoadingPopup(Popup):
-    def __init__(self, parent, title, message, bg=TITLE_BG):
+    def __init__(self, parent, title, message, bg=Colours.TITLE_BG):
         super().__init__(parent, title, bg)
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
         self.loadbar = TkLoadbar(self, message=message, mode='determinate',
-                                 font=(APP_FONT, 28, 'bold'), loadbar_bg=BUTTON_HOVER_BG)
+                                 font=(APP_FONT, 28, 'bold'), loadbar_bg=Colours.BUTTON_HOVER_BG)
         self.lbl = Label(self, fg='white', bg=self['bg'], font=(APP_FONT, 12, 'bold'),
                          anchor='s')
         self.wm_attributes('-type', 'splash')

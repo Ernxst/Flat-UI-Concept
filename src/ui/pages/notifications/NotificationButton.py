@@ -1,6 +1,6 @@
 from Labels.TkLabels import TkMessage
 from models.Model import get_model
-from util.constants import APP_FONT, RED, DARK_RED
+from util.constants import APP_FONT, Colours
 from util.widgets.buttons.FrameButton import FrameButton
 from util.widgets.buttons.TkButton import TkButton
 from util.widgets.labels.ImageLabel import ImageLabel
@@ -39,7 +39,7 @@ class NotificationButton(FrameButton):
         self._date_lbl.grid(row=2, column=1, columnspan=2, sticky='nesw')
         self._icon_label.grid(row=0, column=0, sticky='nesw', rowspan=3, padx=10)
         TkButton(self, text='X', font=(APP_FONT, 10, 'bold'), command=self._clear_notification,
-                 bg=RED, activebackground=DARK_RED).grid(row=0, column=3, rowspan=3, sticky='nesw')
+                 bg=Colours.RED, activebackground=Colours.DARK_RED).grid(row=0, column=3, rowspan=3, sticky='nesw')
 
     def _clear_notification(self):
         get_model().clear_notification(self._id_)

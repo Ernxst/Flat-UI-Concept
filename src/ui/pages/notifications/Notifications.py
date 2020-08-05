@@ -1,7 +1,7 @@
 from Util.tkUtilities import error_msg
 from ui.pages.MenuPage import MenuPage
 from ui.pages.notifications.NotificationButton import NotificationButton
-from util.constants import NAVBAR_BG
+from util.constants import Colours
 
 
 class Notifications(MenuPage):
@@ -52,7 +52,7 @@ class Notifications(MenuPage):
                                                        name, icon, title, msg, date,
                                                        clear_cmd=lambda notif_id=id_:
                                                        self.clear_notification(notif_id),
-                                                       bg=NAVBAR_BG)
+                                                       bg=Colours.NAVBAR_BG)
             self._content.add(self._notif_btns[id_], row=row, column=0, sticky='nesw', padx=20, pady=pady)
 
     def _default_size(self, height):

@@ -2,21 +2,25 @@ from tkinter import Frame, Label
 
 from Labels.TkLabels import TkMessage
 from ui.pages.planner.EventsButton import EventsButton
-from util.constants import GREY, APP_FONT, LIGHT_GREEN, GREEN
+from util.constants import APP_FONT, Colours
 from util.widgets.buttons.TkButton import TkButton
 from util.widgets.frames.LazyScrolledFrame import LazyScrolledFrame
 
 
 class EventsDisplay(Frame):
     def __init__(self, master, model):
-        super().__init__(master, bg=GREY, highlightthickness=0)
+        super().__init__(master, bg=Colours.GREY, highlightthickness=0)
         self._model = model
         self._upcoming_events = self._model.get_events()
         self._content = LazyScrolledFrame(self)
         self._popup = None
         self._event_btns = {}
+        self._title = Label(self, text='Upcoming Events', fg='black', anchor='w',
+                            font=(APP_FONT, 16, 'bold'), padx=20, bg=self['bg'])
         self._subtitle = TkMessage(self, text='You have no upcoming events scheduled.',
                                    fg='black', anchor='center')
+        self._add_btn = TkButton(self, text='New Event', font=(APP_FONT, 10, 'bold'),
+                                 bg=Colours.LIGHT_GREEN, activebackground=Colours.GREEN)
 
     def update_events(self):
         self._model.update_events()
@@ -38,15 +42,13 @@ class EventsDisplay(Frame):
         self._show()
 
     def _show(self):
-        Label(self, text='Upcoming Events', fg='black', font=(APP_FONT, 16, 'bold'), padx=20,
-              anchor='w', bg=self['bg']).grid(row=0, column=0, sticky='nesw', pady=(20, 10))
+        self._title.grid(row=0, column=0, sticky='nesw', pady=(20, 10))
+        self._add_btn.grid(row=2, column=0, sticky='nesw', ipady=5)
         if len(self._upcoming_events) == 0:
             self._subtitle.grid(row=1, column=0, sticky='', padx=20)
         else:
             self._show_events()
             self._content.grid(row=1, column=0, sticky='nesw', padx=10, pady=(0, 10), scrollpady=0)
-        TkButton(self, text='New Event', font=(APP_FONT, 10, 'bold'), bg=LIGHT_GREEN,
-                 activebackground=GREEN).grid(row=2, column=0, sticky='nesw', ipady=5)
 
     def _show_events(self):
         for row, (id_, data) in enumerate(self._upcoming_events.items()):

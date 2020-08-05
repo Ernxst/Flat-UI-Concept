@@ -1,13 +1,13 @@
 from abc import abstractmethod
 from tkinter import Frame, TclError
 
-from util.constants import TITLE_BG, BUTTON_HOVER_BG, GREY
+from util.constants import Colours
 
 
 class FrameButton(Frame):
     def __init__(self, master, bg=None, cmd=None, activeforeground='black',
-                 fg='white', activebackground=GREY, highlightborder='white',
-                 activeborder=TITLE_BG, hoverbackground=BUTTON_HOVER_BG):
+                 fg='white', activebackground=Colours.GREY, highlightborder='white',
+                 activeborder=Colours.TITLE_BG, hoverbackground=Colours.BUTTON_HOVER_BG):
         bg = bg if bg else master['bg']
         super().__init__(master, bg=bg, highlightthickness=1,
                          highlightbackground=master['bg'], highlightcolor=master['bg'])

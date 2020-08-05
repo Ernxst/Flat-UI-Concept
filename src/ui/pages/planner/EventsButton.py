@@ -1,14 +1,14 @@
 from tkinter import Label
 
 from Labels.TkLabels import TkMessage
-from util.constants import BLANK, MAX_EVENT_DESC_LENGTH, APP_FONT, GREEN, LIGHT_GREEN, NAVBAR_BG
+from util.constants import BLANK, MAX_EVENT_DESC_LENGTH, APP_FONT, Colours
 from util.widgets.buttons.FrameButton import FrameButton
 from util.widgets.buttons.TkButton import TkButton
 
 
 class EventsButton(FrameButton):
     def __init__(self, master, month, day, year, title, description, time, location, cmd, edit_cmd=None):
-        super().__init__(master, cmd=cmd, bg=NAVBAR_BG)
+        super().__init__(master, cmd=cmd, bg=Colours.NAVBAR_BG)
         self._edit_cmd = edit_cmd
         self._title_lbl = TkMessage(self, text=title, font=(APP_FONT, 12, 'bold'), anchor='w',
                                     justify='left', bg=self['bg'])
@@ -40,7 +40,7 @@ class EventsButton(FrameButton):
         self._msg.grid(row=1, column=1, columnspan=2, rowspan=2, sticky='nesw')
         self._time_lbl.grid(row=3, column=1, sticky='nesw')
         self._location_lbl.grid(row=3, column=2, sticky='nesw')
-        TkButton(self, text='EDIT', bg=LIGHT_GREEN, activebackground=GREEN,
+        TkButton(self, text='EDIT', bg=Colours.LIGHT_GREEN, activebackground=Colours.GREEN,
                  command=self._edit_cmd).grid(row=0, column=3, sticky='nesw', rowspan=4)
 
     def _bind_events(self):

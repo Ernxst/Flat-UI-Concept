@@ -2,7 +2,7 @@ from tkinter import Frame, Canvas
 
 from Labels.TkLabels import TkMessage
 from ui.pages.notifications.NotificationButton import NotificationButton
-from util.constants import APP_FONT, PROFILE_BG, NAVBAR_BG
+from util.constants import APP_FONT, Colours
 from util.widgets.buttons.TkButton import TkButton
 from util.widgets.frames.ScrolledFrame import ScrolledFrame
 from util.widgets.labels.ImageLabel import ImageLabel
@@ -12,8 +12,8 @@ class WelcomePage(Frame):
     def __init__(self, master, name, icon, model):
         super().__init__(master, bg=master['bg'], highlightthickness=0)
         self._name, self._icon = name, icon
-        self._canvas = Canvas(self, bg=PROFILE_BG, highlightthickness=1,
-                              highlightbackground=NAVBAR_BG)
+        self._canvas = Canvas(self, bg=Colours.PROFILE_BG, highlightthickness=1,
+                              highlightbackground=Colours.NAVBAR_BG)
         self._welcome_frame = Frame(self, bg=self._canvas['bg'], highlightthickness=0)
         self._subtitle_lbl = None
         self._model = model
@@ -68,7 +68,7 @@ class WelcomePage(Frame):
             pady = (10, 5) if row == 0 else (
                 (5, 10) if row == length - 1 else 10)
             NotificationButton(notif_frame.interior_frame, id_, name, icon, title, msg, date,
-                               bg=NAVBAR_BG, clear_cmd=self._update_label
+                               bg=Colours.NAVBAR_BG, clear_cmd=self._update_label
                                ).grid(row=row, column=0, sticky='nesw', pady=pady, padx=(10, 0))
             self.master.update_idletasks()
 

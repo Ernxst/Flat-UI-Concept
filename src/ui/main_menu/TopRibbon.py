@@ -4,7 +4,7 @@ from tkinter import Frame
 from Entries.TransparentEntry import TransparentEntry
 from Labels.TkLabels import TkMessage
 from ui.main_menu.NotificationDisplay import NotificationDisplay
-from util.constants import BUTTON_ICON, APP_FONT, RIBBON_BG, NAVBAR_BG, PROFILE_BLACK_ICON
+from util.constants import BUTTON_ICON, APP_FONT, Colours, PROFILE_BLACK_ICON
 from util.widgets.buttons.ImageButton import ImageButton
 from util.widgets.input_widgets.TkDropdown import show_dropdown
 
@@ -12,7 +12,7 @@ from util.widgets.input_widgets.TkDropdown import show_dropdown
 class TopRibbon(Frame):
     def __init__(self, master, icon, logout, open_options, open_notification,
                  open_profile, open_account, search):
-        super().__init__(master, bg=RIBBON_BG, highlightthickness=0)
+        super().__init__(master, bg=Colours.RIBBON_BG, highlightthickness=0)
         self._entry = TransparentEntry(self, default_text='Search anything ... prefix the search term'
                                                           ' with the page name '
                                                           'and ":" to search the page',
@@ -25,7 +25,7 @@ class TopRibbon(Frame):
                                                         {'My Profile': open_profile,
                                                          'My Account': open_account,
                                                          'Sign Out': logout}))
-        self._date_label = TkMessage(self, bg=NAVBAR_BG, font=(APP_FONT, 10, 'bold'))
+        self._date_label = TkMessage(self, bg=Colours.NAVBAR_BG, font=(APP_FONT, 10, 'bold'))
         self._date_id = None
         self._open_notification = open_notification
         self._search = search

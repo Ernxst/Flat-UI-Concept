@@ -3,7 +3,7 @@ from tkinter import Frame, Label
 
 from Labels.TkLabels import TkMessage
 from Util.tkUtilities import get_widget_dimensions
-from util.constants import APP_FONT, TITLE_BG
+from util.constants import APP_FONT, Colours
 from util.widgets.frames.LazyScrolledFrame import LazyScrolledFrame
 
 
@@ -25,7 +25,7 @@ class MenuPage(Frame):
               anchor='w').grid(row=0, column=0, sticky='nesw')
         if self._subtitle:
             TkMessage(title_frame, text=self._subtitle,
-                      font=(APP_FONT, 11), fg=TITLE_BG, anchor='w',
+                      font=(APP_FONT, 11), fg=Colours.TITLE_BG, anchor='w',
                       justify='left').grid(row=1, column=0, sticky='nesw')
         title_frame.grid(row=0, column=0, sticky='nesw', padx=20, pady=(20, 10), columnspan=6)
 

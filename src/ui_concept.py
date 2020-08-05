@@ -7,7 +7,7 @@ from ui.SplashScreen import SplashScreen
 from ui.login_menu.LoginPage import LoginPage
 from ui.main_menu.MenuView import MenuView
 from util.Utilities import trace
-from util.constants import APP_TITLE, APP_BG, PROFILE_ICON, APP_ICON
+from util.constants import APP_TITLE, Colours, PROFILE_ICON, APP_ICON
 from util.widgets.misc.TkWin import TkWin
 
 """
@@ -30,7 +30,7 @@ def profile(page='', debug=False):
 
 
 def run(page='', debug=False):
-    win = TkWin(APP_TITLE, APP_BG, APP_ICON)
+    win = TkWin(APP_TITLE, Colours.APP_BG, APP_ICON)
     func = get_func(page, win)
     if debug:
         trace(func)

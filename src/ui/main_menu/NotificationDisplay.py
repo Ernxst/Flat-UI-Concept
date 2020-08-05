@@ -2,7 +2,7 @@ from tkinter import Canvas, Frame
 
 from Util.tkUtilities import get_widget_dimensions
 from models.Model import get_model
-from util.constants import NAVBAR_BG, APP_FONT, BUTTON_HOVER_BG
+from util.constants import Colours, APP_FONT
 from util.widgets.input_widgets.TkDropdown import show_dropdown
 
 
@@ -58,8 +58,8 @@ class NotificationDisplay(Frame):
         self._canvas.grid(sticky='nesw')
         x, y = width / 2, height / 2
         self._canvas.create_oval(x - radius, y - radius, x + radius, y + radius,
-                                 fill=NAVBAR_BG, width=0, tags='circle',
-                                 activefill=BUTTON_HOVER_BG)
+                                 fill=Colours.NAVBAR_BG, width=0, tags='circle',
+                                 activefill=Colours.BUTTON_HOVER_BG)
         self._canvas.create_text(x, y, text=str(count), anchor='center',
                                  font=(APP_FONT, 10, 'bold'), fill='white', tags='text')
 

@@ -1,4 +1,4 @@
-from util.constants import MENU_PAGE_BG, BUTTON_HOVER_BG
+from util.constants import Colours
 from util.widgets.buttons.FrameButton import FrameButton
 from util.widgets.buttons.TkButton import TkButton
 from util.widgets.labels.ImageLabel import ImageLabel
@@ -6,9 +6,9 @@ from util.widgets.labels.ImageLabel import ImageLabel
 
 class NavButton(FrameButton):
     def __init__(self, master, text, icon, command, fg='white', activeforeground='black',
-                 activebackground=MENU_PAGE_BG, activeborder=MENU_PAGE_BG,
+                 activebackground=Colours.MENU_PAGE_BG, activeborder=Colours.MENU_PAGE_BG,
                  hoverforeground='black', highlightborder='white',
-                 hoverbackground=BUTTON_HOVER_BG, ratio=0.25):
+                 hoverbackground=Colours.BUTTON_HOVER_BG, ratio=0.25):
         super().__init__(master, cmd=command, bg=master['bg'], fg=fg,
                          activeforeground=activeforeground, highlightborder=highlightborder,
                          activebackground=activebackground, activeborder=activeborder,

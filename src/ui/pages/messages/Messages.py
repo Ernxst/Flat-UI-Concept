@@ -5,7 +5,7 @@ from Labels.TkLabels import TkMessage
 from Util.tkUtilities import error_msg, get_widget_dimensions
 from ui.pages.MenuPage import MenuPage
 from ui.pages.messages.ChatPreview import ChatPreview
-from util.constants import APP_FONT, APP_BG, PROFILE_BG, GREEN, LIGHT_GREEN, GREY
+from util.constants import APP_FONT, Colours
 from util.widgets.buttons.TkButton import TkButton
 from util.widgets.entries.AppEntry import AppEntry
 from util.widgets.frames.ScrolledFrame import ScrolledFrame
@@ -15,10 +15,10 @@ class Messages(MenuPage):
     def __init__(self, master, model):
         super().__init__(master, 'Messages', 'View your instant-messaging conversations.',
                          model)
-        self._chat_frame = Frame(self._content.interior_frame, bg=GREY, highlightthickness=0)
+        self._chat_frame = Frame(self._content.interior_frame, bg=Colours.GREY, highlightthickness=0)
         self._contact_frame = Frame(self._content.interior_frame, bg='red', highlightthickness=0)
-        self._chat_preview_frame = ScrolledFrame(self._contact_frame, scrollbar_bg=APP_BG,
-                                                 bg=PROFILE_BG)
+        self._chat_preview_frame = ScrolledFrame(self._contact_frame, scrollbar_bg=Colours.APP_BG,
+                                                 bg=Colours.PROFILE_BG)
         self._chat_data = self._model.get_chats()
         self._btns = {}
         self._entry = AppEntry(self._contact_frame, default_text='Search your messages...',
@@ -54,7 +54,7 @@ class Messages(MenuPage):
         self._show_entry()
         self._show_contacts(self._chat_data)
         TkButton(self._contact_frame, text='New Chat', command=self.new_chat,
-                 font=(APP_FONT, 12, 'bold'), bg=LIGHT_GREEN, activebackground=GREEN
+                 font=(APP_FONT, 12, 'bold'), bg=Colours.LIGHT_GREEN, activebackground=Colours.GREEN
                  ).grid(row=2, column=0, sticky='nesw', ipady=5)
 
     def _show_contacts(self, chat_data):  # make sure all icons are the same size

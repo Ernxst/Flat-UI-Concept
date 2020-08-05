@@ -3,7 +3,7 @@ from tkinter import Frame, Label
 from tkinter.ttk import Separator
 
 from Labels.TkLabels import TkMessage
-from util.constants import APP_FONT, TITLE_BG
+from util.constants import APP_FONT, Colours
 from util.widgets.buttons.FrameButton import FrameButton
 
 
@@ -32,7 +32,7 @@ class OptionsTab(FrameButton):
         self._title_frame.columnconfigure(0, weight=1)
         Label(self._title_frame, text=self._title, bg=self['bg'], font=(APP_FONT, 16, 'bold'),
               anchor='e', fg='black').grid(row=0, column=0, sticky='nesw')
-        TkMessage(self._title_frame, text=self._subtitle, font=(APP_FONT, 11), fg=TITLE_BG,
+        TkMessage(self._title_frame, text=self._subtitle, font=(APP_FONT, 11), fg=Colours.TITLE_BG,
                   anchor='e', justify='right').grid(row=1, column=0, sticky='nesw')
         self._title_frame.grid(row=0, column=0, sticky='nesw', padx=20,
                                pady=(20, 10), columnspan=6)
@@ -63,6 +63,6 @@ class OptionsTab(FrameButton):
         super().disable()
         children = self._title_frame.winfo_children()
         children[0].config(bg=self._bg, fg=self._fg)
-        children[1].config(bg=self._bg, fg=TITLE_BG)
+        children[1].config(bg=self._bg, fg=Colours.TITLE_BG)
 
 

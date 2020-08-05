@@ -5,13 +5,13 @@ from Util.tkUtilities import get_widget_dimensions
 from ui.main_menu.NavButton import NavButton
 from ui.main_menu.ProfileTab import ProfileTab
 from util.ImageUtilities import get_icon_location
-from util.constants import LEFT_ARROW, RIGHT_ARROW, NAVBAR_BG, MAX_COL, MIN_COL, APP_FONT, PROFILE_BG, MAX_NAV_ROWS, \
+from util.constants import LEFT_ARROW, RIGHT_ARROW, Colours, MAX_COL, MIN_COL, APP_FONT, MAX_NAV_ROWS, \
     COPYRIGHT, NAV_DELAY
 from util.widgets.buttons.TkButton import TkButton
 
 
 class Navbar(Frame):
-    def __init__(self, master, options, name, icon, bg=NAVBAR_BG):
+    def __init__(self, master, options, name, icon, bg=Colours.NAVBAR_BG):
         super().__init__(master, bg=bg, highlightthickness=0, bd=0)
         self._name = name
         self._icon = icon
@@ -46,7 +46,7 @@ class Navbar(Frame):
         self._show_profile()
 
     def _show_profile(self):
-        self._profile = ProfileTab(self, self._name, self._icon, PROFILE_BG)
+        self._profile = ProfileTab(self, self._name, self._icon, Colours.PROFILE_BG)
         self._profile.grid(row=0, column=0, sticky='nesw')
 
     def _show_buttons(self):

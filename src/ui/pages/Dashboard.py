@@ -2,7 +2,7 @@ from tkinter import Frame
 
 from Util.tkUtilities import get_widget_dimensions
 from ui.pages.MenuPage import MenuPage
-from util.constants import TITLE_BG, NAVBAR_BG, LIGHT_GREEN, RED, YELLOW, GREEN
+from util.constants import Colours
 
 
 class Dashboard(MenuPage):
@@ -26,7 +26,7 @@ class Dashboard(MenuPage):
         pass
 
     def _default_size(self, height):
-        self._content.canvas.itemconfig(self._content.id_, height=height * 1.25)
+        self._content.canvas.itemconfig(self._content.id_, height=height * 2)
 
     def _resize(self, height):
         self._content.unbind('<Configure>')
@@ -50,37 +50,37 @@ class Dashboard(MenuPage):
         self._scrollbar_width = get_widget_dimensions(self._content.vsb)[0] + 20
 
     def _show_graphs(self):
-        self._content.add(Frame(self._content.interior_frame, bg=RED, highlightthickness=0,
+        self._content.add(Frame(self._content.interior_frame, bg=Colours.RED, highlightthickness=0,
                                 height=self._get_height(0)
                                 ), row=0, column=0, sticky='nesw', columnspan=2, padx=(20, 10), pady=10)
-        self._content.add(Frame(self._content.interior_frame, bg=YELLOW, highlightthickness=0,
+        self._content.add(Frame(self._content.interior_frame, bg=Colours.YELLOW, highlightthickness=0,
                                 height=self._get_height(0)
                                 ), row=0, column=2, sticky='nesw', columnspan=2, padx=10, pady=10)
-        self._content.add(Frame(self._content.interior_frame, bg=GREEN, highlightthickness=0,
+        self._content.add(Frame(self._content.interior_frame, bg=Colours.GREEN, highlightthickness=0,
                                 height=self._get_height(0)
                                 ), row=0, column=4, sticky='nesw', columnspan=2, padx=(10, 20), pady=10)
 
     def _show_updates(self):
-        self._content.add(Frame(self._content.interior_frame, bg=TITLE_BG, highlightthickness=0,
+        self._content.add(Frame(self._content.interior_frame, bg=Colours.TITLE_BG, highlightthickness=0,
                                 height=self._get_height(1)
                                 ), row=1, column=0, sticky='nesw', columnspan=3, padx=(20, 10), pady=10)
-        self._content.add(Frame(self._content.interior_frame, bg=TITLE_BG, highlightthickness=0,
+        self._content.add(Frame(self._content.interior_frame, bg=Colours.TITLE_BG, highlightthickness=0,
                                 height=self._get_height(1)
                                 ), row=1, column=3, sticky='nesw', columnspan=3, padx=(10, 20), pady=10)
 
     def _show_analytics(self):
-        self._content.add(Frame(self._content.interior_frame, bg=NAVBAR_BG, highlightthickness=0,
+        self._content.add(Frame(self._content.interior_frame, bg=Colours.NAVBAR_BG, highlightthickness=0,
                                 height=self._get_height(2)
                                 ), row=2, column=0, sticky='nesw', columnspan=2, padx=(20, 10), pady=10)
-        self._content.add(Frame(self._content.interior_frame, bg=RED, highlightthickness=0,
+        self._content.add(Frame(self._content.interior_frame, bg=Colours.RED, highlightthickness=0,
                                 height=self._get_height(2)
                                 ), row=2, column=2, sticky='nesw', columnspan=2, padx=10, pady=10)
-        self._content.add(Frame(self._content.interior_frame, bg=LIGHT_GREEN, highlightthickness=0,
+        self._content.add(Frame(self._content.interior_frame, bg=Colours.LIGHT_GREEN, highlightthickness=0,
                                 height=self._get_height(2, 2)
                                 ), row=2, column=4, sticky='nesw', columnspan=2, rowspan=2,
                           padx=(10, 20), pady=(10, 20))
 
     def _show_projects(self):
-        self._content.add(Frame(self._content.interior_frame, bg=TITLE_BG, highlightthickness=0,
+        self._content.add(Frame(self._content.interior_frame, bg=Colours.TITLE_BG, highlightthickness=0,
                                 height=self._get_height(3)
                                 ), row=3, column=0, sticky='nesw', columnspan=4, padx=(20, 10), pady=(10, 20))

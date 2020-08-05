@@ -4,8 +4,7 @@ from tkinter import Frame, Canvas
 
 from Buttons.CanvasButtons import Indicator
 from Util.tkUtilities import get_widget_dimensions
-from util.constants import LEFT_ARROW, RIGHT_ARROW, MONTHS_IN_YEAR, BUTTON_HOVER_BG, GREY, \
-    NAVBAR_BG
+from util.constants import LEFT_ARROW, RIGHT_ARROW, MONTHS_IN_YEAR, Colours
 from util.widgets.buttons.TkButton import TkButton
 from util.widgets.misc.tk_calendar.MonthDisplay import MonthDisplay
 
@@ -116,9 +115,9 @@ class TkCalendar(Frame):
     def _display_indicators(self, pos, radius, double_rad, y):
         for x in range(MONTHS_IN_YEAR):
             pos += double_rad
-            self._indicators.append(Indicator(self._indicator_canvas, pos, y, radius, bg=GREY,
+            self._indicators.append(Indicator(self._indicator_canvas, pos, y, radius, bg=Colours.GREY,
                                               command=lambda page=x + 1: self.switch_month(page),
-                                              tags='indicator' + str(x), activebackground=NAVBAR_BG,
-                                              activefill=BUTTON_HOVER_BG))
+                                              tags='indicator' + str(x), activebackground=Colours.NAVBAR_BG,
+                                              activefill=Colours.BUTTON_HOVER_BG))
             pos += radius
         self._indicators[self._current_month - 1].enable()

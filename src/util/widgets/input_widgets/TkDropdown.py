@@ -2,7 +2,7 @@ from platform import system
 from tkinter import Toplevel, TclError
 
 from Util.tkUtilities import get_widget_dimensions
-from util.constants import BUTTON_HOVER_BG, MAX_DROPDOWN_TEXT_LENGTH
+from util.constants import Colours, MAX_DROPDOWN_TEXT_LENGTH
 from util.widgets.buttons.TkButton import TkButton
 from util.widgets.misc.TkWin import get_win
 
@@ -23,7 +23,7 @@ def show_dropdown(widget, options, anchor='s'):
     try:
         bg = widget['activebackground']
     except TclError:
-        bg = BUTTON_HOVER_BG
+        bg = Colours.BUTTON_HOVER_BG
     widget.config(bg=bg)
     TkDropdown.INSTANCE = TkDropdown(get_win(), widget, options, anchor)
 

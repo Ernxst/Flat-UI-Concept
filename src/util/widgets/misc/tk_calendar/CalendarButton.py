@@ -1,12 +1,12 @@
 from tkinter import Label
 
-from util.constants import APP_FONT, PROFILE_BG
+from util.constants import APP_FONT, Colours
 from util.widgets.buttons.FrameButton import FrameButton
 
 
 class CalendarButton(FrameButton):
     def __init__(self, master, day_number, day_var, cmd=None):
-        super().__init__(master, bg=PROFILE_BG, cmd=cmd)
+        super().__init__(master, bg=Colours.PROFILE_BG, cmd=cmd)
         self._day_number = day_number
         self._day = Label(self, bg=self['bg'], text=day_number, fg='white', anchor='se',
                           font=(APP_FONT, 10, 'bold'))
