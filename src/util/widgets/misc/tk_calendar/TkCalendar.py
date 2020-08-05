@@ -4,7 +4,8 @@ from tkinter import Frame, Canvas
 
 from Buttons.CanvasButtons import Indicator
 from Util.tkUtilities import get_widget_dimensions
-from util.constants import LEFT_ARROW, RIGHT_ARROW, MONTHS_IN_YEAR, Colours
+from util.colour_constants import Colours
+from util.constants import LEFT_ARROW, RIGHT_ARROW, MONTHS_IN_YEAR
 from util.widgets.buttons.TkButton import TkButton
 from util.widgets.misc.tk_calendar.MonthDisplay import MonthDisplay
 

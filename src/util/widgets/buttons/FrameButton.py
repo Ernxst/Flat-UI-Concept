@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from tkinter import Frame, TclError
 
-from util.constants import Colours
+from util.colour_constants import Colours, convert
 
 
 class FrameButton(Frame):
@@ -19,6 +19,7 @@ class FrameButton(Frame):
         self._active_border = activeborder
         self._hover_bg = hoverbackground
         self._enabled = False
+        self._dark_mode = False
 
         self._cmd = cmd
         self._children = []
@@ -80,3 +81,13 @@ class FrameButton(Frame):
                 widget.config(bg=self._bg, fg=self._fg)
             except TclError:
                 widget.config(bg=self._bg)
+
+    def toggle_dark_mode(self):
+        self._dark_mode = not self._dark_mode
+        self._active_fg = convert(self._active_fg, self._dark_mode)
+        self._fg = convert(self._fg, self._dark_mode)
+        self._active_bg = convert(self._active_bg, self._dark_mode)
+        self._bg = convert(self._bg, self._dark_mode)
+        self._highlight_border = convert(self._highlight_border, self._dark_mode)
+        self._active_border = convert(self._active_border, self._dark_mode)
+        self._hover_bg = convert(self._hover_bg, self._dark_mode)

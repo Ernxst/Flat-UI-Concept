@@ -1,5 +1,3 @@
-from enum import Enum
-
 MEDIA_FOLDER = 'media/'
 IMAGE_FOLDER = MEDIA_FOLDER + 'images/'
 
@@ -26,30 +24,6 @@ LEFT_ARROW = u'\u276E'
 RIGHT_ARROW = u'\u276F'
 BULLET = u'\u2022'
 BLANK = u"\u00A0"
-
-
-# COLOUR SCHEME
-class Colours(Enum):
-    WIN = '#d9d9d9'
-    APP_BG = '#D8D8D8'
-    TITLE_BG = '#282828'
-    PROFILE_BG = '#00005A'
-    NAVBAR_BG = '#1F45FC'
-    NAVBAR_FG = 'WHITE'
-    MENU_PAGE_BG = APP_BG
-    RIBBON_BG = 'WHITE'
-    BUTTON_HOVER_BG = 'light blue'
-    LIGHT_GREEN = '#00FA9A'
-    GREEN = "#49a362"
-    YELLOW = "#e79f3c"
-    DARK_RED = "#b22222"
-    RED = "#cd5542"
-    GREY = "#edf0f5"
-    DARK_MODE = ""
-
-    def __str__(self):
-        return str(self.value)
-
 
 DROPLET_GROUPS = 50
 WATER_COLOR = 'sky blue'

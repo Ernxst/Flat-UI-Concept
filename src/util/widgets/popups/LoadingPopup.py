@@ -3,7 +3,8 @@ from tkinter import Label
 from Popups.Popup import Popup
 from Util.tkUtilities import centralise
 from misc.TkLoadbar import TkLoadbar
-from util.constants import APP_FONT, Colours
+from util.colour_constants import Colours
+from util.constants import APP_FONT
 
 
 class LoadingPopup(Popup):

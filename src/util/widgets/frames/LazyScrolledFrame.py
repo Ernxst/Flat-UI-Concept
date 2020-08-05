@@ -1,7 +1,7 @@
 from tkinter import Canvas
 
 from Util.tkUtilities import get_widget_dimensions
-from util.constants import Colours
+from util.colour_constants import Colours
 from util.widgets.frames.ScrolledFrame import ScrolledFrame
 
 

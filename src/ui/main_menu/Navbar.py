@@ -5,7 +5,8 @@ from Util.tkUtilities import get_widget_dimensions
 from ui.main_menu.NavButton import NavButton
 from ui.main_menu.ProfileTab import ProfileTab
 from util.ImageUtilities import get_icon_location
-from util.constants import LEFT_ARROW, RIGHT_ARROW, Colours, MAX_COL, MIN_COL, APP_FONT, MAX_NAV_ROWS, \
+from util.colour_constants import Colours
+from util.constants import LEFT_ARROW, RIGHT_ARROW, MAX_COL, MIN_COL, APP_FONT, MAX_NAV_ROWS, \
     COPYRIGHT, NAV_DELAY
 from util.widgets.buttons.TkButton import TkButton
 
@@ -25,7 +26,7 @@ class Navbar(Frame):
                                     bg=self['bg'], activebackground=self['bg'],
                                     anchor='e', command=self._toggle)
         self._copyright_lbl = TkMessage(self, text=COPYRIGHT,
-                                        bg=self['bg'], fg='grey', font=(APP_FONT, 9),
+                                        bg=self['bg'], fg=Colours.DARK_GRAY, font=(APP_FONT, 9),
                                         justify='left', anchor='w', pady=10, padx=10)
 
     def _config_grid(self):

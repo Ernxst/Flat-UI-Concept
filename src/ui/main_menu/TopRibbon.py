@@ -4,7 +4,8 @@ from tkinter import Frame
 from Entries.TransparentEntry import TransparentEntry
 from Labels.TkLabels import TkMessage
 from ui.main_menu.NotificationDisplay import NotificationDisplay
-from util.constants import BUTTON_ICON, APP_FONT, Colours, PROFILE_BLACK_ICON
+from util.colour_constants import Colours
+from util.constants import BUTTON_ICON, APP_FONT, PROFILE_BLACK_ICON
 from util.widgets.buttons.ImageButton import ImageButton
 from util.widgets.input_widgets.TkDropdown import show_dropdown
 

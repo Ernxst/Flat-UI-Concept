@@ -1,8 +1,14 @@
-from tkinter import Tk, PhotoImage
+from tkinter import Tk, PhotoImage, TclError
 
 from Util.tkUtilities import centralise, get_screen_size, ask_ok_cancel
 from models.Model import get_model
+from util.colour_constants import convert
 from util.constants import APP_FONT, WINDOW_MULTIPLIER
+from util.widgets.buttons.FrameButton import FrameButton
+
+
+def toggle_dark_mode():
+    get_win().toggle_dark_mode()
 
 
 def shutdown():
@@ -31,6 +37,7 @@ class TkWin(Tk):
         self._max_width, self._max_height, self._width, self._height = self.set_win_size()
         self.set_appearance(bg, icon)
         self._popup = None
+        self._dark_mode = False
         self.bind_events()
 
     def set_appearance(self, bg, icon):
@@ -105,3 +112,58 @@ class TkWin(Tk):
             self._popup = popup(self, *args, **kwargs)
         else:
             self._popup.lift()
+
+    def dark_mode(self):
+        return self._dark_mode
+
+    def toggle_dark_mode(self):
+        self._dark_mode = not self._dark_mode
+        for widget in self.winfo_children():
+            self._convert_colour(widget)
+            self._convert_children(widget)
+
+    def _convert_children(self, widget):
+        children = widget.winfo_children()
+        if children:
+            for child in children:
+                self._convert_colour(child)
+                self._convert_children(child)
+
+    def _convert_colour(self, widget):
+        if isinstance(widget, FrameButton):
+            widget.toggle_dark_mode()
+        self._convert_bg(widget)
+        self._convert_fg(widget)
+        self._convert_highlightcolor(widget)
+        self._convert_activebackground(widget)
+        self._convert_highlightbackground(widget)
+
+    def _convert_bg(self, widget):
+        try:
+            widget.config(bg=convert(widget['bg'], self._dark_mode))
+        except (TclError, KeyError):
+            pass
+
+    def _convert_fg(self, widget):
+        try:
+            widget.config(fg=convert(widget['fg'], self._dark_mode))
+        except TclError:
+            pass
+
+    def _convert_highlightcolor(self, widget):
+        try:
+            widget.config(highlightcolor=convert(widget['highlightcolor'], self._dark_mode))
+        except TclError:
+            pass
+
+    def _convert_activebackground(self, widget):
+        try:
+            widget.config(activebackground=convert(widget['activebackground'], self._dark_mode))
+        except TclError:
+            pass
+
+    def _convert_highlightbackground(self, widget):
+        try:
+            widget.config(highlightbackground=convert(widget['highlightbackground'], self._dark_mode))
+        except TclError:
+            pass

@@ -1,6 +1,7 @@
 from Labels.TkLabels import TkMessage
 from models.Model import get_model
-from util.constants import APP_FONT, Colours
+from util.colour_constants import Colours
+from util.constants import APP_FONT
 from util.widgets.buttons.FrameButton import FrameButton
 from util.widgets.buttons.TkButton import TkButton
 from util.widgets.labels.ImageLabel import ImageLabel

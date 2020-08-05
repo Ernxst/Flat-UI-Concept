@@ -1,7 +1,7 @@
 from Util.tkUtilities import error_msg
 from ui.pages.MenuPage import MenuPage
 from ui.pages.notifications.NotificationButton import NotificationButton
-from util.constants import Colours
+from util.colour_constants import Colours
 
 
 class Notifications(MenuPage):

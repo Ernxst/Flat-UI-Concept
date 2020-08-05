@@ -1,6 +1,7 @@
 from tkinter import Label
 
-from util.constants import APP_FONT, Colours
+from util.colour_constants import Colours
+from util.constants import APP_FONT
 from util.widgets.buttons.FrameButton import FrameButton
 
 
@@ -9,7 +10,7 @@ class CalendarButton(FrameButton):
         super().__init__(master, bg=Colours.PROFILE_BG, cmd=cmd)
         self._day_number = day_number
         self._day = Label(self, bg=self['bg'], text=day_number, fg='white', anchor='se',
-                          font=(APP_FONT, 10, 'bold'))
+                          font=(APP_FONT, 10, 'bold'), activebackground=self['bg'])
         self._day_var = day_var
 
     def _config_grid(self):

@@ -18,7 +18,7 @@ class MonthDisplay(Frame):
         self._day_number = day_number
         self._days = monthrange(self.CURRENT_YEAR, month_number)[1]
         self._day_frame = Frame(self, bg=self['bg'], highlightthickness=0)
-        self._month_lbl = Label(self, bg=self['bg'], fg='black',
+        self._month_lbl = Label(self, bg=self['bg'], fg='black', activebackground=self['bg'],
                                 text='{} {}'.format(self._month_name, MonthDisplay.CURRENT_YEAR),
                                 font=(APP_FONT, 16, 'bold'))
         self._btns = {}
@@ -44,7 +44,7 @@ class MonthDisplay(Frame):
     def _show(self):
         self._month_lbl.grid(row=0, column=0, sticky='nesw')
         self._day_frame.grid(row=1, column=0, sticky='nesw')
-        self._show_day_names()
+        self._show_day_names(),
         self._show_days()
         self._active_day.trace_add('write', self._set_month)
         self._active_day.set(self._day_number)
@@ -52,7 +52,7 @@ class MonthDisplay(Frame):
     def _show_day_names(self):
         for i, day in enumerate(WEEKDAYS):
             Label(self._day_frame, text=day, fg='black', bg=self._day_frame['bg'],
-                  font=(APP_FONT, 10, 'bold')
+                  font=(APP_FONT, 10, 'bold'), activebackground=self._day_frame['bg'],
                   ).grid(row=0, column=i, sticky='nesw', padx=10, pady=(10, 0))
 
     def get_days(self):

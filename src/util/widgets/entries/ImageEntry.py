@@ -1,6 +1,7 @@
 from tkinter import Frame
 
-from util.constants import APP_FONT, Colours
+from util.colour_constants import Colours
+from util.constants import APP_FONT
 from util.widgets.entries.AppEntry import AppEntry
 from util.widgets.labels.ImageLabel import ImageLabel
 

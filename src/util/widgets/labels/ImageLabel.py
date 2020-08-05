@@ -9,7 +9,7 @@ from util.ImageUtilities import open_image, get_image, resize_image, get_image_s
 class ImageLabel(Label):
     def __init__(self, master, image_location, ratio=None, bg=None):
         bg = bg if bg else master['bg']
-        super().__init__(master, bg=bg, relief='flat',
+        super().__init__(master, bg=bg, relief='flat', activebackground=bg,
                          highlightthickness=0, bd=0)
         self._original_image = open_image(image_location)
         self._image = self._original_image

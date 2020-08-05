@@ -2,7 +2,8 @@ from platform import system
 from tkinter import Toplevel, TclError
 
 from Util.tkUtilities import get_widget_dimensions
-from util.constants import Colours, MAX_DROPDOWN_TEXT_LENGTH
+from util.colour_constants import Colours
+from util.constants import MAX_DROPDOWN_TEXT_LENGTH
 from util.widgets.buttons.TkButton import TkButton
 from util.widgets.misc.TkWin import get_win
 

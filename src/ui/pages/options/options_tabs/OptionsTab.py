@@ -3,7 +3,8 @@ from tkinter import Frame, Label
 from tkinter.ttk import Separator
 
 from Labels.TkLabels import TkMessage
-from util.constants import APP_FONT, Colours
+from util.colour_constants import Colours, convert
+from util.constants import APP_FONT
 from util.widgets.buttons.FrameButton import FrameButton
 
 
@@ -14,6 +15,7 @@ class OptionsTab(FrameButton):
         self._title_frame = Frame(self, bg=self['bg'], highlightthickness=0)
         self._title = title
         self._subtitle = subtitle
+        self._subtitle_fg = Colours.MENU_PAGE_SUB_FG
         self._search_terms = [x.lower() for x in search_terms]
         self._content = Frame(self, bg=self['bg'], highlightthickness=0)
         self.rowconfigure(0, weight=1)
@@ -31,9 +33,10 @@ class OptionsTab(FrameButton):
         self._title_frame.rowconfigure(0, weight=1)
         self._title_frame.columnconfigure(0, weight=1)
         Label(self._title_frame, text=self._title, bg=self['bg'], font=(APP_FONT, 16, 'bold'),
-              anchor='e', fg='black').grid(row=0, column=0, sticky='nesw')
-        TkMessage(self._title_frame, text=self._subtitle, font=(APP_FONT, 11), fg=Colours.TITLE_BG,
-                  anchor='e', justify='right').grid(row=1, column=0, sticky='nesw')
+              activebackground=self['bg'], anchor='e', fg='black').grid(row=0, column=0, sticky='nesw')
+        TkMessage(self._title_frame, text=self._subtitle, font=(APP_FONT, 11),
+                  fg=Colours.MENU_PAGE_SUB_FG, anchor='e', justify='right'
+                  ).grid(row=1, column=0, sticky='nesw')
         self._title_frame.grid(row=0, column=0, sticky='nesw', padx=20,
                                pady=(20, 10), columnspan=6)
 
@@ -63,6 +66,9 @@ class OptionsTab(FrameButton):
         super().disable()
         children = self._title_frame.winfo_children()
         children[0].config(bg=self._bg, fg=self._fg)
-        children[1].config(bg=self._bg, fg=Colours.TITLE_BG)
+        children[1].config(bg=self._bg, fg=self._subtitle_fg)
 
+    def toggle_dark_mode(self):
+        super().toggle_dark_mode()
+        self._subtitle_fg = convert(self._subtitle_fg, self._dark_mode)
 

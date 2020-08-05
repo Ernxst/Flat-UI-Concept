@@ -2,7 +2,7 @@ from tkinter import Frame
 
 from Util.tkUtilities import get_widget_dimensions
 from ui.pages.MenuPage import MenuPage
-from util.constants import Colours
+from util.colour_constants import Colours
 
 
 class Dashboard(MenuPage):

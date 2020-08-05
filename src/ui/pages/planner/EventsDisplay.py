@@ -2,7 +2,8 @@ from tkinter import Frame, Label
 
 from Labels.TkLabels import TkMessage
 from ui.pages.planner.EventsButton import EventsButton
-from util.constants import APP_FONT, Colours
+from util.colour_constants import Colours
+from util.constants import APP_FONT
 from util.widgets.buttons.TkButton import TkButton
 from util.widgets.frames.LazyScrolledFrame import LazyScrolledFrame
 
@@ -16,7 +17,8 @@ class EventsDisplay(Frame):
         self._popup = None
         self._event_btns = {}
         self._title = Label(self, text='Upcoming Events', fg='black', anchor='w',
-                            font=(APP_FONT, 16, 'bold'), padx=20, bg=self['bg'])
+                            font=(APP_FONT, 16, 'bold'), padx=20, bg=self['bg'],
+                            activebackground=self['bg'])
         self._subtitle = TkMessage(self, text='You have no upcoming events scheduled.',
                                    fg='black', anchor='center')
         self._add_btn = TkButton(self, text='New Event', font=(APP_FONT, 10, 'bold'),

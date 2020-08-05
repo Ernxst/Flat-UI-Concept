@@ -1,7 +1,7 @@
 from tkinter import Frame
 
 from Frames.ScrollableFrame import ScrollableFrame
-from util.constants import Colours
+from util.colour_constants import Colours
 
 
 class ScrolledFrame(ScrollableFrame):

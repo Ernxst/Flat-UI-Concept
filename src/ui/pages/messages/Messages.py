@@ -5,7 +5,8 @@ from Labels.TkLabels import TkMessage
 from Util.tkUtilities import error_msg, get_widget_dimensions
 from ui.pages.MenuPage import MenuPage
 from ui.pages.messages.ChatPreview import ChatPreview
-from util.constants import APP_FONT, Colours
+from util.colour_constants import Colours
+from util.constants import APP_FONT
 from util.widgets.buttons.TkButton import TkButton
 from util.widgets.entries.AppEntry import AppEntry
 from util.widgets.frames.ScrolledFrame import ScrolledFrame
@@ -16,7 +17,9 @@ class Messages(MenuPage):
         super().__init__(master, 'Messages', 'View your instant-messaging conversations.',
                          model)
         self._chat_frame = Frame(self._content.interior_frame, bg=Colours.GREY, highlightthickness=0)
-        self._contact_frame = Frame(self._content.interior_frame, bg='red', highlightthickness=0)
+        self._contact_frame = Frame(self._content.interior_frame,
+                                    bg=self._content.interior_frame['bg'],
+                                    highlightthickness=0)
         self._chat_preview_frame = ScrolledFrame(self._contact_frame, scrollbar_bg=Colours.APP_BG,
                                                  bg=Colours.PROFILE_BG)
         self._chat_data = self._model.get_chats()

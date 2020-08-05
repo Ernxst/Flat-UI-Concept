@@ -2,7 +2,8 @@ from tkinter import Canvas, Frame
 
 from Util.tkUtilities import get_widget_dimensions
 from models.Model import get_model
-from util.constants import Colours, APP_FONT
+from util.colour_constants import Colours
+from util.constants import APP_FONT
 from util.widgets.input_widgets.TkDropdown import show_dropdown
 
 

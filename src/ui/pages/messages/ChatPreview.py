@@ -1,5 +1,6 @@
 from Labels.TkLabels import TkMessage
-from util.constants import APP_FONT, MAX_MSG_PREVIEW_LENGTH, Colours, BLANK
+from util.colour_constants import Colours
+from util.constants import APP_FONT, MAX_MSG_PREVIEW_LENGTH, BLANK
 from util.widgets.buttons.FrameButton import FrameButton
 from util.widgets.labels.ImageLabel import ImageLabel
 

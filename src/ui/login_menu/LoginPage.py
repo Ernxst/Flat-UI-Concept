@@ -6,7 +6,8 @@ from Util.tkUtilities import error_msg
 from models.Model import get_model
 from ui.login_menu.WelcomePage import WelcomePage
 from ui.main_menu.MenuView import MenuView
-from util.constants import BULLET, Colours, USERNAME_ENTRY_ICON, PASSWORD_ENTRY_ICON, APP_FONT
+from util.colour_constants import Colours
+from util.constants import BULLET, USERNAME_ENTRY_ICON, PASSWORD_ENTRY_ICON, APP_FONT
 from util.widgets.buttons.TkButton import TkButton
 from util.widgets.entries.ImageEntry import ImageEntry
 

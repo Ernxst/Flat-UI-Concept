@@ -1,5 +1,5 @@
 from ui.main_menu.NavButton import NavButton
-from util.constants import Colours
+from util.colour_constants import Colours
 
 
 class OptionsNavButton(NavButton):

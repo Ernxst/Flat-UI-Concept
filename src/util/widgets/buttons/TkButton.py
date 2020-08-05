@@ -1,11 +1,12 @@
 from tkinter import Button
 
-from util.constants import APP_FONT, Colours
+from util.colour_constants import Colours
+from util.constants import APP_FONT
 
 
 class TkButton(Button):
     def __init__(self, parent, highlightthickness=0, relief='flat',
-                 highlightbackground='red', activebackground=Colours.BUTTON_HOVER_BG,
+                 highlightbackground='white', activebackground=Colours.BUTTON_HOVER_BG,
                  fg='white', font=(APP_FONT, 10, 'bold'), bg=Colours.NAVBAR_BG,
                  activeforeground='white', command=None,
                  bd=0, highlightcolor='white', **kwargs):
