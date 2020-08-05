@@ -18,7 +18,7 @@ class TopRibbon(Frame):
                                                           ' with the page name '
                                                           'and ":" to search the page',
                                        has_label=False, font=(APP_FONT, 10),
-                                       separator_bg='black',
+                                       separator_bg=Colours.BLACK,
                                        justify='left', insertbackground='black')
         self._control_frame = Frame(self, bg=self['bg'], highlightthickness=0)
         self._icon = ImageButton(self._control_frame, PROFILE_BLACK_ICON, ratio=1)

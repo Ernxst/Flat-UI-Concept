@@ -19,7 +19,6 @@ from util.widgets.popups.LoadingPopup import LoadingPopup
 
 class MenuView(Frame):
     def __init__(self, master, name, icon, model):
-        print(master['bg'])
         super().__init__(master, bg=master['bg'], highlightthickness=0,
                          highlightbackground=master['bg'])
         self._name = name
@@ -80,7 +79,7 @@ class MenuView(Frame):
 
     def _show_title(self):
         TkMessage(self, text=APP_TITLE, font=(APP_FONT, 10, 'bold'), bg=Colours.TITLE_BG,
-                  fg='black', padx=5, pady=5).grid(row=0, column=0, sticky='nesw')
+                  fg=Colours.NAVBAR_FG, padx=5, pady=5).grid(row=0, column=0, sticky='nesw')
 
     def _show_navbar(self):
         self._navbar = Navbar(self, self._menu_options, self._name, self._icon)

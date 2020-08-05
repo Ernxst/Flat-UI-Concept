@@ -1,34 +1,6 @@
 from enum import Enum
 
 
-class DarkMode(Enum):
-    APP_BG = '#363537'
-    WIN = APP_BG
-    DARK = '#d9d9d9'
-    TITLE_BG = '#282828'
-    PROFILE_BG = '#00005A'
-    NAVBAR_BG = '#1F45FC'
-    NAVBAR_FG = 'White'
-    NAVBAR_ACTIVE_FG = '#ffffff'
-    MENU_PAGE_BG = APP_BG
-    MENU_PAGE_FG = 'WHITE'
-    MENU_PAGE_SUB_FG = 'WHiTE'
-    RIBBON_BG = 'GRAY'
-    BUTTON_HOVER_BG = 'light blue'
-    LIGHT_GREEN = '#00FA9A'
-    GREEN = "#49a362"
-    YELLOW = "#e79f3c"
-    DARK_RED = "#b22222"
-    RED = "#cd5542"
-    GREY = 'grey'
-    DARK_GRAY = "#696969"
-    BLACK = 'white'
-    WHITE = '#000000'
-
-    def __str__(self):
-        return str(self.value)
-
-
 class Colours(Enum):
     APP_BG = '#D8D8D8'
     DARK = '#363537'
@@ -51,7 +23,35 @@ class Colours(Enum):
     GREY = "#edf0f5"
     DARK_GRAY = 'grey'
     BLACK = '#000000'
-    WHITE = 'white'
+    WHITE_ = 'white'
+
+    def __str__(self):
+        return str(self.value)
+
+
+class DarkMode(Enum):
+    APP_BG = '#363537'
+    DARK = '#d9d9d9'
+    WIN = APP_BG
+    TITLE_BG = Colours.TITLE_BG
+    PROFILE_BG = Colours.PROFILE_BG
+    NAVBAR_BG = Colours.NAVBAR_BG
+    NAVBAR_FG = 'White'
+    NAVBAR_ACTIVE_FG = '#ffffff'
+    MENU_PAGE_BG = APP_BG
+    MENU_PAGE_FG = 'WHITE'
+    MENU_PAGE_SUB_FG = 'WHiTE'
+    RIBBON_BG = 'GRAY'
+    BUTTON_HOVER_BG = 'light blue'
+    LIGHT_GREEN = Colours.LIGHT_GREEN
+    GREEN = Colours.GREEN
+    YELLOW = Colours.YELLOW
+    DARK_RED = Colours.DARK_RED
+    RED = Colours.RED
+    GREY = 'grey'
+    DARK_GRAY = "#696969"
+    BLACK = '#FFFFFF'
+    WHITE_ = Colours.WHITE_
 
     def __str__(self):
         return str(self.value)
@@ -78,7 +78,7 @@ class Conversion:
                  Colours.GREY: DarkMode.GREY,
                  Colours.DARK_GRAY: DarkMode.DARK_GRAY,
                  Colours.BLACK: DarkMode.BLACK,
-                 Colours.WHITE: DarkMode.BLACK, }
+                 Colours.WHITE_: DarkMode.WHITE_}
     DARK_MODE = {str(k): str(v) for (k, v) in DARK_MODE.items()}
     NORMAL = {v: k for (k, v) in DARK_MODE.items()}
 
