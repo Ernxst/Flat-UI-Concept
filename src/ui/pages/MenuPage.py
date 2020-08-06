@@ -33,6 +33,7 @@ class MenuPage(Frame):
 
     def lift(self):
         self._default_size(get_widget_dimensions(self._content)[1])
+        super().grid(self._grid_kw)
         self._update_page_data()
         super().lift()
 
@@ -42,9 +43,6 @@ class MenuPage(Frame):
     @abstractmethod
     def _update_page_data(self):
         pass
-
-    def show(self):
-        super().grid(self._grid_kw)
 
     def disable_resize(self):
         self._content.disable_resize()

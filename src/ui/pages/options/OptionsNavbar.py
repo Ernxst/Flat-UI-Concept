@@ -2,7 +2,8 @@ from tkinter import Frame
 
 from ui.main_menu.Navbar import Navbar
 from ui.pages.options.OptionsNavButton import OptionsNavButton
-from util.constants import MAX_NAV_ROWS, IMAGE_FOLDER
+from util.constants import MAX_NAV_ROWS
+from util.icon_constants import IMAGE_FOLDER
 
 
 class OptionsNavbar(Navbar):

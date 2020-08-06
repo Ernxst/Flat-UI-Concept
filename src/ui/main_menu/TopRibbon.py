@@ -6,7 +6,8 @@ from Labels.TkLabels import TkMessage
 from ui.main_menu.NotificationDisplay import NotificationDisplay
 from util.VariableHolder import Vars
 from util.colour_constants import Colours
-from util.constants import APP_FONT, PROFILE_BLACK_ICON, DARK_MODE, LIGHT_MODE
+from util.constants import APP_FONT
+from util.icon_constants import PROFILE_BLACK_ICON, LIGHT_MODE, DARK_MODE
 from util.widgets.buttons.ImageButton import ImageButton
 from util.widgets.buttons.ToggleSwitch import ToggleSwitch
 from util.widgets.input_widgets.TkDropdown import show_dropdown

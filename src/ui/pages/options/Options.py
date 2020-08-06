@@ -6,7 +6,6 @@ from ui.pages.options.OptionsNavbar import OptionsNavbar
 from ui.pages.options.options_tabs.AccountManager import AccountManager
 from ui.pages.options.options_tabs.AppearanceManager import AppearanceManager
 from ui.pages.options.options_tabs.ProfileManager import ProfileManager
-from util.constants import MAX_NAV_ROWS
 from util.widgets.frames.ScrolledFrame import ScrolledFrame
 
 
@@ -20,6 +19,7 @@ class Options(MenuPage):
         self._menu_texts = []
         self._active_tab = None
         self._logout = logout
+        self._rows = 3
         self._content = Frame(self, bg=self['bg'], highlightthickness=0)
         self._display_frame = ScrolledFrame(self._content, bg=self._content['bg'])
 
@@ -42,7 +42,7 @@ class Options(MenuPage):
         self._content.rowconfigure(0, weight=1)
         self._content.columnconfigure(1, weight=1)
         self._display_frame.interior_frame.columnconfigure(0, weight=1)
-        rows = range(0, MAX_NAV_ROWS + 1)
+        rows = range(self._rows)
         self._display_frame.interior_frame.rowconfigure(tuple(rows), weight=1, uniform='nav')
 
     def disable_resize(self):
@@ -103,8 +103,8 @@ class Options(MenuPage):
 
     def _scroll_to_tab(self, name):
         index = self._menu_texts.index(name)
-        fraction = float(index / MAX_NAV_ROWS)
-        self._display_frame.canvas.yview_moveto(fraction - 1)
+        fraction = float(index / self._rows)
+        self._display_frame.canvas.yview_moveto(fraction)
 
     def _disable_tabs(self):
         [tab.disable() for tab in self._tabs.values()]

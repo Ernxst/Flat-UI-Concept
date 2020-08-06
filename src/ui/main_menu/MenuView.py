@@ -163,7 +163,6 @@ class MenuView(Frame):
         self._index = self._menu_texts.index(name)
         self._active_page = self._menu_pages[name]
         [p.hide() for p in self._menu_pages.values() if p != self._active_page]
-        self._active_page.show()
         self._active_page.lift()
         self.bind_navbar_switchers()
 

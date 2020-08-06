@@ -1,4 +1,4 @@
-from util.constants import PROFILE_ICON
+from util.icon_constants import PROFILE_ICON
 
 
 def get_model():

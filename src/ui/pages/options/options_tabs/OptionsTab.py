@@ -18,7 +18,7 @@ class OptionsTab(FrameButton):
         self._subtitle_fg = Colours.MENU_PAGE_SUB_FG
         self._search_terms = [x.lower() for x in search_terms]
         self._content = Frame(self, bg=self['bg'], highlightthickness=0)
-        self.rowconfigure(0, weight=1)
+        self.rowconfigure(1, weight=1)
         self.columnconfigure(0, weight=1)
 
     @abstractmethod
@@ -30,7 +30,6 @@ class OptionsTab(FrameButton):
         pass
 
     def _show_title(self):
-        self._title_frame.rowconfigure(0, weight=1)
         self._title_frame.columnconfigure(0, weight=1)
         Label(self._title_frame, text=self._title, bg=self['bg'], font=(APP_FONT, 16, 'bold'),
               activebackground=self['bg'], anchor='e', fg='black').grid(row=0, column=0, sticky='nesw')
@@ -44,9 +43,10 @@ class OptionsTab(FrameButton):
         super().grid(**kwargs)
         self._config_grid()
         self._show_title()
-        self._content.grid(row=1, column=0, sticky='nesw')
+        self._content.grid(row=1, column=0, sticky='nesw', padx=40)
         self._show()
-        Separator(self, orient='horizontal').grid(column=0, sticky='nesw', padx=20, pady=10)
+        Separator(self, orient='horizontal').grid(row=2, column=0, sticky='nesw',
+                                                  padx=20, pady=10)
         self._children = self.winfo_children()[:-1]
         self._bind_events()
 

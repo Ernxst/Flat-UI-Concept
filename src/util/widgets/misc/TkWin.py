@@ -9,6 +9,14 @@ from util.constants import APP_FONT, WINDOW_MULTIPLIER
 from util.widgets.buttons.FrameButton import FrameButton
 
 
+def windowsize():
+    return get_win().windowsize()
+
+
+def screensize():
+    return get_win().screensize()
+
+
 def toggle_dark_mode():
     get_win().toggle_dark_mode()
 
@@ -35,15 +43,20 @@ class TkWin(Tk):
     def __init__(self, title, bg, icon):
         super().__init__(className=title, baseName=title)
         TkWin.INSTANCE = self
-        self.win_name = title
+        self._win_name = title
         self._max_width, self._max_height, self._width, self._height = self.set_win_size()
         self.set_appearance(bg, icon)
         self._popup = None
-        self._dark_mode = False
         self.bind_events()
 
+    def screensize(self):
+        return self._max_width, self._max_height
+
+    def windowsize(self):
+        return self._width, self._height
+
     def set_appearance(self, bg, icon):
-        self.title(self.win_name)
+        self.title(self._win_name)
         self.rowconfigure(0, weight=1, uniform='win')
         self.columnconfigure(0, weight=1, uniform='win')
         self.tk.call('wm', 'iconphoto', self._w, PhotoImage(file=icon))
@@ -99,10 +112,12 @@ class TkWin(Tk):
         self.update_idletasks()
 
     def resize_window(self, width, height):
-        self.enable_resize()
-        self._width, self._height = width, height
-        centralise(self, width, height, self._max_width, self._max_height)
-        self.disable_resize()
+        if width != self._width and height != self._height:
+            self.enable_resize()
+            self.wm_attributes("-fullscreen", False)
+            self._width, self._height = width, height
+            centralise(self, width, height, self._max_width, self._max_height)
+            self.disable_resize()
 
     def bring_to_front(self):
         self.attributes('-topmost', True)

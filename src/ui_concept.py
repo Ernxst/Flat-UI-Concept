@@ -10,7 +10,8 @@ from ui.SplashScreen import SplashScreen
 from ui.login_menu.LoginPage import LoginPage
 from ui.main_menu.MenuView import MenuView
 from util.Utilities import trace
-from util.constants import APP_TITLE, PROFILE_ICON, APP_ICON
+from util.constants import APP_TITLE
+from util.icon_constants import PROFILE_ICON, APP_ICON
 from util.colour_constants import Colours
 from util.widgets.misc.TkWin import TkWin
 
