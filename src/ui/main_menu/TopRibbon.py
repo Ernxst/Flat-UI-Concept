@@ -1,13 +1,15 @@
 from datetime import datetime
-from tkinter import Frame
+from tkinter import Frame, BooleanVar
 
 from Entries.TransparentEntry import TransparentEntry
 from Labels.TkLabels import TkMessage
 from ui.main_menu.NotificationDisplay import NotificationDisplay
 from util.colour_constants import Colours
-from util.constants import BUTTON_ICON, APP_FONT, PROFILE_BLACK_ICON
+from util.constants import APP_FONT, PROFILE_BLACK_ICON, DARK_MODE, LIGHT_MODE
 from util.widgets.buttons.ImageButton import ImageButton
+from util.widgets.buttons.ToggleSwitch import ToggleSwitch
 from util.widgets.input_widgets.TkDropdown import show_dropdown
+from util.widgets.misc.TkWin import toggle_dark_mode
 
 
 class TopRibbon(Frame):
@@ -31,6 +33,7 @@ class TopRibbon(Frame):
         self._open_notification = open_notification
         self._search = search
         self._open_options = open_options
+        self._dark_mode = BooleanVar()
 
     def _config_grid(self):
         self.columnconfigure(0, weight=1, uniform='ribbon')
@@ -60,12 +63,14 @@ class TopRibbon(Frame):
     def _show_control_tab(self):
         self._control_frame.grid(row=0, column=2, sticky='nesw', padx=(10, 20))
         self._control_frame.rowconfigure(0, weight=1)
-        self._control_frame.columnconfigure((0, 1, 2), weight=1, uniform='rib')
-        ImageButton(self._control_frame, BUTTON_ICON, 1, command=self._open_options
-                    ).grid(row=0, column=0, sticky='nesw', padx=(5, 0))
+        self._control_frame.columnconfigure(0, weight=5, uniform='rib')
+        self._control_frame.columnconfigure((1, 2), weight=2, uniform='rib')
         NotificationDisplay(self._control_frame, self._open_notification
-                            ).grid(row=0, column=1, sticky='nesw', padx=(5, 0))
-        self._icon.grid(row=0, column=2, sticky='nesw', padx=(10, 0))
+                            ).grid(row=0, column=1, sticky='nesw')
+        self._icon.grid(row=0, column=2, sticky='nesw', padx=(5, 0))
+        ToggleSwitch(self._control_frame, LIGHT_MODE, DARK_MODE, command=toggle_dark_mode,
+                     variable=self._dark_mode).grid(row=0, column=0, sticky='nesw',
+                                                    padx=10, pady=(12, 13))
 
     def destroy(self):
         if self._date_id:

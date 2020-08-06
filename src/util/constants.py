@@ -12,6 +12,8 @@ MESSAGES_ICON = IMAGE_FOLDER + 'messages.png'
 NOTIFICATIONS_ICON = IMAGE_FOLDER + 'notifications.png'
 PLANNER_ICON = IMAGE_FOLDER + 'planner.png'
 OPTIONS_ICON = IMAGE_FOLDER + 'options.png'
+LIGHT_MODE = IMAGE_FOLDER + 'light_mode.png'
+DARK_MODE = IMAGE_FOLDER + 'dark_mode.png'
 
 APP_TITLE = 'UI CONCEPT'
 COPYRIGHT = '2020 Copyright Ernest Nkansah-Badu\nAll rights reserved'
