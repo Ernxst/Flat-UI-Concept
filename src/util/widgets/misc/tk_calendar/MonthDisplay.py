@@ -46,7 +46,7 @@ class MonthDisplay(Frame):
         self._day_frame.grid(row=1, column=0, sticky='nesw')
         self._show_day_names(),
         self._show_days()
-        self._active_day.trace_add('write', self._set_month)
+        self._active_day.trace_add('write', lambda *args: self._set_month())
         self._active_day.set(self._day_number)
 
     def _show_day_names(self):
@@ -118,7 +118,7 @@ class MonthDisplay(Frame):
         self.disable_buttons()
         self._btns[day_number].enable()
 
-    def _set_month(self, *args):
+    def _set_month(self):
         self._active_month.set(self._month_number)
         self.select_day(self._active_day.get())
 

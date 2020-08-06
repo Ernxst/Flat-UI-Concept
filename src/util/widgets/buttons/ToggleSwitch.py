@@ -17,8 +17,7 @@ class ToggleSwitch(Label):
         if isinstance(on_image, str):
             on_image = open_image(on_image)
         self._off_img, self._on_img = off_image, on_image
-        self._image = self._on_img if ondefault else self._off_img
-        self._lbl_img = None
+        self._on_default = ondefault
 
         self._off_value = offvalue
         self._on_value = onvalue
@@ -28,18 +27,23 @@ class ToggleSwitch(Label):
         else:
             value = onvalue if ondefault else offvalue
         self._variable.set(value)
-        self._width, self._height = 1, 1
         self._command = command
+        self._variable.trace_add('write', lambda *args: self._swap_image())
 
     def _toggle(self):
         if self._variable.get() == self._off_value:
-            self._image = self._on_img
+            image = self._on_image_lbl
             self._variable.set(self._on_value)
         else:
-            self._image = self._off_img
+            image = self._off_image_lbl
             self._variable.set(self._off_value)
-        self._create_image()
-        self._run()
+        self.config(image=image)
+
+    def _swap_image(self):
+        if self._variable.get() == self._off_value:
+            self.config(image=self._off_image_lbl)
+        else:
+            self.config(image=self._on_image_lbl)
 
     def grid(self, **kwargs):
         super().grid(**kwargs)
@@ -55,25 +59,21 @@ class ToggleSwitch(Label):
 
     def _show(self):
         self._create_image()
-        self.bind('<ButtonRelease-1>', lambda event: self._toggle())
-        self.bind('<Configure>', lambda event: self._resize_image(event.width, event.height))
+        self.bind('<ButtonRelease-1>', lambda event: self._run())
 
     def _run(self):
+        self._toggle()
         if self._command:
             self._command()
 
     def _create_image(self):
-        self._width, self._height = get_widget_dimensions(self)
-        self._image = resize_image(self._image, (self._width, self._height))
-        self._lbl_img = PhotoImage(get_image(self._image))
-        self.config(image=self._lbl_img)
-
-    def _resize_image(self, width, height):
-        if self._width != width or self._height != height:
-            self._width, self._height = width, height
-            self._image = resize_image(self._image, (width, height))
-            self._lbl_img = PhotoImage(get_image(self._image))
-            self.config(image=self._lbl_img)
+        width, height = get_widget_dimensions(self)
+        self._off_image = resize_image(self._off_img, (width, height))
+        self._off_image_lbl = PhotoImage(get_image(self._off_image))
+        self._on_image = resize_image(self._on_img, (width, height))
+        self._on_image_lbl = PhotoImage(get_image(self._on_image))
+        img = self._on_image_lbl if self._on_default else self._off_image_lbl
+        self.config(image=img)
 
     def get(self):
         return self._variable.get()

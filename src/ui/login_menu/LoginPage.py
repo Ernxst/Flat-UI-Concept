@@ -17,7 +17,7 @@ class LoginPage(Frame):
         super().__init__(master, bg=master['bg'], highlightthickness=0)
         self._show_password = BooleanVar()
         self._show_password.set(False)
-        self._show_password.trace_add('write', self._toggle_password)
+        self._show_password.trace_add('write', lambda *args: self._toggle_password())
         self._canvas = Canvas(self, bg=Colours.NAVBAR_BG, highlightthickness=0)
         self._login_frame = Frame(self, bg=self._canvas['bg'], highlightthickness=1,
                                   highlightbackground=Colours.PROFILE_BG)
@@ -90,7 +90,7 @@ class LoginPage(Frame):
         self.master.unbind('<Up>')
         self.master.unbind('<Down>')
 
-    def _toggle_password(self, *args):
+    def _toggle_password(self):
         if self._show_password.get():
             self._password_entry.config(show='')
         else:

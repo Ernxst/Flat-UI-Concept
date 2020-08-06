@@ -3,6 +3,7 @@ from tkinter import Tk, PhotoImage, TclError
 from Entries.TransparentEntry import TransparentEntry
 from Util.tkUtilities import centralise, get_screen_size, ask_ok_cancel
 from models.Model import get_model
+from util.VariableHolder import Vars
 from util.colour_constants import convert
 from util.constants import APP_FONT, WINDOW_MULTIPLIER
 from util.widgets.buttons.FrameButton import FrameButton
@@ -114,11 +115,7 @@ class TkWin(Tk):
         else:
             self._popup.lift()
 
-    def dark_mode(self):
-        return self._dark_mode
-
     def toggle_dark_mode(self):
-        self._dark_mode = not self._dark_mode
         for widget in self.winfo_children():
             self._convert_colour(widget)
             self._convert_children(widget)
@@ -131,17 +128,17 @@ class TkWin(Tk):
                 self._convert_children(child)
 
     def _convert_colour(self, widget):
-        if isinstance(widget, FrameButton):
-            widget.toggle_dark_mode()
         for attribute in ('bg', 'fg', 'highlightbackground', 'highlightcolor',
                           'activebackground', 'disabledforeground', 'activeforeground'):
             self._convert(widget, attribute)
+        if isinstance(widget, FrameButton):
+            widget.toggle_dark_mode()
         if isinstance(widget, TransparentEntry):
-            widget.bg = convert(widget.bg, self._dark_mode)
-            widget.separator_bg = convert(widget.separator_bg, self._dark_mode)
+            widget.bg = convert(widget.bg, Vars.DARK_MODE.get())
+            widget.separator_bg = convert(widget.separator_bg, Vars.DARK_MODE.get())
 
     def _convert(self, widget, attribute):
         try:
-            widget[attribute] = convert(widget[attribute], self._dark_mode)
+            widget[attribute] = convert(widget[attribute], Vars.DARK_MODE.get())
         except (TclError, KeyError):
             pass

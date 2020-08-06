@@ -1,4 +1,7 @@
 import sys
+
+from util.VariableHolder import Vars
+
 PATH = '/home/ernest/Documents/Random Programs/Python/tkWidgets'
 sys.path.insert(1, PATH)
 
@@ -32,6 +35,7 @@ def profile(page='', debug=False):
 
 def run(page='', debug=False):
     win = TkWin(APP_TITLE, Colours.APP_BG, APP_ICON)
+    Vars()
     func = get_func(page, win)
     if debug:
         trace(func)
