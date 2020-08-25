@@ -12,6 +12,7 @@ class LazyScrolledFrame(ScrolledFrame):
                          troughcolor, highlightbackground)
         self._widgets, self._shown_widgets = {}, []
         self._width, self._height = 1, 1
+        self._remaining_height = 1
         self._current_row = 0
         self.canvas.yview_scroll, self.canvas.yview = self.yview_scroll, self.yview
 
@@ -43,35 +44,49 @@ class LazyScrolledFrame(ScrolledFrame):
         self._widgets[widget] = grid_kw
 
     def _show(self, widgets, max_height):
-        if len(widgets) > 0:
-            max_row = max([self._widgets[x]['row'] for x in widgets])
-            self._widget_loop(max_row, max_height, self._draw_widget)
-            self._current_row = max([self._widgets[x]['row'] for x in self._shown_widgets]) + 1
+        if len(widgets) == 0:
+            return
+        max_row = max([self._widgets[x]['row'] for x in widgets])
+        total_height, widgets = 0, []
+        for i in range(self._current_row, max_row + 1):
+            widgets_in_row = [x for x, y in self._widgets.items() if y['row'] == i]
+            total_height += self._draw_widget(total_height, widgets_in_row, max_height, i)
 
-    def _draw_widget(self, widget, *args):
-        self.update_idletasks()
+    def _draw_widget(self, total_height, widgets_in_row, max_height, row):
+        max_row_height, row_completed = 0, True
+        for widget in widgets_in_row:
+            max_row_height = self._get_max_row_height(widget, max_row_height)
+            if total_height + max_row_height > max_height:
+                [x.grid_forget() for x in widgets_in_row]
+                row_completed = False
+                break
+            self._shown_widgets.append(widget)
+        self._set_remaining_height(row_completed, row, max_height, max_row_height)
+        return max_row_height
+
+    def _get_max_row_height(self, widget, max_row_height):
         widget.grid(**self._widgets[widget])
-        self._shown_widgets.append(widget)
+        return max(max_row_height, self._get_widget_height(widget))
+
+    def _set_remaining_height(self, row_completed, row, max_height, max_row_height):
+        if row_completed:
+            self._current_row = row + 1
+            self._remaining_height = max_height - max_row_height
+        else:
+            self._current_row = row
+            self._remaining_height = max_height
 
     def _max_widgets(self, max_height):
         """ Get the next batch of widgets to draw """
-        return self._widget_loop(self._get_max_row(), max_height, self._append)
-
-    def _append(self, widget, widgets):
-        if widget not in self._shown_widgets:
-            widgets.append(widget)
-        return widgets
-
-    def _widget_loop(self, max_row, max_height, function):
-        """ Reduce repetition """
         total_height, widgets = 0, []
-        for i in range(self._current_row, max_row + 1):
+        for i in range(self._current_row, self._get_max_row() + 1):
             row_height, widgets_in_row = self._get_row_height(i)
             if total_height + row_height > max_height:
                 break
             total_height += row_height
             for widget in widgets_in_row:
-                widgets = function(widget, widgets)
+                if widget not in self._shown_widgets:
+                    widgets.append(widget)
         return widgets
 
     def _get_max_row(self):
@@ -93,14 +108,21 @@ class LazyScrolledFrame(ScrolledFrame):
             self._show(max_widgets, scroll_distance)  # show next batch
 
     def _get_widget_height(self, widget):
-        return max(widget.winfo_reqheight(), get_widget_dimensions(widget)[1])
+        height = max(widget.winfo_reqheight(), get_widget_dimensions(widget)[1])
+        if 'pady' in self._widgets[widget].keys():
+            pady = self._widgets[widget]['pady']
+            try:
+                height += pady
+            except TypeError:
+                height += sum(pady)
+        return height
 
     def _all_widgets_shown(self):
         return all(x.winfo_ismapped() for x in self._widgets)
 
     def _scroll_distance(self):
         """ Convert scrollbar offset to pixels """
-        return self.vsb.get()[1] * self._height
+        return self.vsb.get()[1] * self._height + self._remaining_height
 
     def _disable_scroll(self):
         """ Disable scrolling while displaying a batch of widgets """

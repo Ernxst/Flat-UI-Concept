@@ -1,4 +1,5 @@
 from datetime import datetime
+from tkinter import Frame
 
 from Util.tkUtilities import error_msg
 from ui.pages.MenuPage import MenuPage
@@ -10,21 +11,41 @@ from util.widgets.misc.tk_calendar.TkCalendar import TkCalendar
 class Planner(MenuPage):
     def __init__(self, master, model):
         super().__init__(master, 'Planner', 'View and manage your upcoming events.', model)
-        self._calendar = TkCalendar(self._content.interior_frame, MIN_YEAR, MAX_YEAR,
+        self._content = Frame(self)
+        self._calendar = TkCalendar(self._content, MIN_YEAR, MAX_YEAR,
                                     self.open_daily_view)
-        self._events_frame = EventsDisplay(self._content.interior_frame, model)
+        self._events_frame = EventsDisplay(self._content, model)
         self._months = self._calendar.get_months()
+
+    def lift(self):
+        super(Frame, self).grid(self._grid_kw)
+        self._update_page_data()
+        super(Frame, self).lift()
 
     def _update_page_data(self):
         self._events_frame.update_events()
 
     def _config_grid(self):
-        self._content.interior_frame.columnconfigure(0, weight=1)
-        self._content.interior_frame.rowconfigure(0, weight=1)
+        self._content.columnconfigure(0, weight=1)
+        self._content.rowconfigure(0, weight=1)
+
+    def disable_resize(self):
+        pass
+
+    def enable_resize(self):
+        pass
 
     def _show(self):
-        self._content.add(self._calendar, row=0, column=0, sticky='nesw', padx=(20, 10), pady=20)
-        self._content.add(self._events_frame, row=0, column=1, sticky='nesw', padx=(10, 20), pady=20)
+        self._calendar.grid(row=0, column=0, sticky='nesw', padx=(20, 10), pady=20)
+        self._events_frame.grid(row=0, column=1, sticky='nesw', padx=(10, 20), pady=20)
+
+    def grid(self, **kwargs):
+        super(Frame, self).grid(**kwargs)
+        self._grid_kw = kwargs
+        self._config_grid()
+        self._show_title()
+        self._content.grid(row=1, column=0, sticky='nesw')
+        self._show()
 
     def search(self, search_term):
         if self._search_calendar(search_term.lower()):

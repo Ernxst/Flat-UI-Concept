@@ -24,7 +24,7 @@ class AppearanceManager(OptionsTab):
                                     font=(APP_FONT, 10))
         body = 'Toggle between light and dark mode to reduce the colour intensity.'
         self._dark_mode_lbl = TkMessage(self._content, text=body, font=(APP_FONT, 10),
-                                        fg='black', anchor='w')
+                                        fg='black', anchor='e', justify='right')
         Vars.DARK_MODE.trace_add('write', lambda *args: self._toggle_check_button())
         self._resolution = StringVar()
         self._resolution.set('{} x {}'.format(*windowsize()))

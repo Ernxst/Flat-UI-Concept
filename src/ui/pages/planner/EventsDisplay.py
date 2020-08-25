@@ -50,7 +50,8 @@ class EventsDisplay(Frame):
             self._subtitle.grid(row=1, column=0, sticky='', padx=20)
         else:
             self._show_events()
-            self._content.grid(row=1, column=0, sticky='nesw', padx=10, pady=(0, 10), scrollpady=0)
+            self._content.grid(row=1, column=0, sticky='nesw', padx=10, pady=(0, 10),
+                               scrollpady=0, scrollpadx=(10, 0))
 
     def _show_events(self):
         for row, (id_, data) in enumerate(self._upcoming_events.items()):
