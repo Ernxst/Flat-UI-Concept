@@ -11,91 +11,61 @@ RADS = pi / 180
 
 class Droplet:
     def __init__(self, master, x, y):
-        self.master = master
-        self._x, self._y, self._original_y = x, y, y
-        self._x1, self._x2 = x - WATER_SIZE, x + WATER_SIZE,
-        self._droplet = self._draw()
-        self._background = self._draw_background()
+        self.master, self._y = master, y
+        x1, x2 = x - WATER_SIZE, x + WATER_SIZE,
+        self._droplet = self._draw(x1, y - WATER_SIZE, x2, y + WATER_SIZE)
+        self._background = self._draw(x1, y, x2, 3000)
+        self.y = lambda: self._y
 
-    def _draw(self):
-        return self.master.create_oval(self._x1, self._y - WATER_SIZE,
-                                       self._x2, self._y + WATER_SIZE,
-                                       fill=WATER_COLOR, width=0)
-
-    def _draw_background(self):
-        return self.master.create_oval(self._x1, self._y, self._x2, 2500,
-                                       fill=WATER_COLOR, width=0)
+    def _draw(self, x1, y1, x2, y2):
+        return self.master.create_oval(x1, y1, x2, y2, fill=WATER_COLOR, width=0)
 
     def move(self, offset):
         self._y += offset
         self.master.move(self._droplet, 0, offset)
         self.master.move(self._background, 0, offset)
 
-    def y(self):
-        return self._y
-
 
 class SplashScreen(Canvas):
     def __init__(self, master):
         super().__init__(master, bg=master['bg'], highlightthickness=0)
-        self._width, self._height = 1, 1
-        self._width, self._height, self._h_ratio = 1, 1, 1
         self._angles = []
-        self._divisor = 60
-        self._font_sizes = self._set_font_sizes()
 
     def grid(self, **kwargs):
         super().grid(**kwargs)
-        self._width, self._height = get_widget_dimensions(self)
-        self.create_text(self._width / 2, self._height / 2, text='Loading',
-                         tags='text', fill='white', font=(APP_FONT, 40, 'bold'))
-        self._animate()
+        width, height = get_widget_dimensions(self)
+        self.create_text(width / 2, height / 2, text='LOADING', tags='text',
+                         fill='white', font=(APP_FONT, 40, 'bold'))
+        x1, y1, x2, y2 = self.bbox('text')
+        self.create_text(width / 2, y2, text='Preparing app data', tags='subtitle',
+                         fill='white', font=(APP_FONT, 15, 'bold'), width=x2 - x1)
+        self._animate(*self._draw_points(width, height))
         self._finish_animation()
 
-    def _draw_points(self):
-        self._angles = [(x, sin(x * RADS)) for x in range(MAX_ANGLE * WAVES + 1)]
-        self._h_ratio = self._height / 24
-        w_ratio = self._width / len(self._angles)
-        return [Droplet(self, x * w_ratio, self._h_ratio * y +
-                        self._height) for x, y in self._angles]
+    def _draw_points(self, width, height):
+        h_ratio = 0.5 * height / WATER_BOUNCE
+        self._angles = [(x, sin(x * RADS) * h_ratio)
+                        for x in range(MAX_ANGLE * WAVES + 1)]
+        length = len(self._angles)
+        w_ratio = width / length
+        return [Droplet(self, x * w_ratio, y + height)
+                for x, y in self._angles], length
 
-    def _animate(self):
-        points = self._draw_points()
-        index = 0
-        i = 0
-        while self._get_water_height(points) <= self._height:
-            self._animate_droplets(points, index)
-            self._animate_text(i)
-            i += 1
+    def _animate(self, points, length):
+        index, i = 0, 0
+        while max([droplet.y() for droplet in points]) > 0:
+            for x, point in enumerate(points):
+                y = self._angles[(x + index) % length][1]
+                point.move(UP + y / WATER_BOUNCE)
+            self.tag_raise('text')
+            self.tag_raise('subtitle')
             index += WATER_BOUNCE
             self.update()
             self.after(ANIMATION_DELAY)
 
-    def _animate_droplets(self, points, index):
-        for (x, y), point in zip(self._angles, points):
-            new_y = sin((x + index) * RADS) * self._h_ratio
-            point.move(new_y / WATER_BOUNCE)
-        [point.move(UP) for point in points]
-
-    def _set_font_sizes(self):
-        sizes = {}
-        half = self._divisor // 2
-        for i in range(half + 1):
-            sizes[i] = 40 + i
-        for i in range(half + 1):
-            sizes[half + i] = sizes[half + i - 1] - 1
-        return sizes
-
-    def _animate_text(self, index):
-        self.itemconfig('text', font=(APP_FONT, self._font_sizes[index % self._divisor],
-                                      'bold'))
-        self.tag_raise('text')
-
-    def _get_water_height(self, points):
-        return self._height - max([droplet.y() for droplet in points])
-
     def _finish_animation(self):
         self.itemconfig('text', text='Welcome to ' + APP_TITLE, font=(APP_FONT, 30, 'bold'))
+        self.delete('subtitle')
         self.update()
         self.after(500)
         LoginPage(self.master).grid(row=0, column=0, sticky='nesw')
